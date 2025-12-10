@@ -1,17 +1,23 @@
+"""
+Main module for collecting and analyzing Bluesky posts
+"""
+
+import json
+import os
+import time
+from datetime import datetime, timezone
+from itertools import combinations
+
+import matplotlib.pyplot as plt
+import pandas as pd
 from atproto import Client, models
 from textblob import TextBlob
-import pandas as pd
-from datetime import datetime, timezone
-import matplotlib.pyplot as plt
-import time
-import json
 
 # --- IMPORT SHARED CONFIGURATION ---
 from config import (
     KEYWORDS,
     HANDLE,
     PASSWORD,
-    LOCATION_KEYWORDS,
     DATE_START,
     DATE_END,
     OUTPUT_DIR
@@ -20,10 +26,10 @@ from config import (
 OUTPUT_FILE = f"{OUTPUT_DIR}/bluesky_posts_complex.csv"
 
 # --- LOGIN ---
-print("🔐 Connecting to Bluesky...")
+print("Connecting to Bluesky...")
 client = Client()
 client.login(HANDLE, PASSWORD)
-print("✅ Login successful!")
+print("Login successful!")
 
 # --- DATA COLLECTION ---
 records = []
@@ -34,13 +40,15 @@ for keyword in KEYWORDS:
     while True:
         if cursor is None or int(cursor) > 1000:
             break
-        print(f"\n🔍 Searching posts with keyword: {keyword}")
+        print(f"\nSearching posts with keyword: {keyword}")
         try:
-            params = models.AppBskyFeedSearchPosts.Params(q=keyword, limit=100, cursor=cursor)
+            params = models.AppBskyFeedSearchPosts.Params(
+                q=keyword, limit=100, cursor=cursor
+            )
             feed = client.app.bsky.feed.search_posts(params)
             cursor = json.loads(feed.json())["cursor"]
             posts = feed.posts or []
-            print(f"   → found {len(posts)} results | reached {cursor}")
+            print(f"   Found {len(posts)} results | reached cursor {cursor}")
 
             for post in posts:
                 # --- Text and author ---
@@ -62,17 +70,24 @@ for keyword in KEYWORDS:
                 # --- Date filter ---
                 if created_at:
                     try:
-                        dt = datetime.fromisoformat(created_at.replace("Z", "+00:00")).astimezone(timezone.utc)
-                    except:
+                        dt = datetime.fromisoformat(
+                            created_at.replace("Z", "+00:00")
+                        ).astimezone(timezone.utc)
+                    except (ValueError, AttributeError):
                         continue
-                    if not (DATE_START <= dt <= DATE_END):
+                    if not DATE_START <= dt <= DATE_END:
                         continue
                 else:
                     continue
 
                 # --- Sentiment analysis ---
                 sentiment_score = TextBlob(text).sentiment.polarity
-                sentiment_label = "positive" if sentiment_score > 0.1 else "negative" if sentiment_score < -0.1 else "neutral"
+                if sentiment_score > 0.1:
+                    sentiment_label = "positive"
+                elif sentiment_score < -0.1:
+                    sentiment_label = "negative"
+                else:
+                    sentiment_label = "neutral"
 
                 # --- Determine if repost or original ---
                 post_type = "original"
@@ -80,12 +95,16 @@ for keyword in KEYWORDS:
 
                 if hasattr(post, "post") and hasattr(post.post, "record"):
                     record_obj = post.post.record
-                    if hasattr(record_obj, "embed") and hasattr(record_obj.embed, "record") and hasattr(record_obj.embed.record, "value"):
+                    if (hasattr(record_obj, "embed") and
+                        hasattr(record_obj.embed, "record") and
+                            hasattr(record_obj.embed.record, "value")):
                         embed_value = record_obj.embed.record.value
                         if hasattr(embed_value, "text"):
                             post_type = "repost"
                             final_text = embed_value.text
-                elif hasattr(post, "repost") and hasattr(post.repost, "record") and hasattr(post.repost.record, "text"):
+                elif (hasattr(post, "repost") and
+                      hasattr(post.repost, "record") and
+                      hasattr(post.repost.record, "text")):
                     post_type = "repost"
                     final_text = post.repost.record.text
 
@@ -106,32 +125,32 @@ for keyword in KEYWORDS:
             time.sleep(2)  # to avoid saturating requests
 
         except Exception as e:
-            print(f"⚠️ Error searching for '{keyword}': {e}")
+            print(f"WARNING: Error searching for '{keyword}': {e}")
             continue
 
 # --- CSV SAVE ---
 if records:
-    import os
     os.makedirs(OUTPUT_DIR, exist_ok=True)
     df = pd.DataFrame(records)
     df.to_csv(OUTPUT_FILE, index=False)
-    print(f"\n💾 Saved {len(df)} posts in '{OUTPUT_FILE}'")
+    print(f"\nSaved {len(df)} posts in '{OUTPUT_FILE}'")
 
     # --- Sentiment chart ---
     sentiment_counts = df["sentiment"].value_counts()
-    sentiment_counts.plot(kind="bar", title="Sentiment distribution (filtered posts)")
+    sentiment_counts.plot(
+        kind="bar",
+        title="Sentiment distribution (filtered posts)"
+    )
     plt.xlabel("Sentiment")
     plt.ylabel("Count")
     plt.show()
 
 else:
-    print("\n⚠️ No posts found with the specified criteria.")
+    print("\nWARNING: No posts found with the specified criteria.")
 
 print(KEYWORDS)
-from itertools import combinations
-# print(df["text"][2000])
 
-new_df = {"w1":[],"w2":[],"n":[]}
+new_df = {"w1": [], "w2": [], "n": []}
 for kws in list(combinations(KEYWORDS, 2)):
     all_ks = None
     for kw in kws:

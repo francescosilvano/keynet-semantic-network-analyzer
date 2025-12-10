@@ -3,6 +3,8 @@ Configuration file for Complex Systems Network Analysis
 Shared settings between main.py (data collection) and graph.py (network analysis)
 """
 
+from datetime import datetime, timezone
+
 # --- KEYWORDS CONFIGURATION ---
 KEYWORDS = [
     "Energy Transition", "Greenhouse Effect", "Biodiversity", "Extreme weather events",
@@ -28,6 +30,5 @@ PASSWORD = "s.sabatino"
 LOCATION_KEYWORDS = ["california", "quebec", "norway"]
 
 # --- DATE RANGE ---
-from datetime import datetime, timezone
 DATE_START = datetime(2023, 1, 1, tzinfo=timezone.utc)
 DATE_END = datetime(2025, 11, 25, tzinfo=timezone.utc)
