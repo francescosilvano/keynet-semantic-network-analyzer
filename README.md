@@ -1,6 +1,13 @@
 
 # Complex Systems Project
 
+## Project Overview
+
+The project focuses on analyzing co-occurrence networks of keywords extracted from posts on the Bluesky social media platform. It collects data using the Bluesky API, constructs a network graph based on keyword co-occurrences, computes various network metrics, and visualizes the results.
+
+The aim is to explore the relationships between keywords and identify communities within the network, providing insights into trending topics and their interconnections.
+
+
 ## Quick Start
 
 1. Clone the repository
