@@ -10,13 +10,16 @@ import json
 HANDLE = "provauni.bsky.social"   # ⬅️ Insert your Bluesky handle here
 PASSWORD = "s.sabatino"               # ⬅️ Insert your password here
 KEYWORDS = [
-    "complexity", "unpredictability", "dynamic", "sensitivity",
-    "fear", "nervousness", "aggressiveness", "apprehension",
-    "stress", "isolation", "boredom"]
-LOCATION_KEYWORDS = ["florence", "firenze", "tuscany", "toscana", "italy", "italia"]
+    "Energy Transition", "Greenhouse Effect", "Biodiversity", "Extreme weather events",
+    "CO2", "Emissions", "Global Warming", "Glaciers", "Renewable Energy", "Fake News",
+    "Ecosystem", "Fossil Fuels", "Energy Consumption", "Normatives", "Deforestation",
+    "Floodings", "Heatwaves", "Green Policies", "Rain", "Electric Vehicles",
+    "Natural Disaster", "Clean Energy", "Net Zero", "Tesla", "AI"
+]
+LOCATION_KEYWORDS = ["california", "quebec", "norway"]
 DATE_START = datetime(2023, 1, 1, tzinfo=timezone.utc)
 DATE_END = datetime(2025, 11, 25, tzinfo=timezone.utc)
-OUTPUT_FILE = "bluesky_posts_complex.csv"
+OUTPUT_FILE = "exports/bluesky_posts_complex.csv"
 
 # --- LOGIN ---
 print("🔐 Connecting to Bluesky...")
@@ -110,6 +113,8 @@ for keyword in KEYWORDS:
 
 # --- CSV SAVE ---
 if records:
+    import os
+    os.makedirs("exports", exist_ok=True)
     df = pd.DataFrame(records)
     df.to_csv(OUTPUT_FILE, index=False)
     print(f"\n💾 Saved {len(df)} posts in '{OUTPUT_FILE}'")
@@ -140,4 +145,4 @@ for kws in list(combinations(KEYWORDS, 2)):
     new_df["w2"].append(kws[1])
     new_df["n"].append(all_ks.sum())
     print(kws, all_ks.sum())
-pd.DataFrame(new_df).to_excel("grafo.xlsx")
+pd.DataFrame(new_df).to_excel("exports/grafo.xlsx")
