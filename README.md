@@ -23,3 +23,17 @@
    ```powershell
    python main.py
    ```
+
+## Project Structure
+
+### Configuration
+
+**config.py** contains all configuration parameters for the co-occurrence analysis, including API credentials, keywords, and output settings. Modify these parameters to customize the analysis.
+
+### Entry Point
+
+**main.py** is the application entry point. Run this file to execute the complete workflow: data collection, co-occurrence analysis, graph generation, and metrics computation.
+
+### Graph Operations
+
+**graph.py** implements the network graph data structure and analysis using NetworkX. This module handles graph construction, metric calculations, and community detection.
