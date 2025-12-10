@@ -1,0 +1,133 @@
+Energy Transition Emissions 1
+Energy Transition Glaciers 1
+Energy Transition Energy Consumption 1
+Energy Transition Clean Energy 2
+Energy Transition AI 4
+Greenhouse Effect Biodiversity 1
+Greenhouse Effect Extreme weather events 1
+Greenhouse Effect CO2 81
+Greenhouse Effect Emissions 32
+Greenhouse Effect Global Warming 42
+Greenhouse Effect Glaciers 2
+Greenhouse Effect Renewable Energy 1
+Greenhouse Effect Ecosystem 3
+Greenhouse Effect Fossil Fuels 27
+Greenhouse Effect Heatwaves 3
+Greenhouse Effect Rain 14
+Greenhouse Effect Natural Disaster 1
+Greenhouse Effect Net Zero 2
+Greenhouse Effect Tesla 1
+Greenhouse Effect AI 158
+Biodiversity Extreme weather events 5
+Biodiversity Global Warming 1
+Biodiversity Glaciers 1
+Biodiversity Deforestation 1
+Biodiversity Floodings 1
+Biodiversity Heatwaves 11
+Biodiversity AI 8
+Extreme weather events CO2 2
+Extreme weather events Emissions 17
+Extreme weather events Global Warming 23
+Extreme weather events Glaciers 2
+Extreme weather events Renewable Energy 3
+Extreme weather events Ecosystem 14
+Extreme weather events Fossil Fuels 13
+Extreme weather events Deforestation 1
+Extreme weather events Floodings 3
+Extreme weather events Heatwaves 34
+Extreme weather events Rain 39
+Extreme weather events Natural Disaster 4
+Extreme weather events Clean Energy 2
+Extreme weather events Net Zero 2
+Extreme weather events AI 201
+CO2 Emissions 14
+CO2 Global Warming 5
+CO2 Glaciers 3
+CO2 Ecosystem 2
+CO2 Fossil Fuels 8
+CO2 Energy Consumption 1
+CO2 Heatwaves 3
+CO2 Rain 1
+CO2 Natural Disaster 1
+CO2 AI 35
+Emissions Global Warming 17
+Emissions Glaciers 5
+Emissions Renewable Energy 3
+Emissions Ecosystem 1
+Emissions Fossil Fuels 7
+Emissions Energy Consumption 14
+Emissions Normatives 1
+Emissions Deforestation 7
+Emissions Floodings 2
+Emissions Heatwaves 50
+Emissions Green Policies 2
+Emissions Rain 14
+Emissions Electric Vehicles 1
+Emissions Natural Disaster 3
+Emissions Clean Energy 2
+Emissions Net Zero 20
+Emissions AI 59
+Global Warming Glaciers 10
+Global Warming Renewable Energy 1
+Global Warming Fossil Fuels 5
+Global Warming Energy Consumption 2
+Global Warming Floodings 7
+Global Warming Heatwaves 11
+Global Warming Rain 3
+Global Warming Natural Disaster 1
+Global Warming AI 28
+Glaciers Renewable Energy 1
+Glaciers Ecosystem 6
+Glaciers Fossil Fuels 3
+Glaciers Heatwaves 2
+Glaciers Rain 14
+Glaciers Clean Energy 1
+Glaciers AI 140
+Renewable Energy Fossil Fuels 4
+Renewable Energy Energy Consumption 7
+Renewable Energy Floodings 1
+Renewable Energy Rain 2
+Renewable Energy AI 13
+Fake News Floodings 1
+Fake News AI 1
+Ecosystem Heatwaves 19
+Ecosystem Rain 3
+Ecosystem Natural Disaster 3
+Ecosystem Clean Energy 1
+Ecosystem AI 11
+Fossil Fuels Energy Consumption 11
+Fossil Fuels Floodings 4
+Fossil Fuels Heatwaves 6
+Fossil Fuels Green Policies 2
+Fossil Fuels Rain 3
+Fossil Fuels Net Zero 1
+Fossil Fuels AI 26
+Energy Consumption Rain 17
+Energy Consumption Clean Energy 1
+Energy Consumption Tesla 1
+Energy Consumption AI 140
+Normatives Rain 10
+Normatives AI 170
+Deforestation Floodings 1
+Deforestation Green Policies 1
+Deforestation AI 1
+Floodings Heatwaves 10
+Floodings Rain 69
+Floodings Natural Disaster 8
+Floodings AI 188
+Heatwaves Rain 48
+Heatwaves Natural Disaster 7
+Heatwaves Clean Energy 3
+Heatwaves Net Zero 55
+Heatwaves AI 207
+Green Policies Rain 4
+Green Policies Net Zero 3
+Green Policies AI 46
+Rain Natural Disaster 17
+Rain AI 260
+Electric Vehicles AI 1
+Natural Disaster Net Zero 1
+Natural Disaster AI 144
+Clean Energy AI 7
+Net Zero AI 10
+Tesla AI 1

@@ -2,19 +2,18 @@ import networkx as nx
 import matplotlib.pyplot as plt
 import pandas as pd
 from itertools import combinations
+import os
 
-# --- CONFIGURATION ---
-KEYWORDS = [
-    "complessità", "imprevedibilità", "dinamico", "sensibilità",
-    "timore", "nervosismo", "aggressività", "apprensione",
-    "stress", "isolamento", "noia"
-]
-INPUT_FILE = "bluesky_posts_complex.csv"
-MIN_CO_OCCURRENCES = 1  # Minimum co-occurrences to create an edge
+# --- IMPORT SHARED CONFIGURATION ---
+from config import (
+    KEYWORDS,
+    INPUT_FILE,
+    MIN_CO_OCCURRENCES,
+    OUTPUT_DIR
+)
 
 # Create exports directory
-import os
-os.makedirs("exports", exist_ok=True)
+os.makedirs(OUTPUT_DIR, exist_ok=True)
 
 print("📊 Loading data...")
 # Load the CSV data
@@ -27,8 +26,8 @@ co_occurrence_data = []
 
 for kw1, kw2 in combinations(KEYWORDS, 2):
     # Find posts containing both keywords
-    mask = df.testo.str.contains(kw1, case=False, na=False) & \
-           df.testo.str.contains(kw2, case=False, na=False)
+    mask = df.text.str.contains(kw1, case=False, na=False) & \
+           df.text.str.contains(kw2, case=False, na=False)
     count = mask.sum()
     
     if count >= MIN_CO_OCCURRENCES:
@@ -196,8 +195,8 @@ plt.title("Keyword Co-occurrence Network\n(Node size = connections, Edge width =
           fontsize=16, fontweight='bold', pad=20)
 plt.axis('off')
 plt.tight_layout()
-plt.savefig('exports/keyword_network.png', dpi=300, bbox_inches='tight')
-print("   ✅ Saved: exports/keyword_network.png")
+plt.savefig(f'{OUTPUT_DIR}/keyword_network.png', dpi=300, bbox_inches='tight')
+print(f"   ✅ Saved: {OUTPUT_DIR}/keyword_network.png")
 
 # Figure 2: Circular layout
 plt.figure(figsize=(14, 14))
@@ -224,8 +223,8 @@ plt.title("Keyword Co-occurrence Network (Circular Layout)",
           fontsize=16, fontweight='bold', pad=20)
 plt.axis('off')
 plt.tight_layout()
-plt.savefig('exports/keyword_network_circular.png', dpi=300, bbox_inches='tight')
-print("   ✅ Saved: exports/keyword_network_circular.png")
+plt.savefig(f'{OUTPUT_DIR}/keyword_network_circular.png', dpi=300, bbox_inches='tight')
+print(f"   ✅ Saved: {OUTPUT_DIR}/keyword_network_circular.png")
 
 # Figure 3: Degree distribution
 plt.figure(figsize=(12, 8))
@@ -268,17 +267,17 @@ plt.title('Clustering Coefficient Distribution', fontsize=12, fontweight='bold')
 plt.grid(axis='y', alpha=0.3)
 
 plt.tight_layout()
-plt.savefig('exports/network_metrics.png', dpi=300, bbox_inches='tight')
-print("   ✅ Saved: exports/network_metrics.png")
+plt.savefig(f'{OUTPUT_DIR}/network_metrics.png', dpi=300, bbox_inches='tight')
+print(f"   ✅ Saved: {OUTPUT_DIR}/network_metrics.png")
 
 # --- SAVE GRAPH DATA ---
 # Save edge list with weights
-nx.write_weighted_edgelist(G, "exports/keyword_network_edges.txt")
-print("   ✅ Saved: exports/keyword_network_edges.txt")
+nx.write_weighted_edgelist(G, f"{OUTPUT_DIR}/keyword_network_edges.txt")
+print(f"   ✅ Saved: {OUTPUT_DIR}/keyword_network_edges.txt")
 
 # Save graph in GraphML format (for other tools like Gephi)
-nx.write_graphml(G, "exports/keyword_network.graphml")
-print("   ✅ Saved: exports/keyword_network.graphml")
+nx.write_graphml(G, f"{OUTPUT_DIR}/keyword_network.graphml")
+print(f"   ✅ Saved: {OUTPUT_DIR}/keyword_network.graphml")
 
 # Save all metrics to CSV
 print("\n💾 Saving metrics to CSV files...")
@@ -292,8 +291,8 @@ metrics_df = pd.DataFrame({
     'clustering': [clustering[k] for k in degrees.keys()]
 })
 metrics_df = metrics_df.sort_values('degree', ascending=False)
-metrics_df.to_csv('exports/node_metrics.csv', index=False)
-print("   ✅ Saved: exports/node_metrics.csv")
+metrics_df.to_csv(f'{OUTPUT_DIR}/node_metrics.csv', index=False)
+print(f"   ✅ Saved: {OUTPUT_DIR}/node_metrics.csv")
 
 # Community assignments
 if communities:
@@ -302,8 +301,8 @@ if communities:
         for keyword in comm:
             community_assignments.append({'keyword': keyword, 'community': i})
     community_df = pd.DataFrame(community_assignments).sort_values(['community', 'keyword'])
-    community_df.to_csv('exports/community_assignments.csv', index=False)
-    print("   ✅ Saved: exports/community_assignments.csv")
+    community_df.to_csv(f'{OUTPUT_DIR}/community_assignments.csv', index=False)
+    print(f"   ✅ Saved: {OUTPUT_DIR}/community_assignments.csv")
 else:
     print("   ⚠️ No communities to save")
 
@@ -355,8 +354,8 @@ global_metrics = {
     ]
 }
 global_df = pd.DataFrame(global_metrics)
-global_df.to_csv('exports/global_metrics.csv', index=False)
-print("   ✅ Saved: exports/global_metrics.csv")
+global_df.to_csv(f'{OUTPUT_DIR}/global_metrics.csv', index=False)
+print(f"   ✅ Saved: {OUTPUT_DIR}/global_metrics.csv")
 
 # --- SUMMARY STATISTICS ---
 print("\n" + "="*60)
