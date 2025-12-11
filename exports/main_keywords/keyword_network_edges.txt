@@ -1,0 +1,25 @@
+Energy Transition Glaciers 1
+Greenhouse Effect Biodiversity 1
+Greenhouse Effect Extreme weather events 1
+Greenhouse Effect CO2 81
+Greenhouse Effect Emissions 32
+Greenhouse Effect Global Warming 41
+Greenhouse Effect Glaciers 2
+Greenhouse Effect Renewable Energy 1
+Biodiversity Extreme weather events 5
+Biodiversity Global Warming 1
+Biodiversity Glaciers 1
+Extreme weather events CO2 2
+Extreme weather events Emissions 15
+Extreme weather events Global Warming 23
+Extreme weather events Glaciers 2
+Extreme weather events Renewable Energy 3
+CO2 Emissions 10
+CO2 Global Warming 4
+CO2 Glaciers 3
+Emissions Global Warming 16
+Emissions Glaciers 5
+Emissions Renewable Energy 1
+Global Warming Glaciers 9
+Global Warming Renewable Energy 1
+Glaciers Renewable Energy 1

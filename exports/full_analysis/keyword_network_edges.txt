@@ -1,0 +1,108 @@
+Energy Transition Emissions 1
+Energy Transition Glaciers 1
+Energy Transition Energy Consumption 1
+Energy Transition Clean Energy 2
+Greenhouse Effect Biodiversity 1
+Greenhouse Effect Extreme weather events 1
+Greenhouse Effect CO2 81
+Greenhouse Effect Emissions 32
+Greenhouse Effect Global Warming 42
+Greenhouse Effect Glaciers 2
+Greenhouse Effect Renewable Energy 1
+Greenhouse Effect Ecosystem 3
+Greenhouse Effect Fossil Fuels 27
+Greenhouse Effect Flooding 6
+Greenhouse Effect Tesla 1
+Greenhouse Effect Rain 14
+Greenhouse Effect Natural Disaster 1
+Greenhouse Effect Net Zero 2
+Greenhouse Effect Heatwaves 3
+Biodiversity Extreme weather events 5
+Biodiversity Global Warming 1
+Biodiversity Glaciers 1
+Biodiversity Deforestation 1
+Biodiversity Heatwaves 11
+Extreme weather events CO2 2
+Extreme weather events Emissions 17
+Extreme weather events Global Warming 23
+Extreme weather events Glaciers 2
+Extreme weather events Renewable Energy 3
+Extreme weather events Ecosystem 14
+Extreme weather events Fossil Fuels 13
+Extreme weather events Deforestation 1
+Extreme weather events Flooding 25
+Extreme weather events Rain 39
+Extreme weather events Natural Disaster 4
+Extreme weather events Clean Energy 1
+Extreme weather events Net Zero 2
+Extreme weather events Heatwaves 33
+CO2 Emissions 14
+CO2 Global Warming 5
+CO2 Glaciers 3
+CO2 Ecosystem 2
+CO2 Fossil Fuels 8
+CO2 Energy Consumption 1
+CO2 Flooding 1
+CO2 Rain 1
+CO2 Natural Disaster 1
+CO2 Heatwaves 3
+Emissions Global Warming 17
+Emissions Glaciers 5
+Emissions Renewable Energy 3
+Emissions Ecosystem 1
+Emissions Fossil Fuels 7
+Emissions Energy Consumption 14
+Emissions Normatives 1
+Emissions Deforestation 7
+Emissions Flooding 2
+Emissions Green Policies 2
+Emissions Rain 12
+Emissions Electric Vehicles 1
+Emissions Natural Disaster 2
+Emissions Clean Energy 2
+Emissions Net Zero 20
+Emissions Heatwaves 49
+Global Warming Glaciers 9
+Global Warming Renewable Energy 1
+Global Warming Fossil Fuels 5
+Global Warming Energy Consumption 2
+Global Warming Flooding 2
+Global Warming Rain 1
+Global Warming Natural Disaster 1
+Global Warming Heatwaves 10
+Glaciers Renewable Energy 1
+Glaciers Ecosystem 5
+Glaciers Fossil Fuels 3
+Glaciers Flooding 5
+Glaciers Rain 13
+Glaciers Clean Energy 1
+Glaciers Heatwaves 2
+Renewable Energy Fossil Fuels 4
+Renewable Energy Energy Consumption 7
+Renewable Energy Rain 2
+Ecosystem Rain 3
+Ecosystem Natural Disaster 3
+Ecosystem Clean Energy 1
+Ecosystem Heatwaves 19
+Fossil Fuels Energy Consumption 10
+Fossil Fuels Green Policies 2
+Fossil Fuels Rain 1
+Fossil Fuels Net Zero 1
+Fossil Fuels Heatwaves 6
+Energy Consumption Tesla 1
+Energy Consumption Rain 17
+Energy Consumption Clean Energy 1
+Normatives Rain 10
+Deforestation Green Policies 1
+Flooding Rain 9
+Flooding Natural Disaster 4
+Flooding Heatwaves 20
+Tesla Tesla 2
+Green Policies Rain 4
+Green Policies Net Zero 3
+Rain Natural Disaster 15
+Rain Heatwaves 48
+Natural Disaster Net Zero 1
+Natural Disaster Heatwaves 5
+Clean Energy Heatwaves 3
+Net Zero Heatwaves 55
