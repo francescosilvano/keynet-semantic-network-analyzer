@@ -7,7 +7,6 @@ The project focuses on analyzing co-occurrence networks of keywords extracted fr
 
 The aim is to explore the relationships between keywords and identify communities within the network, providing insights into trending topics and their interconnections.
 
-
 ## Quick Start
 
 1. Clone the repository
@@ -58,7 +57,6 @@ complex-systems/
 
 Each analysis subfolder in `exports/` contains:
 
-Each analysis subfolder in `exports/` contains:
 - `bluesky_posts_complex.csv`: Collected posts from Bluesky
 - `community_assignments.csv`: Community detection results
 - `global_metrics.csv`: Global network metrics
