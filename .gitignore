@@ -1,5 +1,6 @@
 venv/
-docs/
 
 /.quarto/
 **/*.quarto_ipynb
+docs/*.html
+docs/.jupyter_cache/

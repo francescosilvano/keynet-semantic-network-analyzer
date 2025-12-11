@@ -1,0 +1,314 @@
+---
+title: "Climate Keywords Network Analysis Dashboard"
+author: "Complex Systems Group 4"
+format:
+  html:
+    theme: cosmo
+    toc: true
+    toc-depth: 2
+    code-fold: true
+    code-tools: false
+    embed-resources: true
+    fig-width: 12
+    fig-height: 10
+execute:
+  echo: false
+  warning: false
+  message: false
+---
+
+```{python}
+#| include: false
+import pandas as pd
+import matplotlib.pyplot as plt
+from IPython.display import Image, display, Markdown
+import os
+
+# Set base path for exports
+base_path = "../exports"
+```
+
+# Overview
+
+This interactive dashboard presents the results of three network analyses of climate-related keywords on Bluesky social media platform. Each analysis uses a different set of keywords to explore co-occurrence patterns and network structures.
+
+## Analysis Configurations
+
+::: {.panel-tabset}
+
+### Main Keywords Only
+
+**Description:** Analysis using the 10 main keywords shared by the entire class.
+
+**Keywords:** Energy Transition, Greenhouse Effect, Biodiversity, Extreme weather events, CO2, Emissions, Global Warming, Glaciers, Renewable Energy, Fake News
+
+---
+
+#### Sentiment Distribution
+
+```{python}
+#| fig-cap: "Distribution of sentiment in posts containing main keywords"
+from IPython.display import Image
+Image(filename="../exports/main_keywords/sentiment_distribution.png")
+```
+
+---
+
+#### Network Visualizations
+
+::: {.panel-tabset}
+
+##### Spring Layout
+
+```{python}
+#| fig-cap: "Keyword co-occurrence network with spring layout (node size = degree, edge width = co-occurrences)"
+Image(filename="../exports/main_keywords/keyword_network.png")
+```
+
+##### Circular Layout
+
+```{python}
+#| fig-cap: "Keyword co-occurrence network with circular layout"
+Image(filename="../exports/main_keywords/keyword_network_circular.png")
+```
+
+:::
+
+---
+
+#### Network Metrics
+
+```{python}
+#| fig-cap: "Distribution of network metrics: degree, strength, betweenness centrality, and clustering coefficient"
+Image(filename="../exports/main_keywords/network_metrics.png")
+```
+
+---
+
+#### Key Statistics
+
+```{python}
+# Load global metrics
+df_global = pd.read_csv("../exports/main_keywords/global_metrics.csv")
+
+# Display as formatted table
+print("\n**Global Network Metrics:**\n")
+display(Markdown(df_global.to_markdown(index=False)))
+
+# Load top nodes by degree
+df_nodes = pd.read_csv("../exports/main_keywords/node_metrics.csv")
+df_top = df_nodes.sort_values('degree', ascending=False).head(5)
+
+print("\n**Top 5 Keywords by Degree:**\n")
+display(Markdown(df_top[['keyword', 'degree', 'strength', 'betweenness']].to_markdown(index=False)))
+```
+
+---
+
+### Main + Our Keywords
+
+**Description:** Analysis using main keywords plus Group 4 specific keywords (20 keywords total).
+
+**Additional Keywords:** Ecosystem, Fossil Fuels, Energy Consumption, Normatives, Deforestation, Flooding, Tesla, Green Policies, Rain, Electric Vehicles
+
+---
+
+#### Sentiment Distribution
+
+```{python}
+#| fig-cap: "Distribution of sentiment in posts containing main + our keywords"
+Image(filename="../exports/main_plus_our/sentiment_distribution.png")
+```
+
+---
+
+#### Network Visualizations
+
+::: {.panel-tabset}
+
+##### Spring Layout
+
+```{python}
+#| fig-cap: "Keyword co-occurrence network with spring layout (node size = degree, edge width = co-occurrences)"
+Image(filename="../exports/main_plus_our/keyword_network.png")
+```
+
+##### Circular Layout
+
+```{python}
+#| fig-cap: "Keyword co-occurrence network with circular layout"
+Image(filename="../exports/main_plus_our/keyword_network_circular.png")
+```
+
+:::
+
+---
+
+#### Network Metrics
+
+```{python}
+#| fig-cap: "Distribution of network metrics: degree, strength, betweenness centrality, and clustering coefficient"
+Image(filename="../exports/main_plus_our/network_metrics.png")
+```
+
+---
+
+#### Key Statistics
+
+```{python}
+# Load global metrics
+df_global = pd.read_csv("../exports/main_plus_our/global_metrics.csv")
+
+# Display as formatted table
+print("\n**Global Network Metrics:**\n")
+display(Markdown(df_global.to_markdown(index=False)))
+
+# Load top nodes by degree
+df_nodes = pd.read_csv("../exports/main_plus_our/node_metrics.csv")
+df_top = df_nodes.sort_values('degree', ascending=False).head(5)
+
+print("\n**Top 5 Keywords by Degree:**\n")
+display(Markdown(df_top[['keyword', 'degree', 'strength', 'betweenness']].to_markdown(index=False)))
+```
+
+---
+
+### Full Analysis
+
+**Description:** Complete analysis including main keywords, Group 4 keywords, and extra keywords (25 keywords total).
+
+**Extra Keywords:** Natural Disaster, Clean Energy, Net Zero, Tesla, Heatwaves
+
+---
+
+#### Sentiment Distribution
+
+```{python}
+#| fig-cap: "Distribution of sentiment in posts containing all keywords"
+Image(filename="../exports/full_analysis/sentiment_distribution.png")
+```
+
+---
+
+#### Network Visualizations
+
+::: {.panel-tabset}
+
+##### Spring Layout
+
+```{python}
+#| fig-cap: "Keyword co-occurrence network with spring layout (node size = degree, edge width = co-occurrences)"
+Image(filename="../exports/full_analysis/keyword_network.png")
+```
+
+##### Circular Layout
+
+```{python}
+#| fig-cap: "Keyword co-occurrence network with circular layout"
+Image(filename="../exports/full_analysis/keyword_network_circular.png")
+```
+
+:::
+
+---
+
+#### Network Metrics
+
+```{python}
+#| fig-cap: "Distribution of network metrics: degree, strength, betweenness centrality, and clustering coefficient"
+Image(filename="../exports/full_analysis/network_metrics.png")
+```
+
+---
+
+#### Key Statistics
+
+```{python}
+# Load global metrics
+df_global = pd.read_csv("../exports/full_analysis/global_metrics.csv")
+
+# Display as formatted table
+print("\n**Global Network Metrics:**\n")
+display(Markdown(df_global.to_markdown(index=False)))
+
+# Load top nodes by degree
+df_nodes = pd.read_csv("../exports/full_analysis/node_metrics.csv")
+df_top = df_nodes.sort_values('degree', ascending=False).head(5)
+
+print("\n**Top 5 Keywords by Degree:**\n")
+display(Markdown(df_top[['keyword', 'degree', 'strength', 'betweenness']].to_markdown(index=False)))
+```
+
+---
+
+:::
+
+---
+
+## Interpretation Guide
+
+### Understanding the Visualizations
+
+**Sentiment Distribution:** Shows the overall sentiment (positive, neutral, negative) of posts containing the keywords. Helps identify the tone of climate discussions.
+
+**Network Graphs:**
+- **Node size** represents degree (number of connections)
+- **Edge width** represents co-occurrence frequency
+- **Layout** helps visualize clustering and relationships
+
+**Network Metrics Histograms:**
+- **Degree distribution:** How connected each keyword is
+- **Strength distribution:** Weighted connections considering co-occurrence frequency
+- **Betweenness centrality:** Keywords that bridge different topic clusters
+- **Clustering coefficient:** How keywords form tight groups
+
+### Key Metrics Explained
+
+- **Graph Density:** Ratio of actual edges to possible edges (0-1). Higher = more interconnected topics.
+- **Global Clustering Coefficient:** Tendency of keywords to form tight groups. Higher = more cohesive communities.
+- **Modularity:** Quality of community structure (>0.3 indicates well-defined communities).
+- **Diameter:** Longest shortest path in the network. Shows how "far apart" keywords can be.
+
+### Community Detection
+
+The **community assignments** identify thematic clusters—groups of keywords that frequently co-occur. This reveals the main topic areas within climate discourse on social media.
+
+---
+
+## Data Sources
+
+- **Platform:** Bluesky Social Network
+- **Collection Period:** January 2023 - November 2025
+- **Processing:** Sentiment analysis using TextBlob, network analysis using NetworkX
+- **Community Detection:** Louvain algorithm for modularity optimization
+
+---
+
+## Technical Details
+
+```{python}
+#| echo: true
+#| code-fold: true
+
+# Analysis parameters used:
+print("Minimum co-occurrences threshold: 1")
+print("Sentiment classification:")
+print("  - Positive: score > 0.1")
+print("  - Negative: score < -0.1")
+print("  - Neutral: -0.1 ≤ score ≤ 0.1")
+print("\nNetwork measures computed:")
+print("  - Local: degree, strength, betweenness, closeness, clustering")
+print("  - Global: density, transitivity, diameter, avg path length, modularity")
+```
+
+---
+
+## Export Files
+
+Each analysis directory contains:
+- `bluesky_posts_complex.csv` - Raw post data with sentiment scores
+- `node_metrics.csv` - Per-keyword network metrics
+- `global_metrics.csv` - Overall network statistics
+- `community_assignments.csv` - Thematic clustering results
+- `keyword_network.graphml` - Graph file for Gephi/other tools
+- Image files for all visualizations
