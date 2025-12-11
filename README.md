@@ -31,28 +31,44 @@ The aim is to explore the relationships between keywords and identify communitie
    python main.py
    ```
 
+6. View the interactive dashboard:
+
+   ```powershell
+   cd docs
+   quarto render dashboard.qmd
+   # Open dashboard.html in your browser
+   ```
+
 ## Project Structure
 
 ```txt
 complex-systems/
 ├── .github/                           # GitHub workflows and CI/CD configuration
 ├── .pylintrc                          # Pylint configuration for code quality
-├── config.py                          # Configuration parameters and settings
-├── main.py                            # Entry point - data collection from Bluesky API
-├── graph.py                           # Network analysis and visualization
-├── requirements.txt                   # Python dependencies
-├── README.md                          # Project documentation
+├── docs/                              # Interactive dashboard documentation
+│   ├── dashboard.qmd                   # Quarto dashboard source
+│   └── README.md                       # Dashboard documentation
+├── scripts/                           # Analysis scripts
+│   ├── config.py                       # Configuration parameters and settings
+│   ├── main.py                         # Entry point - data collection from Bluesky API
+│   ├── graph.py                        # Network analysis and visualization
+│   └── requirements.txt                # Python dependencies
 ├── exports/                           # Output directory for all generated files
-│   ├── bluesky_posts_complex.csv      # Collected posts from Bluesky
-│   ├── community_assignments.csv      # Community detection results
-│   ├── global_metrics.csv             # Global network metrics
-│   ├── node_metrics.csv               # Per-node metrics (degree, centrality, etc.)
-│   ├── keyword_network_edges.txt      # Edge list with weights
-│   ├── keyword_network.graphml        # Graph in GraphML format (for Gephi)
-│   ├── keyword_network.png            # Network visualization (spring layout)
-│   ├── keyword_network_circular.png   # Network visualization (circular layout)
-│   ├── network_metrics.png            # Metrics histograms
-│   └── grafo.xlsx                     # Co-occurrence matrix spreadsheet
+│   ├── main_keywords/                  # Analysis with 10 main keywords
+│   ├── main_plus_our/                  # Analysis with 20 keywords
+│   └── full_analysis/                  # Complete analysis with 25 keywords
+│       ├── bluesky_posts_complex.csv   # Collected posts from Bluesky
+│       ├── community_assignments.csv   # Community detection results
+│       ├── global_metrics.csv          # Global network metrics
+│       ├── node_metrics.csv            # Per-node metrics (degree, centrality, etc.)
+│       ├── keyword_network_edges.txt   # Edge list with weights
+│       ├── keyword_network.graphml     # Graph in GraphML format (for Gephi)
+│       ├── keyword_network.png         # Network visualization (spring layout)
+│       ├── keyword_network_circular.png # Network visualization (circular layout)
+│       ├── network_metrics.png         # Metrics histograms
+│       ├── sentiment_distribution.png  # Sentiment analysis chart
+│       └── grafo.xlsx                  # Co-occurrence matrix spreadsheet
+├── README.md                          # Project documentation
 └── venv/                              # Virtual environment (not in git)
 ```
 
@@ -70,11 +86,43 @@ complex-systems/
 
 **graph.py** implements the network graph data structure and analysis using NetworkX. This module handles graph construction, metric calculations, and community detection.
 
+#### Interactive Dashboard
+
+**docs/dashboard.qmd** provides an interactive Quarto-based dashboard for visualizing all analysis results. The dashboard features:
+
+- **Tab-based navigation** to switch between three analyses (10, 20, and 25 keywords)
+- **Large, clear visualizations** including sentiment charts and network graphs
+- **Interactive layout toggles** between spring and circular network layouts
+- **Statistical tables** showing key metrics and top keywords
+- **Self-contained HTML output** for easy sharing and offline viewing
+
+To render the dashboard:
+```bash
+cd docs
+quarto render dashboard.qmd
+```
+
+See `docs/README.md` for detailed dashboard documentation.
+
 ## Outputs
 
-All generated files are saved in the `exports/` directory. Key outputs include:
+All generated files are saved in the `exports/` directory, organized into three analysis subdirectories:
 
-- `bluesky_posts_complex.csv`: Collected posts from Bluesky.
+### Analysis Configurations
+
+1. **main_keywords/** - Analysis with 10 main keywords (shared by entire class)
+   - Energy Transition, Greenhouse Effect, Biodiversity, Extreme weather events, CO2, Emissions, Global Warming, Glaciers, Renewable Energy, Fake News
+
+2. **main_plus_our/** - Analysis with 20 keywords (main + Group 4 keywords)
+   - Adds: Ecosystem, Fossil Fuels, Energy Consumption, Normatives, Deforestation, Flooding, Tesla, Green Policies, Rain, Electric Vehicles
+
+3. **full_analysis/** - Complete analysis with 25 keywords (all keywords)
+   - Adds: Natural Disaster, Clean Energy, Net Zero, Tesla, Heatwaves
+
+### Output Files (per analysis directory)
+
+- `bluesky_posts_complex.csv`: Collected posts from Bluesky with sentiment scores.
+- `sentiment_distribution.png`: Sentiment analysis visualization.
 - `keyword_network.graphml`: Graph in GraphML format for Gephi.
 - `community_assignments.csv`: Community detection results.
 - `global_metrics.csv`: Global network metrics.
@@ -90,23 +138,30 @@ The output files in the `exports/` directory are generated by running the applic
 
 ### Analysis Workflow
 
-**Data Collection** → Posts are fetched from Bluesky API filtered by 25 climate keywords including Energy Transition, CO₂, Global Warming, Renewable Energy, Biodiversity, Fossil Fuels, and more (case-insensitive matching).
+**Data Collection** → Posts are fetched from Bluesky API filtered by climate keywords (case-insensitive matching). The three analysis configurations allow comparing network structures with different keyword sets.
 
-The keywords are defined in `config.py`:
+The keywords are defined in `scripts/config.py`:
 
 ```python
-KEYWORDS = [
-    "Climate Change", "Global Warming", "Sustainability", "Renewable Energy",
-    "Carbon Footprint", "Greenhouse Gases", "Fossil Fuels", "Deforestation",
-    "Biodiversity", "Emissions", "Climate Action", "Environmental Policy",
-    "Clean Energy", "Climate Crisis", "Sea Level Rise", "Extreme Weather",
-    "Solar Power", "Wind Energy", "Energy Transition", "Climate Justice",
-    "Carbon Neutral", "Reforestation", "Sustainable Development",
-    "Climate Adaptation", "Ocean Acidification"
+# Main keywords (shared by entire class)
+MAIN_KEYWORDS = [
+    "Energy Transition", "Greenhouse Effect", "Biodiversity", "Extreme weather events",
+    "CO2", "Emissions", "Global Warming", "Glaciers", "Renewable Energy", "Fake News"
+]
+
+# Group 4 keywords
+OUR_KEYWORDS = [
+    "Ecosystem", "Fossil Fuels", "Energy Consumption", "Normatives", "Deforestation",
+    "Flooding", "Tesla", "Green Policies", "Rain", "Electric Vehicles"
+]
+
+# Extra keywords
+EXTRA_KEYWORDS = [
+    "Natural Disaster", "Clean Energy", "Net Zero", "Tesla", "Heatwaves"
 ]
 ```
 
-Locations are filtered to include only English-speaking countries to refine the analysis. These locations are specified in the `config.py` file:
+Locations are filtered to include only English-speaking countries to refine the analysis. These locations are specified in the `scripts/config.py` file:
 
 ```python
 LOCATION_KEYWORDS = ["california", "quebec", "norway"]
