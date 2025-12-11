@@ -22,12 +22,13 @@ The aim is to explore the relationships between keywords and identify communitie
 4. Install dependencies:
 
    ```powershell
-   pip install -r requirements.txt
+   pip install -r scripts/requirements.txt
    ```
 
-5. Run the application:
+5. Run the analysis:
 
    ```powershell
+   cd scripts
    python main.py
    ```
 
@@ -37,52 +38,60 @@ The aim is to explore the relationships between keywords and identify communitie
 complex-systems/
 ├── .github/                           # GitHub workflows and CI/CD configuration
 ├── .pylintrc                          # Pylint configuration for code quality
-├── config.py                          # Configuration parameters and settings
-├── main.py                            # Entry point - data collection from Bluesky API
-├── graph.py                           # Network analysis and visualization
-├── requirements.txt                   # Python dependencies
-├── README.md                          # Project documentation
+├── scripts/                           # Python scripts for analysis
+│   ├── config.py                      # Configuration parameters and settings
+│   ├── main.py                        # Entry point - data collection from Bluesky API
+│   ├── graph.py                       # Network analysis and visualization
+│   └── requirements.txt               # Python dependencies
+├── docs/                              # Documentation and reports
+│   ├── dashboard.qmd                  # Quarto dashboard
+│   ├── index.qmd                      # Documentation index
+│   └── README.md                      # Documentation README
 ├── exports/                           # Output directory for all generated files
-│   ├── bluesky_posts_complex.csv      # Collected posts from Bluesky
-│   ├── community_assignments.csv      # Community detection results
-│   ├── global_metrics.csv             # Global network metrics
-│   ├── node_metrics.csv               # Per-node metrics (degree, centrality, etc.)
-│   ├── keyword_network_edges.txt      # Edge list with weights
-│   ├── keyword_network.graphml        # Graph in GraphML format (for Gephi)
-│   ├── keyword_network.png            # Network visualization (spring layout)
-│   ├── keyword_network_circular.png   # Network visualization (circular layout)
-│   ├── network_metrics.png            # Metrics histograms
-│   └── grafo.xlsx                     # Co-occurrence matrix spreadsheet
+│   ├── full_analysis/                 # Complete analysis with all keywords
+│   ├── main_keywords/                 # Analysis with main keywords only
+│   ├── main_plus_our/                 # Analysis with main + group keywords
+│   └── archive/                       # Archived previous results
+├── README.md                          # Project documentation
 └── venv/                              # Virtual environment (not in git)
 ```
+
+Each analysis subfolder in `exports/` contains:
+
+Each analysis subfolder in `exports/` contains:
+- `bluesky_posts_complex.csv`: Collected posts from Bluesky
+- `community_assignments.csv`: Community detection results
+- `global_metrics.csv`: Global network metrics
+- `node_metrics.csv`: Per-node metrics (degree, centrality, etc.)
+- `keyword_network_edges.txt`: Edge list with weights
+- `keyword_network.graphml`: Graph in GraphML format (for Gephi)
+- `keyword_network.png`: Network visualization (spring layout)
+- `keyword_network_circular.png`: Network visualization (circular layout)
+- `network_metrics.png`: Metrics histograms
+- `sentiment_distribution.png`: Sentiment analysis chart
+- `grafo.xlsx`: Co-occurrence matrix spreadsheet
 
 ### Key Files
 
 #### Configuration
 
-**config.py** contains all configuration parameters for the co-occurrence analysis, including API credentials, keywords, and output settings. Modify these parameters to customize the analysis.
+**scripts/config.py** contains all configuration parameters for the co-occurrence analysis, including API credentials, keywords, and output settings. Modify these parameters to customize the analysis.
 
 #### Entry Point
 
-**main.py** is the application entry point. Run this file to execute the complete workflow: data collection, co-occurrence analysis, graph generation, and metrics computation.
+**scripts/main.py** is the application entry point. Run this file to execute the complete workflow: data collection, co-occurrence analysis, graph generation, and metrics computation.
 
 #### Graph Operations
 
-**graph.py** implements the network graph data structure and analysis using NetworkX. This module handles graph construction, metric calculations, and community detection.
+**scripts/graph.py** implements the network graph data structure and analysis using NetworkX. This module handles graph construction, metric calculations, and community detection.
 
 ## Outputs
 
-All generated files are saved in the `exports/` directory. Key outputs include:
+All generated files are saved in the `exports/` directory, organized by analysis type:
 
-- `bluesky_posts_complex.csv`: Collected posts from Bluesky.
-- `keyword_network.graphml`: Graph in GraphML format for Gephi.
-- `community_assignments.csv`: Community detection results.
-- `global_metrics.csv`: Global network metrics.
-- `node_metrics.csv`: Per-node metrics (degree, centrality, etc.).
-- `keyword_network.png`: Network visualization (spring layout).
-- `keyword_network_circular.png`: Network visualization (circular layout).
-- `network_metrics.png`: Histograms of network metrics.
-- `grafo.xlsx`: Co-occurrence matrix spreadsheet.
+- **`exports/full_analysis/`**: Complete analysis with all 25 keywords
+- **`exports/main_keywords/`**: Analysis with main shared keywords only
+- **`exports/main_plus_our/`**: Analysis with main + group-specific keywords
 
 ## Example Usage: Climate Change Co-occurrence Network Analysis
 
@@ -92,7 +101,7 @@ The output files in the `exports/` directory are generated by running the applic
 
 **Data Collection** → Posts are fetched from Bluesky API filtered by 25 climate keywords including Energy Transition, CO₂, Global Warming, Renewable Energy, Biodiversity, Fossil Fuels, and more (case-insensitive matching).
 
-The keywords are defined in `config.py`:
+The keywords are defined in `scripts/config.py`:
 
 ```python
 KEYWORDS = [
@@ -106,7 +115,7 @@ KEYWORDS = [
 ]
 ```
 
-Locations are filtered to include only English-speaking countries to refine the analysis. These locations are specified in the `config.py` file:
+Locations are filtered to include only English-speaking countries to refine the analysis. These locations are specified in the `scripts/config.py` file:
 
 ```python
 LOCATION_KEYWORDS = ["california", "quebec", "norway"]
