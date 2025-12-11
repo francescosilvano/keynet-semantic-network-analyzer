@@ -60,7 +60,19 @@ HANDLE = os.getenv("BLUESKY_HANDLE")
 PASSWORD = os.getenv("BLUESKY_PASSWORD")
 
 # --- DATA COLLECTION FILTERS ---
-LOCATION_KEYWORDS = ["california", "quebec", "norway"]
+# --- LOCATION KEYWORDS (User Input) ---
+def get_location_keywords():
+    """Prompt user for location keywords via terminal input."""
+    user_input = input(
+        "Enter location keywords (comma-separated) [default: california, quebec, norway]: "
+    ).strip()
+    
+    if not user_input:
+        return ["california", "quebec", "norway"]
+    
+    return [keyword.strip() for keyword in user_input.split(",")]
+
+LOCATION_KEYWORDS = get_location_keywords()
 
 # --- DATE RANGE ---
 DATE_START = datetime(2023, 1, 1, tzinfo=timezone.utc)

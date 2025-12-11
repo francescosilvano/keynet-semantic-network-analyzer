@@ -9,6 +9,27 @@ The aim is to explore the relationships between keywords and identify communitie
 
 ## Quick Start
 
+### Option 1: Using Docker (Recommended)
+
+1. Clone the repository
+2. Navigate to the project directory
+3. Create a `.env` file in the root directory with your Bluesky credentials:
+
+   ```env
+   BLUESKY_HANDLE=your.handle.bsky.social
+   BLUESKY_PASSWORD=your-password
+   ```
+
+4. Run with Docker Compose:
+
+   ```bash
+   docker compose up --build
+   ```
+
+   The analysis will run automatically and outputs will be saved in the `exports/` directory.
+
+### Option 2: Local Development
+
 1. Clone the repository
 2. Navigate to the project directory
 3. Create and activate a virtual environment:
@@ -24,7 +45,9 @@ The aim is to explore the relationships between keywords and identify communitie
    pip install -r scripts/requirements.txt
    ```
 
-5. Run the analysis:
+5. Create a `.env` file in the root directory (see Option 1, step 3)
+
+6. Run the analysis:
 
    ```powershell
    cd scripts
@@ -36,7 +59,12 @@ The aim is to explore the relationships between keywords and identify communitie
 ```txt
 complex-systems/
 ├── .github/                           # GitHub workflows and CI/CD configuration
+├── .dockerignore                      # Docker ignore file
+├── .env                               # Environment variables (not in git)
+├── .gitignore                         # Git ignore file
 ├── .pylintrc                          # Pylint configuration for code quality
+├── compose.yaml                       # Docker Compose configuration
+├── Dockerfile                         # Docker image definition
 ├── scripts/                           # Python scripts for analysis
 │   ├── config.py                      # Configuration parameters and settings
 │   ├── main.py                        # Entry point - data collection from Bluesky API
@@ -82,6 +110,12 @@ Each analysis subfolder in `exports/` contains:
 #### Graph Operations
 
 **scripts/graph.py** implements the network graph data structure and analysis using NetworkX. This module handles graph construction, metric calculations, and community detection.
+
+#### Docker Configuration
+
+**Dockerfile** defines the containerized environment for running the analysis. It uses Python 3.13-slim as the base image, sets up matplotlib configuration, and installs all dependencies.
+
+**compose.yaml** orchestrates the Docker container, loading environment variables from `.env` and mounting the necessary directories for data persistence.
 
 ## Outputs
 

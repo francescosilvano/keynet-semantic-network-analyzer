@@ -16,6 +16,9 @@ ENV PYTHONDONTWRITEBYTECODE=1
 # the application crashes without emitting any logs due to buffering.
 ENV PYTHONUNBUFFERED=1
 
+# Set matplotlib cache directory to writable location
+ENV MPLCONFIGDIR=/tmp/matplotlib
+
 WORKDIR /app
 
 # Create a non-privileged user that the app will run under.
@@ -42,8 +45,8 @@ RUN --mount=type=cache,target=/root/.cache/pip \
 USER appuser
 
 # Copy the source code into the container.
-COPY scripts/ /app/scripts/
-COPY exports/ /app/exports/
+COPY --chown=appuser:appuser scripts/ /app/scripts/
+COPY --chown=appuser:appuser exports/ /app/exports/
 
 # Set working directory to scripts
 WORKDIR /app/scripts
