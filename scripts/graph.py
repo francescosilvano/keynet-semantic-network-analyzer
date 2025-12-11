@@ -19,7 +19,7 @@ from config import (
 def analyze_network(keywords, input_file, output_dir, description):
     """
     Run complete network analysis for a given keyword set
-    
+
     Parameters:
     -----------
     keywords : list
@@ -31,7 +31,7 @@ def analyze_network(keywords, input_file, output_dir, description):
     description : str
         Description of this analysis (for titles/labels)
     """
-    
+
     # Create output directory
     os.makedirs(output_dir, exist_ok=True)
 
@@ -46,7 +46,7 @@ def analyze_network(keywords, input_file, output_dir, description):
     if not os.path.exists(input_file):
         print(f"ERROR: Input file not found: {input_file}")
         return
-    
+
     df = pd.read_csv(input_file)
     print(f"Loaded {len(df)} posts")
 
@@ -138,12 +138,13 @@ def analyze_network(keywords, input_file, output_dir, description):
     else:
         print("   Graph is disconnected - calculating closeness for largest component")
         largest_cc = max(nx.connected_components(G), key=len)
-        G_largest = G.subgraph(largest_cc).copy()
-        closeness = nx.closeness_centrality(G_largest, distance='weight')
+        g_largest = G.subgraph(largest_cc).copy()
+        closeness = nx.closeness_centrality(g_largest, distance='weight')
         # Fill in zeros for nodes not in largest component
         closeness_full = {node: closeness.get(node, 0) for node in G.nodes()}
         closeness = closeness_full
-        print(f"   Average closeness (largest component): {sum(closeness.values()) / len(closeness):.4f}")
+        avg_closeness = sum(closeness.values()) / len(closeness)
+        print(f"   Average closeness (largest component): {avg_closeness:.4f}")
         print("   Top keywords by closeness:")
         for keyword, cc in sorted(closeness.items(), key=lambda x: x[1], reverse=True)[:5]:
             print(f"      {keyword}: {cc:.4f}")
@@ -159,21 +160,21 @@ def analyze_network(keywords, input_file, output_dir, description):
         avg_path_length = nx.average_shortest_path_length(G)
         print(f"   Diameter: {diameter}")
         print(f"   Average path length: {avg_path_length:.3f}")
-        DIAMETER_LABEL = "Diameter"
-        DIAMETER_VAL = diameter
-        PATH_LABEL = "Average path length"
-        AVG_PATH_VAL = avg_path_length
+        diameter_label = "Diameter"
+        diameter_val = diameter
+        path_label = "Average path length"
+        avg_path_val = avg_path_length
     else:
         largest_cc = max(nx.connected_components(G), key=len)
-        G_largest = G.subgraph(largest_cc).copy()
-        diameter = nx.diameter(G_largest)
-        avg_path_length = nx.average_shortest_path_length(G_largest)
+        g_largest = G.subgraph(largest_cc).copy()
+        diameter = nx.diameter(g_largest)
+        avg_path_length = nx.average_shortest_path_length(g_largest)
         print(f"   Diameter (largest component): {diameter}")
         print(f"   Average path length (largest component): {avg_path_length:.3f}")
-        DIAMETER_LABEL = "Diameter (largest component)"
-        DIAMETER_VAL = diameter
-        PATH_LABEL = "Average path length (largest component)"
-        AVG_PATH_VAL = avg_path_length
+        diameter_label = "Diameter (largest component)"
+        diameter_val = diameter
+        path_label = "Average path length (largest component)"
+        avg_path_val = avg_path_length
 
     # Local clustering
     print("\nLOCAL CLUSTERING:")
@@ -188,15 +189,15 @@ def analyze_network(keywords, input_file, output_dir, description):
     print("\nCOMMUNITY DETECTION:")
     if G.number_of_edges() > 0:
         communities = list(community.greedy_modularity_communities(G, weight='weight'))
-        MODULARITY = community.modularity(G, communities, weight='weight')
+        modularity_score = community.modularity(G, communities, weight='weight')
         print(f"   Number of communities: {len(communities)}")
-        print(f"   Modularity: {MODULARITY:.4f}")
+        print(f"   Modularity: {modularity_score:.4f}")
         print("\n   Community assignments:")
         for i, comm in enumerate(communities, 1):
             print(f"      Community {i} ({len(comm)} keywords): {', '.join(sorted(comm))}")
     else:
         communities = []
-        MODULARITY = 0
+        modularity_score = 0
         print("   No edges - no communities detected")
 
     # --- VISUALIZATION ---
@@ -238,9 +239,9 @@ def analyze_network(keywords, input_file, output_dir, description):
     edge_labels = nx.get_edge_attributes(G, 'weight')
     nx.draw_networkx_edge_labels(G, pos, edge_labels, font_size=8)
 
-    TITLE_TEXT = (f"Keyword Co-occurrence Network - {description}\n"
+    title_text = (f"Keyword Co-occurrence Network - {description}\n"
                   "(Node size = connections, Edge width = co-occurrences)")
-    plt.title(TITLE_TEXT,
+    plt.title(title_text,
               fontsize=16, fontweight='bold', pad=20)
     plt.axis('off')
     plt.tight_layout()
@@ -344,7 +345,7 @@ def analyze_network(keywords, input_file, output_dir, description):
         'closeness': [closeness[k] for k in degrees.keys()],
         'clustering': [clustering[k] for k in degrees.keys()]
     })
-    
+
     # Add community assignments if available
     if communities:
         node_to_community = {}
@@ -352,7 +353,7 @@ def analyze_network(keywords, input_file, output_dir, description):
             for node in comm:
                 node_to_community[node] = i
         metrics_df['community'] = [node_to_community.get(k, 0) for k in degrees.keys()]
-    
+
     metrics_df = metrics_df.sort_values('degree', ascending=False)
     metrics_df.to_csv(f'{output_dir}/node_metrics.csv', index=False)
     print(f"   Saved: {output_dir}/node_metrics.csv")
@@ -385,8 +386,8 @@ def analyze_network(keywords, input_file, output_dir, description):
             'Number of communities',
             'Modularity',
             'Connected components',
-            DIAMETER_LABEL,
-            PATH_LABEL
+            diameter_label,
+            path_label
         ],
         'Value': [
             G.number_of_nodes(),
@@ -397,10 +398,10 @@ def analyze_network(keywords, input_file, output_dir, description):
             round(nx.transitivity(G), 4),
             round(avg_clustering, 4),
             len(communities) if communities else 0,
-            round(MODULARITY, 4),
+            round(modularity_score, 4),
             nx.number_connected_components(G),
-            DIAMETER_VAL,
-            round(AVG_PATH_VAL, 3)
+            diameter_val,
+            round(avg_path_val, 3)
         ]
     }
     global_df = pd.DataFrame(global_metrics)
@@ -429,15 +430,15 @@ def analyze_network(keywords, input_file, output_dir, description):
     print(f"   Clustering coefficient: {nx.transitivity(G):.4f}")
     print(f"   Average local clustering: {avg_clustering:.4f}")
     if nx.is_connected(G):
-        print(f"   Diameter: {DIAMETER_VAL}")
-        print(f"   Average path length: {AVG_PATH_VAL:.3f}")
+        print(f"   Diameter: {diameter_val}")
+        print(f"   Average path length: {avg_path_val:.3f}")
     else:
-        print(f"   Diameter (largest component): {DIAMETER_VAL}")
-        print(f"   Average path length (largest component): {AVG_PATH_VAL:.3f}")
+        print(f"   Diameter (largest component): {diameter_val}")
+        print(f"   Average path length (largest component): {avg_path_val:.3f}")
 
     print("\nCOMMUNITY STRUCTURE:")
     print(f"   Communities: {len(communities) if communities else 0}")
-    print(f"   Modularity: {MODULARITY:.4f}")
+    print(f"   Modularity: {modularity_score:.4f}")
 
     print("\n" + "="*80)
     print(f"Analysis complete for: {description}")
@@ -449,19 +450,19 @@ if __name__ == "__main__":
     print("\n" + "="*80)
     print("STARTING NETWORK ANALYSIS FOR ALL CONFIGURATIONS")
     print("="*80)
-    
+
     for config_idx, analysis_config in enumerate(ANALYSIS_CONFIGS, 1):
         config_name = analysis_config["name"]
-        keywords = analysis_config["keywords"]
-        description = analysis_config["description"]
-        
+        kw_list = analysis_config["keywords"]
+        desc = analysis_config["description"]
+
         # Define paths
-        input_file = f"{OUTPUT_DIR}/{config_name}/bluesky_posts_complex.csv"
-        output_dir = f"{OUTPUT_DIR}/{config_name}"
-        
+        inp_file = f"{OUTPUT_DIR}/{config_name}/bluesky_posts_complex.csv"
+        out_dir = f"{OUTPUT_DIR}/{config_name}"
+
         # Run analysis
-        analyze_network(keywords, input_file, output_dir, description)
-    
+        analyze_network(kw_list, inp_file, out_dir, desc)
+
     print("\n" + "="*80)
     print("ALL NETWORK ANALYSES COMPLETE!")
     print("="*80)

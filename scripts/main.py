@@ -140,32 +140,34 @@ print("="*80)
 if records:
     # Convert to DataFrame for efficient filtering
     df_all = pd.DataFrame(records)
-    
+
     for config_idx, analysis_config in enumerate(ANALYSIS_CONFIGS, 1):
         config_name = analysis_config["name"]
         config_keywords = analysis_config["keywords"]
         description = analysis_config["description"]
-        
+
         # Create subfolder for this analysis
         analysis_output_dir = f"{OUTPUT_DIR}/{config_name}"
         os.makedirs(analysis_output_dir, exist_ok=True)
-        OUTPUT_FILE = f"{analysis_output_dir}/bluesky_posts_complex.csv"
-        
+        output_file = f"{analysis_output_dir}/bluesky_posts_complex.csv"
+
         print("\n" + "="*80)
         print(f"ANALYSIS {config_idx}/3: {description}")
         print(f"Keywords: {len(config_keywords)}")
         print(f"Output directory: {analysis_output_dir}")
         print("="*80)
-        
+
         # Filter posts that contain ANY of the keywords for this analysis
         mask = df_all['keyword'].isin(config_keywords)
         df = df_all[mask].copy()
-        
-        print(f"Filtered {len(df)} posts (from {len(df_all)} total) for this analysis")
-        
+
+        filtered_count = len(df)
+        total_count = len(df_all)
+        print(f"Filtered {filtered_count} posts (from {total_count} total)")
+
         if len(df) > 0:
-            df.to_csv(OUTPUT_FILE, index=False)
-            print(f"Saved {len(df)} posts in '{OUTPUT_FILE}'")
+            df.to_csv(output_file, index=False)
+            print(f"Saved {len(df)} posts in '{output_file}'")
 
             # --- Sentiment chart ---
             sentiment_counts = df["sentiment"].value_counts()
@@ -177,9 +179,10 @@ if records:
             plt.xlabel("Sentiment")
             plt.ylabel("Count")
             plt.tight_layout()
-            plt.savefig(f"{analysis_output_dir}/sentiment_distribution.png", dpi=300, bbox_inches='tight')
+            sentiment_file = f"{analysis_output_dir}/sentiment_distribution.png"
+            plt.savefig(sentiment_file, dpi=300, bbox_inches='tight')
             plt.close(fig)
-            print(f"Saved sentiment chart in '{analysis_output_dir}/sentiment_distribution.png'")
+            print(f"Saved sentiment chart in '{sentiment_file}'")
 
             # --- Co-occurrence analysis ---
             print(f"\nCalculating co-occurrences for {len(config_keywords)} keywords...")
@@ -194,7 +197,7 @@ if records:
                 new_df["w1"].append(kws[0])
                 new_df["w2"].append(kws[1])
                 new_df["n"].append(all_ks.sum())
-            
+
             pd.DataFrame(new_df).to_excel(f"{analysis_output_dir}/grafo.xlsx")
             print(f"Saved co-occurrence matrix in '{analysis_output_dir}/grafo.xlsx'")
         else:
