@@ -5,6 +5,16 @@ Shared settings between main.py (data collection) and graph.py (network analysis
 
 from datetime import datetime, timezone
 import os
+from pathlib import Path
+
+# Load environment variables from .env file
+try:
+    from dotenv import load_dotenv
+    # Look for .env file in parent directory (project root)
+    env_path = Path(__file__).parent.parent / '.env'
+    load_dotenv(dotenv_path=env_path)
+except ImportError:
+    print("Warning: python-dotenv not installed. Environment variables must be set manually.")
 
 # --- KEYWORDS CONFIGURATION ---
 # Main keywords (shared by entire class)
@@ -60,19 +70,7 @@ HANDLE = os.getenv("BLUESKY_HANDLE")
 PASSWORD = os.getenv("BLUESKY_PASSWORD")
 
 # --- DATA COLLECTION FILTERS ---
-# --- LOCATION KEYWORDS (User Input) ---
-def get_location_keywords():
-    """Prompt user for location keywords via terminal input."""
-    user_input = input(
-        "Enter location keywords (comma-separated) [default: california, quebec, norway]: "
-    ).strip()
-    
-    if not user_input:
-        return ["california", "quebec", "norway"]
-    
-    return [keyword.strip() for keyword in user_input.split(",")]
-
-LOCATION_KEYWORDS = get_location_keywords()
+LOCATION_KEYWORDS = ["california", "quebec", "norway"]
 
 # --- DATE RANGE ---
 DATE_START = datetime(2023, 1, 1, tzinfo=timezone.utc)

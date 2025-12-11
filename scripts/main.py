@@ -4,6 +4,7 @@ Main module for collecting and analyzing Bluesky posts
 
 import json
 import os
+import sys
 import time
 from datetime import datetime, timezone
 from itertools import combinations
@@ -19,13 +20,183 @@ from config import (
     KEYWORDS,
     HANDLE,
     PASSWORD,
-    DATE_START,
-    DATE_END,
-    OUTPUT_DIR
+    DATE_START as DEFAULT_DATE_START,
+    DATE_END as DEFAULT_DATE_END,
+    OUTPUT_DIR as DEFAULT_OUTPUT_DIR,
+    LOCATION_KEYWORDS as DEFAULT_LOCATION_KEYWORDS,
+    MAIN_KEYWORDS,
+    OUR_KEYWORDS,
+    EXTRA_KEYWORDS
 )
 
+# Initialize mutable configuration variables
+DATE_START = DEFAULT_DATE_START
+DATE_END = DEFAULT_DATE_END
+OUTPUT_DIR = DEFAULT_OUTPUT_DIR
+LOCATION_KEYWORDS = DEFAULT_LOCATION_KEYWORDS.copy()
+
+
+def display_configuration():
+    """Display current configuration settings to the user."""
+    print("\n" + "="*80)
+    print("CONFIGURATION REVIEW")
+    print("="*80)
+
+    print("\nANALYSIS CONFIGURATIONS:")
+    for idx, config in enumerate(ANALYSIS_CONFIGS, 1):
+        print(f"   {idx}. {config['name']}: {config['description']}")
+        print(f"      Keywords: {len(config['keywords'])}")
+
+    print(f"\nTOTAL UNIQUE KEYWORDS: {len(KEYWORDS)}")
+    print(f"   - Main keywords: {len(MAIN_KEYWORDS)}")
+    print(f"   - Group 4 keywords: {len(OUR_KEYWORDS)}")
+    print(f"   - Extra keywords: {len(EXTRA_KEYWORDS)}")
+
+    print(f"\nDATE RANGE:")
+    print(f"   Start: {DATE_START.strftime('%Y-%m-%d')}")
+    print(f"   End: {DATE_END.strftime('%Y-%m-%d')}")
+
+    print(f"\nLOCATION FILTERS:")
+    print(f"   {', '.join(LOCATION_KEYWORDS)}")
+
+    print(f"\nOUTPUT DIRECTORY:")
+    print(f"   {OUTPUT_DIR}")
+
+    print(f"\nCREDENTIALS:")
+    if HANDLE and PASSWORD:
+        print(f"   Handle: {HANDLE}")
+        print("   Password: ****** (configured)")
+    else:
+        print("   WARNING: Credentials not found in environment variables!")
+
+    print("\n" + "="*80)
+
+
+def confirm_start():
+    """Prompt user to confirm or modify settings before starting."""
+    display_configuration()
+
+    print("\nOptions:")
+    print("  1. Start analysis with current settings")
+    print("  2. Modify date range")
+    print("  3. Modify location keywords")
+    print("  4. Modify output directory")
+    print("  5. Modify all settings")
+    print("  6. Exit")
+
+    while True:
+        choice = input("\nEnter your choice (1-6): ").strip()
+
+        if choice == "1":
+            print("\nStarting analysis...")
+            return True
+        elif choice == "2":
+            modify_dates()
+            display_configuration()
+        elif choice == "3":
+            modify_locations()
+            display_configuration()
+        elif choice == "4":
+            modify_output_dir()
+            display_configuration()
+        elif choice == "5":
+            modify_all_settings()
+            display_configuration()
+        elif choice == "6":
+            print("\nAnalysis cancelled by user.")
+            return False
+        else:
+            print("Invalid choice. Please enter 1-6.")
+
+
+def modify_dates():
+    """Allow user to modify date range."""
+    global DATE_START, DATE_END
+
+    print(f"\nCurrent date range: {DATE_START.strftime('%Y-%m-%d')} to "
+          f"{DATE_END.strftime('%Y-%m-%d')}")
+
+    # Start date
+    start_date_default = DATE_START.strftime('%Y-%m-%d')
+    start_input = input(
+        f"Enter start date (YYYY-MM-DD) or press Enter to keep [{start_date_default}]: "
+    ).strip()
+
+    if start_input:
+        try:
+            DATE_START = datetime.strptime(start_input, '%Y-%m-%d').replace(tzinfo=timezone.utc)
+            print(f"Updated start date: {DATE_START.strftime('%Y-%m-%d')}")
+        except ValueError:
+            print("Invalid date format. Keeping current value.")
+
+    # End date
+    end_date_default = DATE_END.strftime('%Y-%m-%d')
+    end_input = input(
+        f"Enter end date (YYYY-MM-DD) or press Enter to keep [{end_date_default}]: "
+    ).strip()
+
+    if end_input:
+        try:
+            DATE_END = datetime.strptime(end_input, '%Y-%m-%d').replace(tzinfo=timezone.utc)
+            print(f"Updated end date: {DATE_END.strftime('%Y-%m-%d')}")
+        except ValueError:
+            print("Invalid date format. Keeping current value.")
+
+    if DATE_START >= DATE_END:
+        print("WARNING: Start date is after or equal to end date!")
+
+
+def modify_locations():
+    """Allow user to modify location keywords."""
+    global LOCATION_KEYWORDS
+
+    print(f"\nCurrent location keywords: {', '.join(LOCATION_KEYWORDS)}")
+    user_input = input(
+        "Enter location keywords (comma-separated) or press Enter to keep current: "
+    ).strip()
+
+    if user_input:
+        keywords_list = [keyword.strip() for keyword in user_input.split(",")
+                         if keyword.strip()]
+        LOCATION_KEYWORDS = keywords_list
+        if LOCATION_KEYWORDS:
+            print(f"Updated location keywords: {', '.join(LOCATION_KEYWORDS)}")
+        else:
+            LOCATION_KEYWORDS = DEFAULT_LOCATION_KEYWORDS.copy()
+            print("No valid keywords provided. Keeping current value.")
+
+
+def modify_output_dir():
+    """Allow user to modify output directory."""
+    global OUTPUT_DIR
+
+    print(f"\nCurrent output directory: {OUTPUT_DIR}")
+    user_input = input(
+        "Enter output directory path or press Enter to keep current: "
+    ).strip()
+
+    if user_input:
+        OUTPUT_DIR = user_input
+        print(f"Updated output directory: {OUTPUT_DIR}")
+
+
+def modify_all_settings():
+    """Modify all configurable settings in sequence."""
+    print("\n" + "="*80)
+    print("MODIFY ALL SETTINGS")
+    print("="*80)
+    modify_dates()
+    modify_locations()
+    modify_output_dir()
+    print("\nAll settings updated!")
+
+
+# --- CONFIGURATION REVIEW AND CONFIRMATION ---
+if not confirm_start():
+    sys.exit(0)
+
 # --- LOGIN ---
-print("Connecting to Bluesky...")
+print("\nConnecting to Bluesky...")
 client = Client()
 client.login(HANDLE, PASSWORD)
 print("Login successful!")
