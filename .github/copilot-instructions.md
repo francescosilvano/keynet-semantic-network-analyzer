@@ -68,7 +68,7 @@ pip install networkx matplotlib pandas openpyxl
 2. **Co-occurrence Analysis**:
    - For each pair of keywords, count co-occurrences in posts (case-insensitive)
    - Build co-occurrence matrix
-   - Filter pairs with co-occurrences >= `MIN_CO_OCCURRENCES` (default: 1)
+   - Filter pairs with co-occurrences ≥ `MIN_CO_OCCURRENCES` (default: 1)
 
 3. **Graph Construction**:
    - Create NetworkX graph with keywords as nodes
@@ -109,7 +109,7 @@ Save all the outcomes in /exports folder
 
 ## Code Requirements
 
-1. **Integrate Keywords**: Use the full `KEYWORDS` list with all 24 keywords
+1. **Integrate Keywords**: Use the full `KEYWORDS` list with all 25 keywords
 2. **Case-Insensitive Search**: Ensure all keyword matching is case-insensitive
 3. **Co-occurrence Matrix**: Rebuild using new keywords
 4. **NetworkX Metrics**: Compute all required local and global metrics
