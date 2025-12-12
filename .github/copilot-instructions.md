@@ -8,22 +8,22 @@ You are an expert in Python, data collection, and Complex Network Analysis. Modi
 ## Keywords Configuration
 
 ### Main Keywords (Shared by Entire Class)
-Energy Transition, Greenhouse Effect, Biodiversity, Extreme weather events, CO₂, Emissions, Global Warming, Glaciers, Renewable Energy, Fake News
+green transition, greenhouse effect, loss of biodiversity, extreme weather events, CO2, emissions, global warming, melting glaciers, renewable energy, misinformation
 
 ### Group 4 Keywords
-Ecosystem, Fossil Fuels, Energy Consumption, Normatives, Deforestation, Floodings, Heatwaves, Green Policies, Rain, Electric Vehicles
+fossil fuels, energy consumption, normatives, deforestation, flooding, tesla, green policies, rain, electric vehicles
 
 ### Extra Keywords (Optional)
-Natural Disaster, Clean Energy, Net Zero, Tesla, AI
+natural disaster, clean energy, net zero, AI, heatwaves
 
 ### Final Python Keywords List
 ```python
 KEYWORDS = [
-    "Energy Transition", "Greenhouse Effect", "Biodiversity", "Extreme weather events",
-    "CO2", "Emissions", "Global Warming", "Glaciers", "Renewable Energy", "Fake News",
-    "Ecosystem", "Fossil Fuels", "Energy Consumption", "Normatives", "Deforestation",
-    "Floodings", "Heatwaves", "Green Policies", "Rain", "Electric Vehicles",
-    "Natural Disaster", "Clean Energy", "Net Zero", "Tesla", "AI"
+    "green transition", "greenhouse effect", "loss of biodiversity", "extreme weather events",
+    "CO2", "emissions", "global warming", "melting glaciers", "renewable energy", "misinformation",
+    "fossil fuels", "energy consumption", "normatives", "deforestation", "flooding",
+    "tesla", "green policies", "rain", "electric vehicles",
+    "natural disaster", "clean energy", "net zero", "AI", "heatwaves"
 ]
 ```
 **Important**: All keyword searches must be case-insensitive.
@@ -68,7 +68,7 @@ pip install networkx matplotlib pandas openpyxl
 2. **Co-occurrence Analysis**:
    - For each pair of keywords, count co-occurrences in posts (case-insensitive)
    - Build co-occurrence matrix
-   - Filter pairs with co-occurrences ≥ `MIN_CO_OCCURRENCES` (default: 1)
+   - Filter pairs with co-occurrences >= `MIN_CO_OCCURRENCES` (default: 1)
 
 3. **Graph Construction**:
    - Create NetworkX graph with keywords as nodes
@@ -109,7 +109,7 @@ Save all the outcomes in /exports folder
 
 ## Code Requirements
 
-1. **Integrate Keywords**: Use the full `KEYWORDS` list with all 25 keywords
+1. **Integrate Keywords**: Use the full `KEYWORDS` list with all 24 keywords
 2. **Case-Insensitive Search**: Ensure all keyword matching is case-insensitive
 3. **Co-occurrence Matrix**: Rebuild using new keywords
 4. **NetworkX Metrics**: Compute all required local and global metrics
