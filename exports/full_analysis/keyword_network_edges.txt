@@ -1,108 +1,152 @@
-Energy Transition Emissions 1
-Energy Transition Glaciers 1
-Energy Transition Energy Consumption 1
-Energy Transition Clean Energy 2
-Greenhouse Effect Biodiversity 1
-Greenhouse Effect Extreme weather events 1
-Greenhouse Effect CO2 81
-Greenhouse Effect Emissions 32
-Greenhouse Effect Global Warming 42
-Greenhouse Effect Glaciers 2
-Greenhouse Effect Renewable Energy 1
-Greenhouse Effect Ecosystem 3
-Greenhouse Effect Fossil Fuels 27
-Greenhouse Effect Flooding 6
-Greenhouse Effect Tesla 1
-Greenhouse Effect Rain 14
-Greenhouse Effect Natural Disaster 1
-Greenhouse Effect Net Zero 2
-Greenhouse Effect Heatwaves 3
-Biodiversity Extreme weather events 5
-Biodiversity Global Warming 1
-Biodiversity Glaciers 1
-Biodiversity Deforestation 1
-Biodiversity Heatwaves 11
-Extreme weather events CO2 2
-Extreme weather events Emissions 17
-Extreme weather events Global Warming 23
-Extreme weather events Glaciers 2
-Extreme weather events Renewable Energy 3
-Extreme weather events Ecosystem 14
-Extreme weather events Fossil Fuels 13
-Extreme weather events Deforestation 1
-Extreme weather events Flooding 25
-Extreme weather events Rain 39
-Extreme weather events Natural Disaster 4
-Extreme weather events Clean Energy 1
-Extreme weather events Net Zero 2
-Extreme weather events Heatwaves 33
-CO2 Emissions 14
-CO2 Global Warming 5
-CO2 Glaciers 3
-CO2 Ecosystem 2
-CO2 Fossil Fuels 8
-CO2 Energy Consumption 1
-CO2 Flooding 1
-CO2 Rain 1
-CO2 Natural Disaster 1
-CO2 Heatwaves 3
-Emissions Global Warming 17
-Emissions Glaciers 5
-Emissions Renewable Energy 3
-Emissions Ecosystem 1
-Emissions Fossil Fuels 7
-Emissions Energy Consumption 14
-Emissions Normatives 1
-Emissions Deforestation 7
-Emissions Flooding 2
-Emissions Green Policies 2
-Emissions Rain 12
-Emissions Electric Vehicles 1
-Emissions Natural Disaster 2
-Emissions Clean Energy 2
-Emissions Net Zero 20
-Emissions Heatwaves 49
-Global Warming Glaciers 9
-Global Warming Renewable Energy 1
-Global Warming Fossil Fuels 5
-Global Warming Energy Consumption 2
-Global Warming Flooding 2
-Global Warming Rain 1
-Global Warming Natural Disaster 1
-Global Warming Heatwaves 10
-Glaciers Renewable Energy 1
-Glaciers Ecosystem 5
-Glaciers Fossil Fuels 3
-Glaciers Flooding 5
-Glaciers Rain 13
-Glaciers Clean Energy 1
-Glaciers Heatwaves 2
-Renewable Energy Fossil Fuels 4
-Renewable Energy Energy Consumption 7
-Renewable Energy Rain 2
-Ecosystem Rain 3
-Ecosystem Natural Disaster 3
-Ecosystem Clean Energy 1
-Ecosystem Heatwaves 19
-Fossil Fuels Energy Consumption 10
-Fossil Fuels Green Policies 2
-Fossil Fuels Rain 1
-Fossil Fuels Net Zero 1
-Fossil Fuels Heatwaves 6
-Energy Consumption Tesla 1
-Energy Consumption Rain 17
-Energy Consumption Clean Energy 1
-Normatives Rain 10
-Deforestation Green Policies 1
-Flooding Rain 9
-Flooding Natural Disaster 4
-Flooding Heatwaves 20
-Tesla Tesla 2
-Green Policies Rain 4
-Green Policies Net Zero 3
-Rain Natural Disaster 15
-Rain Heatwaves 48
-Natural Disaster Net Zero 1
-Natural Disaster Heatwaves 5
-Clean Energy Heatwaves 3
-Net Zero Heatwaves 55
+green transition CO2 2
+green transition emissions 7
+green transition renewable energy 6
+green transition ecosystem 1
+green transition fossil fuels 10
+green transition deforestation 1
+green transition rain 7
+green transition electric vehicles 1
+green transition clean energy 2
+green transition net zero 2
+green transition AI 84
+greenhouse effect extreme weather events 1
+greenhouse effect CO2 80
+greenhouse effect emissions 32
+greenhouse effect global warming 42
+greenhouse effect renewable energy 1
+greenhouse effect ecosystem 3
+greenhouse effect fossil fuels 26
+greenhouse effect flooding 6
+greenhouse effect tesla 1
+greenhouse effect rain 14
+greenhouse effect natural disaster 1
+greenhouse effect net zero 2
+greenhouse effect AI 155
+greenhouse effect heatwaves 3
+loss of biodiversity extreme weather events 1
+loss of biodiversity CO2 1
+loss of biodiversity emissions 7
+loss of biodiversity global warming 2
+loss of biodiversity melting glaciers 1
+loss of biodiversity ecosystem 6
+loss of biodiversity fossil fuels 1
+loss of biodiversity deforestation 9
+loss of biodiversity rain 11
+loss of biodiversity AI 30
+loss of biodiversity heatwaves 3
+extreme weather events CO2 2
+extreme weather events emissions 18
+extreme weather events global warming 23
+extreme weather events melting glaciers 4
+extreme weather events renewable energy 3
+extreme weather events misinformation 4
+extreme weather events ecosystem 13
+extreme weather events fossil fuels 13
+extreme weather events deforestation 2
+extreme weather events flooding 24
+extreme weather events rain 37
+extreme weather events natural disaster 4
+extreme weather events clean energy 1
+extreme weather events net zero 2
+extreme weather events AI 190
+extreme weather events heatwaves 31
+CO2 emissions 15
+CO2 global warming 5
+CO2 ecosystem 2
+CO2 fossil fuels 8
+CO2 energy consumption 1
+CO2 deforestation 1
+CO2 flooding 1
+CO2 rain 1
+CO2 natural disaster 1
+CO2 AI 37
+CO2 heatwaves 3
+emissions global warming 20
+emissions melting glaciers 6
+emissions renewable energy 3
+emissions ecosystem 4
+emissions fossil fuels 9
+emissions energy consumption 13
+emissions normatives 1
+emissions deforestation 25
+emissions flooding 2
+emissions green policies 2
+emissions rain 14
+emissions electric vehicles 1
+emissions natural disaster 2
+emissions clean energy 2
+emissions net zero 21
+emissions AI 71
+emissions heatwaves 49
+global warming melting glaciers 24
+global warming renewable energy 1
+global warming fossil fuels 4
+global warming energy consumption 2
+global warming deforestation 2
+global warming flooding 2
+global warming rain 3
+global warming natural disaster 1
+global warming AI 39
+global warming heatwaves 12
+melting glaciers renewable energy 2
+melting glaciers ecosystem 7
+melting glaciers fossil fuels 2
+melting glaciers deforestation 6
+melting glaciers flooding 11
+melting glaciers rain 25
+melting glaciers AI 108
+melting glaciers heatwaves 5
+renewable energy fossil fuels 6
+renewable energy energy consumption 7
+renewable energy deforestation 2
+renewable energy rain 2
+renewable energy net zero 1
+renewable energy AI 12
+misinformation energy consumption 2
+misinformation green policies 1
+misinformation AI 4
+ecosystem fossil fuels 1
+ecosystem deforestation 4
+ecosystem rain 7
+ecosystem natural disaster 4
+ecosystem clean energy 1
+ecosystem AI 31
+ecosystem heatwaves 19
+fossil fuels energy consumption 9
+fossil fuels deforestation 2
+fossil fuels green policies 2
+fossil fuels rain 2
+fossil fuels net zero 1
+fossil fuels AI 31
+fossil fuels heatwaves 7
+energy consumption tesla 1
+energy consumption rain 14
+energy consumption clean energy 1
+energy consumption AI 125
+normatives rain 10
+normatives AI 170
+deforestation green policies 1
+deforestation rain 3
+deforestation net zero 2
+deforestation AI 22
+deforestation heatwaves 2
+flooding rain 15
+flooding natural disaster 4
+flooding AI 25
+flooding heatwaves 19
+tesla AI 1
+green policies rain 3
+green policies net zero 3
+green policies AI 40
+rain natural disaster 15
+rain AI 254
+rain heatwaves 48
+electric vehicles AI 2
+natural disaster net zero 1
+natural disaster AI 121
+natural disaster heatwaves 5
+clean energy AI 10
+clean energy heatwaves 3
+net zero AI 11
+net zero heatwaves 55
+AI heatwaves 202
