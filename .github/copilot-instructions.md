@@ -11,7 +11,7 @@ You are an expert in Python, data collection, and Complex Network Analysis. Modi
 green transition, greenhouse effect, loss of biodiversity, extreme weather events, CO2, emissions, global warming, melting glaciers, renewable energy, misinformation
 
 ### Group 4 Keywords
-fossil fuels, energy consumption, normatives, deforestation, flooding, tesla, green policies, rain, electric vehicles
+ecosystem, fossil fuels, energy consumption, normatives, deforestation, flooding, tesla, green policies, rain, electric vehicles
 
 ### Extra Keywords (Optional)
 natural disaster, clean energy, net zero, AI, heatwaves
@@ -21,8 +21,8 @@ natural disaster, clean energy, net zero, AI, heatwaves
 KEYWORDS = [
     "green transition", "greenhouse effect", "loss of biodiversity", "extreme weather events",
     "CO2", "emissions", "global warming", "melting glaciers", "renewable energy", "misinformation",
-    "fossil fuels", "energy consumption", "normatives", "deforestation", "flooding",
-    "tesla", "green policies", "rain", "electric vehicles",
+    "ecosystem", "fossil fuels", "energy consumption", "normatives", "deforestation",
+    "flooding", "tesla", "green policies", "rain", "electric vehicles",
     "natural disaster", "clean energy", "net zero", "AI", "heatwaves"
 ]
 ```

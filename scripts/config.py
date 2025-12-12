@@ -25,7 +25,7 @@ MAIN_KEYWORDS = [
 
 # Group 4 keywords (Our words)
 OUR_KEYWORDS = [
-    "fossil fuels", "energy consumption", "normatives", "deforestation", "flooding",
+    "ecosystem", "fossil fuels", "energy consumption", "normatives", "deforestation", "flooding",
     "tesla", "green policies", "rain", "electric vehicles"
 ]
 
