@@ -3,3 +3,10 @@ docs/
 
 /.quarto/
 **/*.quarto_ipynb
+
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+*.pyc
+*.pyo
