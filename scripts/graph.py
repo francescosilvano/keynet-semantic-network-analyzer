@@ -506,11 +506,36 @@ if __name__ == "__main__":
         # Get the latest run directory
         latest_run = get_latest_run(ARCHIVE_DIR)
         if latest_run:
+            from pathlib import Path
+            import json
+            
             run_base_dir = f"{ARCHIVE_DIR}/{latest_run['run_id']}"
             archive = RunArchive(ARCHIVE_DIR)
             archive.run_id = latest_run['run_id']
-            archive.run_dir = run_base_dir
-            archive.base_archive_dir = ARCHIVE_DIR
+            archive.run_dir = Path(run_base_dir)
+            archive.base_archive_dir = Path(ARCHIVE_DIR)
+            archive.start_time = None  # Not initializing a new run, just updating existing one
+            
+            # Load existing manifest
+            manifest_path = archive.run_dir / "manifest.json"
+            if manifest_path.exists():
+                with open(manifest_path, 'r', encoding='utf-8') as f:
+                    archive.manifest = json.load(f)
+            else:
+                # Initialize empty manifest if it doesn't exist
+                archive.manifest = {
+                    "run_id": archive.run_id,
+                    "uuid": latest_run.get('uuid', ''),
+                    "timestamp_start": latest_run.get('timestamp', ''),
+                    "timestamp_end": None,
+                    "duration_seconds": None,
+                    "configuration": {},
+                    "results_summary": {"total_posts_collected": 0, "analyses": {}},
+                    "files_generated": [],
+                    "errors": [],
+                    "warnings": []
+                }
+            
             print(f"\nUsing archive from run: {latest_run['run_id']}")
             print(f"Directory: {run_base_dir}\n")
         else:
@@ -531,9 +556,13 @@ if __name__ == "__main__":
         # Run analysis
         analyze_network(kw_list, inp_file, out_dir, desc, archive)
     
-    # Finalize archive if used
+    # Note: Do not finalize archive when running graph.py standalone
+    # The run was already finalized by main.py. We're just adding network analysis files.
     if archive and ARCHIVE_ENABLED:
-        archive.finalize_run()
+        print(f"\n{'='*80}")
+        print(f"Updated archive: {archive.run_id}")
+        print(f"Added network analysis outputs to existing run")
+        print(f"{'='*80}\n")
 
     print("\n" + "="*80)
     print("ALL NETWORK ANALYSES COMPLETE!")
