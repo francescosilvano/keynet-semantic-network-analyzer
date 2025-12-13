@@ -38,6 +38,12 @@ The aim is to explore the relationships between keywords and identify communitie
 
    The analysis will run automatically and outputs will be saved in the `exports/` directory.
 
+#### Docker Configuration
+
+- **Dockerfile**: Uses Python 3.13-slim base image with matplotlib configuration
+- **compose.yaml**: Orchestrates container with environment variables and volume mounts
+
+
 ### Option 2: Local Development
 
 1. Clone the repository
@@ -274,7 +280,3 @@ Planned enhancements:
 - [ ] **Index Search**: Search by date, keywords, configuration parameters
 - [ ] **Parallel Runs**: Handle multiple simultaneous executions
 
-## Docker Configuration
-
-- **Dockerfile**: Uses Python 3.13-slim base image with matplotlib configuration
-- **compose.yaml**: Orchestrates container with environment variables and volume mounts
