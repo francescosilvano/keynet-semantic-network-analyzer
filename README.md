@@ -1,5 +1,5 @@
 
-# Analyzing Keyword Co-occurrence Networks in Social Media 
+# Analyzing Keyword Co-occurrence Networks in Social Media
 
 ## Project Overview
 
@@ -172,3 +172,75 @@ The analysis reveals the semantic landscape of climate discussions:
 ### Interpretation Example
 
 If "Global Warming" has high betweenness centrality, it bridges discussions between mitigation topics (Renewable Energy, Green Policies) and impact topics (Glaciers, Extreme weather events)—making it a central connecting concept in climate conversations on social media.
+
+## Archive and Run Management
+
+The project includes an automatic archiving system that stores each analysis run in a UUID-based directory structure. This ensures that:
+
+- **Historical Tracking**: Never lose previous results
+- **Reproducibility**: Each run is self-contained with full metadata
+- **Comparison**: Easy to compare different parameter configurations
+- **Organization**: Structured storage with timestamped runs
+
+### Archive Structure
+
+When archiving is enabled (default), each run creates a unique directory:
+
+```txt
+exports/
+├── runs/
+│   ├── 2024-12-13_14-30-45_a3c5b7e9/     # UUID-based run folder
+│   │   ├── manifest.json                 # Run metadata and configuration
+│   │   ├── main_keywords/                # Analysis outputs
+│   │   ├── main_plus_our/
+│   │   └── full_analysis/
+│   ├── 2024-12-13_15-45-12_f9d2e1a7/
+│   └── index.json                        # Index of all runs
+```
+
+### Run Manifest
+
+Each run includes a `manifest.json` file containing:
+
+- Run UUID and timestamp
+- Configuration parameters (keywords, date range, filters)
+- Results summary (posts collected, network metrics)
+- List of generated files
+- Execution duration and any errors/warnings
+
+### Managing Archives
+
+The archive module provides CLI utilities:
+
+```powershell
+# List all archived runs
+python scripts/archive.py list
+
+# Show details of a specific run
+python scripts/archive.py show <run_id_or_uuid>
+
+# Show the latest run
+python scripts/archive.py latest
+
+# Cleanup old runs (keep last 10)
+python scripts/archive.py cleanup --keep 10
+```
+
+### Configuration
+
+Archive settings can be configured in `scripts/config.py`:
+
+- `ARCHIVE_ENABLED`: Enable/disable archiving (default: `True`)
+- `ARCHIVE_DIR`: Base directory for archived runs (default: `"../exports/runs"`)
+
+To disable archiving and use the legacy output structure, set `ARCHIVE_ENABLED = False` in `config.py`.
+
+## Future Features
+
+The following enhancements are planned for future releases:
+
+- **Symlink for Latest Run**: Create a symlink to the most recent run for quick access
+- **Automated Cleanup Policy**: Auto-cleanup after N runs or after X days to manage disk space
+- **Export Formats**: Support ZIP/TAR export of runs for sharing and backup
+- **Index Search**: Add search capabilities to index by date, keywords, configuration parameters, etc.
+- **Parallel Runs**: Handle multiple simultaneous executions without conflicts

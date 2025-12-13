@@ -1,4 +1,6 @@
 venv/
+.venv
+
 docs/
 
 /.quarto/
@@ -10,3 +12,5 @@ __pycache__/
 *$py.class
 *.pyc
 *.pyo
+
+
