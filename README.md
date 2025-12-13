@@ -268,11 +268,11 @@ This makes it a central connecting concept in climate conversations on social me
 
 Planned enhancements:
 
-- **Symlink for Latest Run**: Quick access to most recent analysis
-- **Automated Cleanup Policy**: Auto-cleanup after N runs or X days
-- **Export Formats**: ZIP/TAR export for sharing and backup
-- **Index Search**: Search by date, keywords, configuration parameters
-- **Parallel Runs**: Handle multiple simultaneous executions
+- [ ] **Symlink for Latest Run**: Quick access to most recent analysis
+- [ ] **Automated Cleanup Policy**: Auto-cleanup after N runs or X days
+- [ ] **Export Formats**: ZIP/TAR export for sharing and backup
+- [ ] **Index Search**: Search by date, keywords, configuration parameters
+- [ ] **Parallel Runs**: Handle multiple simultaneous executions
 
 ## Docker Configuration
 
