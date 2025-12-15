@@ -25,7 +25,7 @@ from config import (
     OUTPUT_DIR as DEFAULT_OUTPUT_DIR,
     LOCATION_KEYWORDS as DEFAULT_LOCATION_KEYWORDS,
     MAIN_KEYWORDS,
-    OUR_KEYWORDS,
+    GROUP_KEYWORDS,
     EXTRA_KEYWORDS,
     ARCHIVE_ENABLED,
     ARCHIVE_DIR
@@ -52,7 +52,7 @@ def display_configuration():
 
     print(f"\nTOTAL UNIQUE KEYWORDS: {len(KEYWORDS)}")
     print(f"   - Main keywords: {len(MAIN_KEYWORDS)}")
-    print(f"   - Group 4 keywords: {len(OUR_KEYWORDS)}")
+    print(f"   - Group 4 keywords: {len(GROUP_KEYWORDS)}")
     print(f"   - Extra keywords: {len(EXTRA_KEYWORDS)}")
 
     print(f"\nDATE RANGE:")

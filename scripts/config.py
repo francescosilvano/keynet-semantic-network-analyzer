@@ -6,6 +6,7 @@ Shared settings between main.py (data collection) and graph.py (network analysis
 from datetime import datetime, timezone
 import os
 from pathlib import Path
+import json
 
 # Load environment variables from .env file
 try:
@@ -17,22 +18,19 @@ except ImportError:
     print("Warning: python-dotenv not installed. Environment variables must be set manually.")
 
 # --- KEYWORDS CONFIGURATION ---
+# Load keywords from settings.json
+settings_path = Path(__file__).parent / 'settings.json'
+with open(settings_path, 'r') as f:
+    keyword_settings = json.load(f)
+
 # Main keywords (shared by entire class)
-MAIN_KEYWORDS = [
-    "Energy Transition", "Greenhouse Effect", "Biodiversity", "Extreme weather events",
-    "CO2", "Emissions", "Global Warming", "Glaciers", "Renewable Energy", "Fake News"
-]
+MAIN_KEYWORDS = keyword_settings.get('MAIN_KEYWORDS', [])
 
 # Group 4 keywords (Our words)
-OUR_KEYWORDS = [
-    "Ecosystem", "Fossil Fuels", "Energy Consumption", "Normatives", "Deforestation",
-    "Flooding", "Tesla", "Green Policies", "Rain", "Electric Vehicles"
-]
+GROUP_KEYWORDS = keyword_settings.get('GROUP_KEYWORDS', [])
 
 # Extra keywords
-EXTRA_KEYWORDS = [
-    "Natural Disaster", "Clean Energy", "Net Zero", "Tesla", "Heatwaves"
-]
+EXTRA_KEYWORDS = keyword_settings.get('EXTRA_KEYWORDS', [])
 
 # Three analysis configurations
 ANALYSIS_CONFIGS = [
@@ -43,18 +41,18 @@ ANALYSIS_CONFIGS = [
     },
     {
         "name": "main_plus_our",
-        "keywords": MAIN_KEYWORDS + OUR_KEYWORDS,
+        "keywords": MAIN_KEYWORDS + GROUP_KEYWORDS,
         "description": "Main keywords + Our words"
     },
     {
         "name": "full_analysis",
-        "keywords": MAIN_KEYWORDS + OUR_KEYWORDS + EXTRA_KEYWORDS,
+        "keywords": MAIN_KEYWORDS + GROUP_KEYWORDS + EXTRA_KEYWORDS,
         "description": "Main keywords + Our words + Extras"
     }
 ]
 
 # Legacy KEYWORDS variable for backward compatibility (full set)
-KEYWORDS = MAIN_KEYWORDS + OUR_KEYWORDS + EXTRA_KEYWORDS
+KEYWORDS = MAIN_KEYWORDS + GROUP_KEYWORDS + EXTRA_KEYWORDS
 
 # --- FILE PATHS ---
 # Paths relative to the scripts directory, pointing to project root exports folder
@@ -81,7 +79,7 @@ HANDLE = os.getenv("BLUESKY_HANDLE")
 PASSWORD = os.getenv("BLUESKY_PASSWORD")
 
 # --- DATA COLLECTION FILTERS ---
-LOCATION_KEYWORDS = ["california", "quebec", "norway"]
+LOCATION_KEYWORDS = keyword_settings.get('LOCATION_KEYWORDS', [])
 
 # --- DATE RANGE ---
 DATE_START = datetime(2023, 1, 1, tzinfo=timezone.utc)
