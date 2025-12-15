@@ -1,7 +1,6 @@
 venv/
 .venv
 
-docs/
 
 /.quarto/
 **/*.quarto_ipynb
