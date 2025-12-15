@@ -1,0 +1,32 @@
+{
+  "run_id": "2025-12-15_11-42-21_decb0b73",
+  "uuid": "decb0b73-8dcb-40bc-a65c-f113b0b51a5a",
+  "timestamp_start": "2025-12-15T11:42:21.906815+00:00",
+  "timestamp_end": null,
+  "duration_seconds": null,
+  "configuration": {
+    "date_range": {
+      "start": "2023-01-01",
+      "end": "2025-11-25"
+    },
+    "location_keywords": [
+      "california",
+      "quebec",
+      "norway"
+    ],
+    "analyses_run": [
+      "main_keywords",
+      "main_plus_our",
+      "full_analysis"
+    ],
+    "total_keywords": 25,
+    "min_co_occurrences": 1
+  },
+  "results_summary": {
+    "total_posts_collected": 0,
+    "analyses": {}
+  },
+  "files_generated": [],
+  "errors": [],
+  "warnings": []
+}
