@@ -55,6 +55,67 @@ def analyze_network(keywords, input_file, output_dir, description, archive=None)
     df = pd.read_csv(input_file)
     print(f"Loaded {len(df)} posts")
 
+    # --- KEYWORD SENTIMENT AGGREGATION ---
+    sentiment_rows = []
+    for kw in keywords:
+        mask = df["text"].str.contains(kw, case=False, na=False)
+        subset = df[mask]
+
+        n_posts = len(subset)
+        counts = subset["sentiment"].value_counts()
+        n_positive = counts.get("positive", 0)
+        n_neutral = counts.get("neutral", 0)
+        n_negative = counts.get("negative", 0)
+
+        if n_posts > 0:
+            share_positive = n_positive / n_posts
+            share_neutral = n_neutral / n_posts
+            share_negative = n_negative / n_posts
+            mean_score = subset["score"].mean()
+            median_score = subset["score"].median()
+        else:
+            share_positive = 0
+            share_neutral = 0
+            share_negative = 0
+            mean_score = float("nan")
+            median_score = float("nan")
+
+        sentiment_rows.append({
+            "keyword": kw,
+            "n_posts": n_posts,
+            "n_positive": n_positive,
+            "n_neutral": n_neutral,
+            "n_negative": n_negative,
+            "share_positive": share_positive,
+            "share_neutral": share_neutral,
+            "share_negative": share_negative,
+            "mean_score": mean_score,
+            "median_score": median_score
+        })
+
+    sentiment_df = pd.DataFrame(sentiment_rows)
+    sentiment_df.to_csv(f"{output_dir}/keyword_sentiment.csv", index=False)
+    print(f"   Saved: {output_dir}/keyword_sentiment.csv")
+
+    plot_df = sentiment_df.sort_values("n_posts", ascending=False)
+    fig = plt.figure(figsize=(12, 8))
+    plt.bar(plot_df["keyword"], plot_df["share_positive"],
+            label="positive")
+    plt.bar(plot_df["keyword"], plot_df["share_neutral"],
+            bottom=plot_df["share_positive"], label="neutral")
+    plt.bar(plot_df["keyword"], plot_df["share_negative"],
+            bottom=plot_df["share_positive"] + plot_df["share_neutral"],
+            label="negative")
+    plt.ylabel("Share")
+    plt.title(f"Keyword sentiment distribution - {description}")
+    plt.xticks(rotation=45, ha='right')
+    plt.legend()
+    plt.tight_layout()
+    plt.savefig(f"{output_dir}/keyword_sentiment_stacked.png",
+                dpi=300, bbox_inches='tight')
+    plt.close(fig)
+    print(f"   Saved: {output_dir}/keyword_sentiment_stacked.png")
+
     # --- COMPUTE KEYWORD CO-OCCURRENCES ---
     print("\nAnalyzing keyword co-occurrences...")
     co_occurrence_data = []

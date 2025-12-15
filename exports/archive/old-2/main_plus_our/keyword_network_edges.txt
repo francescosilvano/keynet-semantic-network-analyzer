@@ -1,71 +1,91 @@
-Energy Transition Emissions 1
-Energy Transition Glaciers 1
-Energy Transition Energy Consumption 1
-Greenhouse Effect Biodiversity 1
-Greenhouse Effect Extreme weather events 1
-Greenhouse Effect CO2 81
-Greenhouse Effect Emissions 32
-Greenhouse Effect Global Warming 41
-Greenhouse Effect Glaciers 2
-Greenhouse Effect Renewable Energy 1
-Greenhouse Effect Ecosystem 3
-Greenhouse Effect Fossil Fuels 26
-Greenhouse Effect Flooding 6
-Greenhouse Effect Tesla 1
-Greenhouse Effect Rain 14
-Biodiversity Extreme weather events 5
-Biodiversity Global Warming 1
-Biodiversity Glaciers 1
-Biodiversity Deforestation 1
-Extreme weather events CO2 2
-Extreme weather events Emissions 15
-Extreme weather events Global Warming 23
-Extreme weather events Glaciers 2
-Extreme weather events Renewable Energy 3
-Extreme weather events Ecosystem 14
-Extreme weather events Fossil Fuels 13
-Extreme weather events Deforestation 1
-Extreme weather events Flooding 25
-Extreme weather events Rain 35
-CO2 Emissions 14
-CO2 Global Warming 4
-CO2 Glaciers 3
-CO2 Ecosystem 1
-CO2 Fossil Fuels 8
-CO2 Energy Consumption 1
-CO2 Flooding 1
-CO2 Rain 1
-Emissions Global Warming 16
-Emissions Glaciers 5
-Emissions Renewable Energy 3
-Emissions Fossil Fuels 6
-Emissions Energy Consumption 14
-Emissions Normatives 1
-Emissions Deforestation 7
-Emissions Flooding 2
-Emissions Green Policies 2
-Emissions Rain 12
-Emissions Electric Vehicles 1
-Global Warming Glaciers 9
-Global Warming Renewable Energy 1
-Global Warming Fossil Fuels 4
-Global Warming Energy Consumption 2
-Global Warming Flooding 2
-Global Warming Rain 1
-Glaciers Renewable Energy 1
-Glaciers Ecosystem 5
-Glaciers Fossil Fuels 3
-Glaciers Flooding 5
-Glaciers Rain 13
-Renewable Energy Fossil Fuels 4
-Renewable Energy Energy Consumption 7
-Renewable Energy Rain 2
-Fossil Fuels Energy Consumption 10
-Fossil Fuels Green Policies 2
-Fossil Fuels Rain 1
-Energy Consumption Tesla 1
-Energy Consumption Rain 17
-Normatives Rain 10
-Deforestation Green Policies 1
-Flooding Rain 8
-Green Policies Rain 4
+green transition CO2 2
+green transition emissions 7
+green transition renewable energy 6
+green transition ecosystem 1
+green transition fossil fuels 10
+green transition deforestation 1
+green transition rain 7
+green transition electric vehicles 1
+greenhouse effect extreme weather events 1
+greenhouse effect CO2 80
+greenhouse effect emissions 32
+greenhouse effect global warming 41
+greenhouse effect renewable energy 1
+greenhouse effect ecosystem 3
+greenhouse effect fossil fuels 25
+greenhouse effect flooding 6
+greenhouse effect tesla 1
+greenhouse effect rain 14
+loss of biodiversity extreme weather events 1
+loss of biodiversity CO2 1
+loss of biodiversity emissions 7
+loss of biodiversity global warming 2
+loss of biodiversity melting glaciers 1
+loss of biodiversity ecosystem 6
+loss of biodiversity fossil fuels 1
+loss of biodiversity deforestation 9
+loss of biodiversity rain 11
+extreme weather events CO2 2
+extreme weather events emissions 16
+extreme weather events global warming 23
+extreme weather events melting glaciers 4
+extreme weather events renewable energy 3
+extreme weather events misinformation 4
+extreme weather events ecosystem 13
+extreme weather events fossil fuels 13
+extreme weather events deforestation 2
+extreme weather events flooding 24
+extreme weather events rain 33
+CO2 emissions 15
+CO2 global warming 4
+CO2 ecosystem 1
+CO2 fossil fuels 8
+CO2 energy consumption 1
+CO2 deforestation 1
+CO2 flooding 1
+CO2 rain 1
+emissions global warming 19
+emissions melting glaciers 6
+emissions renewable energy 3
+emissions ecosystem 3
+emissions fossil fuels 9
+emissions energy consumption 13
+emissions normatives 1
+emissions deforestation 25
+emissions flooding 2
+emissions green policies 2
+emissions rain 14
+emissions electric vehicles 1
+global warming melting glaciers 24
+global warming renewable energy 1
+global warming fossil fuels 3
+global warming energy consumption 2
+global warming deforestation 2
+global warming flooding 2
+global warming rain 3
+melting glaciers renewable energy 2
+melting glaciers ecosystem 7
+melting glaciers fossil fuels 2
+melting glaciers deforestation 6
+melting glaciers flooding 11
+melting glaciers rain 25
+renewable energy fossil fuels 6
+renewable energy energy consumption 7
+renewable energy deforestation 2
+renewable energy rain 2
+misinformation energy consumption 2
+misinformation green policies 1
+ecosystem fossil fuels 1
+ecosystem deforestation 4
+ecosystem rain 4
+fossil fuels energy consumption 9
+fossil fuels deforestation 2
+fossil fuels green policies 2
+fossil fuels rain 2
+energy consumption tesla 1
+energy consumption rain 14
+normatives rain 10
+deforestation green policies 1
+deforestation rain 3
+flooding rain 14
+green policies rain 3
