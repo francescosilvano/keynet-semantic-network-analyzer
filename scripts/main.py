@@ -26,8 +26,11 @@ from config import (
     LOCATION_KEYWORDS as DEFAULT_LOCATION_KEYWORDS,
     MAIN_KEYWORDS,
     OUR_KEYWORDS,
-    EXTRA_KEYWORDS
+    EXTRA_KEYWORDS,
+    ARCHIVE_ENABLED,
+    ARCHIVE_DIR
 )
+from archive import RunArchive
 
 # Initialize mutable configuration variables
 DATE_START = DEFAULT_DATE_START
@@ -195,6 +198,24 @@ def modify_all_settings():
 if not confirm_start():
     sys.exit(0)
 
+# --- INITIALIZE ARCHIVE ---
+archive = None
+if ARCHIVE_ENABLED:
+    archive = RunArchive(ARCHIVE_DIR)
+    archive.initialize_run()
+    
+    # Store configuration in archive
+    archive.update_configuration({
+        "date_range": {
+            "start": DATE_START.strftime('%Y-%m-%d'),
+            "end": DATE_END.strftime('%Y-%m-%d')
+        },
+        "location_keywords": LOCATION_KEYWORDS,
+        "analyses_run": [cfg["name"] for cfg in ANALYSIS_CONFIGS],
+        "total_keywords": len(KEYWORDS),
+        "min_co_occurrences": 1
+    })
+
 # --- LOGIN ---
 print("\nConnecting to Bluesky...")
 client = Client()
@@ -309,6 +330,10 @@ print("Now filtering and saving for each analysis...")
 print("="*80)
 
 if records:
+    # Update archive with total posts
+    if archive:
+        archive.set_total_posts(len(records))
+    
     # Convert to DataFrame for efficient filtering
     df_all = pd.DataFrame(records)
 
@@ -317,9 +342,13 @@ if records:
         config_keywords = analysis_config["keywords"]
         description = analysis_config["description"]
 
-        # Create subfolder for this analysis
-        analysis_output_dir = f"{OUTPUT_DIR}/{config_name}"
-        os.makedirs(analysis_output_dir, exist_ok=True)
+        # Create subfolder for this analysis (use archive if enabled)
+        if archive:
+            analysis_output_dir = archive.get_analysis_dir(config_name)
+        else:
+            analysis_output_dir = f"{OUTPUT_DIR}/{config_name}"
+            os.makedirs(analysis_output_dir, exist_ok=True)
+        
         output_file = f"{analysis_output_dir}/bluesky_posts_complex.csv"
 
         print("\n" + "="*80)
@@ -339,6 +368,9 @@ if records:
         if len(df) > 0:
             df.to_csv(output_file, index=False)
             print(f"Saved {len(df)} posts in '{output_file}'")
+            
+            if archive:
+                archive.add_file(f"{config_name}/bluesky_posts_complex.csv")
 
             # --- Sentiment chart ---
             sentiment_counts = df["sentiment"].value_counts()
@@ -354,6 +386,9 @@ if records:
             plt.savefig(sentiment_file, dpi=300, bbox_inches='tight')
             plt.close(fig)
             print(f"Saved sentiment chart in '{sentiment_file}'")
+            
+            if archive:
+                archive.add_file(f"{config_name}/sentiment_distribution.png")
 
             # --- Co-occurrence analysis ---
             print(f"\nCalculating co-occurrences for {len(config_keywords)} keywords...")
@@ -369,13 +404,30 @@ if records:
                 new_df["w2"].append(kws[1])
                 new_df["n"].append(all_ks.sum())
 
-            pd.DataFrame(new_df).to_excel(f"{analysis_output_dir}/grafo.xlsx")
-            print(f"Saved co-occurrence matrix in '{analysis_output_dir}/grafo.xlsx'")
+            grafo_file = f"{analysis_output_dir}/grafo.xlsx"
+            pd.DataFrame(new_df).to_excel(grafo_file)
+            print(f"Saved co-occurrence matrix in '{grafo_file}'")
+            
+            if archive:
+                archive.add_file(f"{config_name}/grafo.xlsx")
+                # Store analysis summary
+                archive.update_results_summary(config_name, {
+                    "posts_count": len(df),
+                    "keywords_count": len(config_keywords)
+                })
         else:
             print(f"WARNING: No posts found for {description}.")
+            if archive:
+                archive.add_warning(f"No posts found for {description}")
 
 else:
     print("\nWARNING: No posts found with the specified criteria.")
+    if archive:
+        archive.add_warning("No posts found with the specified criteria")
+
+# --- FINALIZE ARCHIVE ---
+if archive:
+    archive.finalize_run()
 
 print("\n" + "="*80)
 print("ALL ANALYSES COMPLETE!")

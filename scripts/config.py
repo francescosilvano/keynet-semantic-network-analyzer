@@ -61,6 +61,17 @@ KEYWORDS = MAIN_KEYWORDS + OUR_KEYWORDS + EXTRA_KEYWORDS
 INPUT_FILE = "../exports/bluesky_posts_complex.csv"
 OUTPUT_DIR = "../exports"
 
+# --- ARCHIVE SETTINGS ---
+# Enable/disable archiving functionality
+ARCHIVE_ENABLED = True
+
+# Base directory for archived runs (UUID-based folders)
+ARCHIVE_DIR = "../exports/runs"
+
+# Current run configuration (initialized at runtime by archive module)
+CURRENT_RUN_UUID = None
+CURRENT_RUN_DIR = None
+
 # --- GRAPH ANALYSIS SETTINGS ---
 MIN_CO_OCCURRENCES = 1  # Minimum co-occurrences to create an edge in the network
 

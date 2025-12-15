@@ -1,0 +1,600 @@
+---
+title: "Climate Keywords Co-occurrence Network Analysis"
+subtitle: "Bluesky Social Media Study"
+author: "Group 4 - Complex Systems"
+date: "December 15, 2025"
+format:
+  revealjs:
+    theme: dark
+    transition: slide
+    slide-number: true
+    chalkboard: true
+    code-fold: true
+    highlight-style: github
+    scrollable: true
+---
+
+## Introduction {.smaller}
+
+This study offers a detailed view of how **climate-related and energy-related concepts** are discussed on Bluesky.
+
+**Research Approach**:
+
+- Collected posts including 25 selected keywords (shared + group-specific)
+- Analyzed how terms co-occur in the same posts
+- Constructed weighted networks reflecting online conversation structure
+
+**Key Insight**: Each keyword represents a **node**, while **edges** describe co-occurrence frequency in posts.
+
+---
+
+**Period**: January 1, 2023 - November 25, 2025  
+**Locations**: California, Quebec, Norway  
+**Total Posts**: 4,957
+
+## Keywords Configuration {.smaller}
+
+:::: {.columns}
+
+::: {.column width="48%"}
+**Main Keywords** (Shared)
+
+- Energy Transition
+- Greenhouse Effect
+- Biodiversity
+- Extreme weather events
+- CO₂
+- Emissions
+- Global Warming
+- Glaciers
+- Renewable Energy
+- Fake News
+:::
+
+::: {.column width="48%"}
+**Our Keywords** (Group 4)
+
+- Ecosystem
+- Fossil Fuels
+- Energy Consumption
+- Normatives
+- Deforestation
+- Flooding
+- Heatwaves
+- Green Policies
+- Rain
+- Electric Vehicles
+:::
+
+::::
+
+**Extras**: Natural Disaster, Clean Energy, Net Zero, Tesla, AI
+
+**Total**: 25 keywords analyzed (24 connected + 1 isolated)
+
+## Three-Tier Analysis Strategy {.smaller}
+
+We performed **three levels of analysis** to understand how keyword selection affects network structure:
+
+| Analysis | Keywords | Nodes | Edges | Communities | Modularity |
+|----------|----------|-------|-------|-------------|------------|
+| Main Keywords | 10 | 10 | 24 | 4 | 0.118 |
+| Main + Group 4 | 20 | 20 | 70 | 4 | 0.212 |
+| **Full Analysis** | **25** | **24** | **106** | **5** | **0.227** |
+
+**Key Observation**: 
+
+- Adding group-specific keywords **increased modularity** from 0.118 → 0.227
+- Revealed **more nuanced community structure**
+- Full analysis provides the most complete picture
+
+*Focus: Full analysis with 24 connected keywords*
+
+## General Analysis {.smaller}
+
+The analysis clearly shows that **climate discourse is highly interconnected**.
+
+**Network Characteristics**:
+
+- Keywords frequently appear together in the same posts
+- The discourse integrates **multiple dimensions**: weather impacts, scientific explanations, and policy measures
+- No isolated subtopics — forms a **unified structure**
+
+**Structure**:
+
+- High graph density combined with elevated clustering coefficients
+- Most terms are closely connected
+- Cohesive network where themes are regularly integrated
+
+**Sentiment Pattern**:
+
+- Majority of posts express **neutral tone** (informative/factual)
+- Positive sentiment: clean energy, technological progress
+- Negative sentiment: environmental threats, extreme weather
+
+## Global Network Metrics {.smaller}
+
+**Full Analysis** (24 keywords, 106 edges, 2 connected components)
+
+| Metric | Value | Interpretation |
+|--------|-------|----------------|
+| **Average Degree** | 8.83 | Each keyword connects to ~9 others |
+| **Average Strength** | 72.67 | Mean sum of co-occurrence weights |
+| **Graph Density** | 0.384 | 38.4% of possible connections exist |
+| **Global Clustering** | 0.645 | Strong tendency to form groups |
+| **Diameter** | 3 | Max 3 steps between keywords |
+| **Avg Path Length** | 1.61 | Keywords are very close to each other |
+
+**Interpretation**: 
+
+The high density and clustering reveal a cohesive network where concepts tend to appear in **recurring groups**. The overall conversation is **not separated** into isolated subtopics.
+
+## Community Detection {.smaller}
+
+**Algorithm**: Louvain Method  
+**Modularity**: 0.227  
+**Communities Identified**: 5 distinct thematic groups
+
+The communities show clear thematic separation between:
+
+- Scientific concepts (climate science fundamentals)
+- Policy actions (mitigation strategies)
+- Weather impacts (extreme events)
+- Energy systems (consumption and technology)
+- Misinformation (isolated)
+
+**Finding**: Users naturally organize climate discussions into **related conceptual domains**.
+
+## Community 1: Policy & Mitigation {.smaller}
+
+**Size**: 9 keywords (largest community)
+
+**Members**:
+
+- Emissions
+- Heatwaves
+- Net Zero
+- Biodiversity
+- Clean Energy
+- Green Policies
+- Deforestation
+- Energy Transition
+- Electric Vehicles
+
+**Theme**: This community focuses on **policy responses** and **mitigation strategies** for climate change, including emissions reduction targets, clean energy adoption, and environmental protection.
+
+## Community 2: Weather & Impacts {.smaller}
+
+**Size**: 7 keywords
+
+**Members**:
+
+- Extreme weather events
+- Rain
+- Glaciers
+- Natural Disaster
+- Flooding
+- Ecosystem
+- Normatives
+
+**Theme**: This group centers on **physical manifestations** of climate change and their impacts on natural systems, including extreme weather patterns and environmental disasters.
+
+## Community 3: Climate Science {.smaller}
+
+**Size**: 4 keywords
+
+**Members**:
+
+- Greenhouse Effect
+- Global Warming
+- CO₂
+- Fossil Fuels
+
+**Theme**: This community represents **fundamental climate science concepts**, focusing on the scientific explanations of climate change, greenhouse gases, and their sources.
+
+**Notable**: Strong internal connections, especially Greenhouse Effect-CO₂ (co-occur frequently).
+
+## Community 4: Energy Systems {.smaller}
+
+**Size**: 3 keywords
+
+**Members**:
+
+- Energy Consumption
+- Renewable Energy
+- Tesla
+
+**Theme**: This cluster focuses on **energy systems and technology**, particularly the transition from fossil fuels to sustainable energy sources and electric vehicle technology.
+
+## Community 5: Isolated Node {.smaller}
+
+**Member**: Fake News (0 connections)
+
+**Observation**: 
+
+- **Zero co-occurrences** with other climate keywords
+- Suggests misinformation discourse **occurs separately** from substantive climate discussion
+- Potential indicator of **echo chambers**
+
+**Implication**: 
+
+Climate misinformation may circulate in isolated information spaces, rarely intersecting with fact-based environmental discourse on Bluesky.
+
+## Degree Distribution Analysis {.smaller}
+
+```{python}
+#| echo: false
+#| fig-width: 10
+#| fig-height: 4.5
+
+import pandas as pd
+import matplotlib.pyplot as plt
+
+# Load node metrics
+node_data = pd.read_csv('../exports/runs/2025-12-13_10-52-01_868fa108/full_analysis/node_metrics.csv')
+
+# Top 10 by degree
+top_degree = node_data.nlargest(10, 'degree')
+
+fig, ax = plt.subplots(figsize=(10, 4.5))
+ax.barh(top_degree['keyword'], top_degree['degree'], color='steelblue')
+ax.set_xlabel('Degree (Number of Connections)', fontsize=11)
+ax.set_title('Top 10 Keywords by Degree', fontsize=13, fontweight='bold')
+ax.invert_yaxis()
+plt.tight_layout()
+plt.show()
+```
+
+**Most Connected**: Emissions (20), Extreme weather events (16), Greenhouse Effect (15)
+
+**Interpretation**: These keywords serve as **major hubs**, connecting multiple thematic areas.
+
+## Strength Distribution Analysis {.smaller}
+
+```{python}
+#| echo: false
+#| fig-width: 10
+#| fig-height: 4.5
+
+# Top 10 by strength (weighted connections)
+top_strength = node_data.nlargest(10, 'strength')
+
+fig, ax = plt.subplots(figsize=(10, 4.5))
+ax.barh(top_strength['keyword'], top_strength['strength'], color='coral')
+ax.set_xlabel('Strength (Sum of Co-occurrence Weights)', fontsize=11)
+ax.set_title('Top 10 Keywords by Strength', fontsize=13, fontweight='bold')
+ax.invert_yaxis()
+plt.tight_layout()
+plt.show()
+```
+
+**Strongest Connections**: Heatwaves (258), Greenhouse Effect (215), Emissions (202)
+
+**Interpretation**: These keywords appear **most frequently** with other terms, indicating high engagement in climate discourse.
+
+## Centrality Measures {.smaller}
+
+```{python}
+#| echo: false
+#| fig-width: 12
+#| fig-height: 4.5
+
+fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(12, 4.5))
+
+# Betweenness centrality
+top_between = node_data.nlargest(8, 'betweenness')
+ax1.barh(top_between['keyword'], top_between['betweenness'], color='mediumseagreen')
+ax1.set_xlabel('Betweenness Centrality', fontsize=10)
+ax1.set_title('Bridge Keywords\n(Betweenness Centrality)', fontsize=11, fontweight='bold')
+ax1.invert_yaxis()
+
+# Closeness centrality
+top_close = node_data.nlargest(8, 'closeness')
+ax2.barh(top_close['keyword'], top_close['closeness'], color='mediumpurple')
+ax2.set_xlabel('Closeness Centrality', fontsize=10)
+ax2.set_title('Central Keywords\n(Closeness Centrality)', fontsize=11, fontweight='bold')
+ax2.invert_yaxis()
+
+plt.tight_layout()
+plt.show()
+```
+
+## Betweenness Centrality: Bridge Keywords {.smaller}
+
+Keywords with high betweenness act as **conceptual bridges**, linking different thematic areas:
+
+| Rank | Keyword | Betweenness | Role |
+|------|---------|-------------|------|
+| 1 | Emissions | 0.187 | Bridges policy, science, and impacts |
+| 2 | Natural Disaster | 0.112 | Connects weather events to broader impacts |
+| 3 | CO₂ | 0.104 | Links scientific and policy discussions |
+| 4 | Glaciers | 0.103 | Bridges climate science and visible impacts |
+| 5 | Energy Consumption | 0.091 | Connects energy systems to emissions |
+
+**Interpretation**: These keywords serve as **conceptual connectors** in climate discourse, facilitating integration across domains.
+
+## Closeness Centrality: Core Concepts {.smaller}
+
+Keywords with high closeness are **centrally positioned**, close to all other concepts:
+
+| Rank | Keyword | Closeness | Meaning |
+|------|---------|-----------|---------|
+| 1 | Natural Disaster | 0.440 | Core concept, highly accessible |
+| 2 | Extreme weather events | 0.431 | Central to climate impacts |
+| 3 | Greenhouse Effect | 0.431 | Fundamental scientific concept |
+| 4 | CO₂ | 0.431 | Key climate indicator |
+| 5 | Global Warming | 0.423 | Central term in discourse |
+| 6 | Energy Consumption | 0.423 | Links energy to climate |
+
+**Interpretation**: These are the **heart of climate discourse**, representing core concepts positioned at the center of the discussion network.
+
+## Clustering Coefficient Analysis {.smaller}
+
+```{python}
+#| echo: false
+#| fig-width: 10
+#| fig-height: 4.5
+
+# Filter out nodes with no connections
+clustered = node_data[node_data['degree'] > 0].nlargest(10, 'clustering')
+
+fig, ax = plt.subplots(figsize=(10, 4.5))
+ax.barh(clustered['keyword'], clustered['clustering'], color='gold')
+ax.set_xlabel('Clustering Coefficient', fontsize=11)
+ax.set_title('Top 10 Keywords by Clustering Coefficient', fontsize=13, fontweight='bold')
+ax.set_xlim(0, 1)
+ax.invert_yaxis()
+plt.tight_layout()
+plt.show()
+```
+
+**High Clustering**: Indicates keywords whose **neighbors are also connected**, forming tight thematic groups.
+
+**Interpretation**: These keywords appear in **cohesive subgroups** where related concepts frequently co-occur together.
+
+## Network Comparison Across Three Analyses {.smaller}
+
+```{python}
+#| echo: false
+#| fig-width: 10
+#| fig-height: 6
+
+analyses = ['Main\nKeywords', 'Main +\nGroup 4', 'Full\nAnalysis']
+nodes = [10, 20, 24]
+edges = [24, 70, 106]
+communities = [4, 4, 5]
+modularity = [0.1182, 0.2116, 0.227]
+
+fig, ((ax1, ax2), (ax3, ax4)) = plt.subplots(2, 2, figsize=(10, 6.5))
+
+ax1.bar(analyses, nodes, color='steelblue', alpha=0.8)
+ax1.set_ylabel('Count', fontsize=10)
+ax1.set_title('Number of Nodes', fontweight='bold', fontsize=11)
+ax1.grid(axis='y', alpha=0.3)
+
+ax2.bar(analyses, edges, color='coral', alpha=0.8)
+ax2.set_ylabel('Count', fontsize=10)
+ax2.set_title('Number of Edges', fontweight='bold', fontsize=11)
+ax2.grid(axis='y', alpha=0.3)
+
+ax3.bar(analyses, communities, color='mediumseagreen', alpha=0.8)
+ax3.set_ylabel('Count', fontsize=10)
+ax3.set_title('Number of Communities', fontweight='bold', fontsize=11)
+ax3.grid(axis='y', alpha=0.3)
+
+ax4.bar(analyses, modularity, color='mediumpurple', alpha=0.8)
+ax4.set_ylabel('Modularity', fontsize=10)
+ax4.set_title('Network Modularity', fontweight='bold', fontsize=11)
+ax4.set_ylim(0, 0.3)
+ax4.grid(axis='y', alpha=0.3)
+
+plt.tight_layout()
+plt.show()
+```
+
+**Observation**: Progressive increase in complexity and structure with more keywords.
+
+## Key Findings (1/3) {.smaller}
+
+### 1. Highly Interconnected Discourse
+
+- **38.4% density**: Extensive keyword co-occurrence
+- **Average path length 1.61**: Concepts are tightly linked
+- **Global clustering 0.645**: Keywords form cohesive groups
+
+The conversation is **not fragmented** — it forms a unified structure where various themes are regularly integrated.
+
+### 2. Five Distinct Thematic Communities
+
+1. **Policy & Mitigation** (9 keywords) - Emissions, Net Zero, Green Policies
+2. **Weather & Impacts** (7 keywords) - Extreme events, Rain, Flooding
+3. **Climate Science** (4 keywords) - Greenhouse Effect, CO₂, Global Warming
+4. **Energy Systems** (3 keywords) - Renewable Energy, Consumption, Tesla
+5. **Misinformation** (1 keyword) - Fake News (isolated)
+
+## Key Findings (2/3) {.smaller}
+
+### 3. Central Concepts Bridge Multiple Domains
+
+**"Emissions"** acts as the primary bridge:
+
+- Highest betweenness centrality (0.187)
+- Connects policy discussions to scientific explanations and impacts
+- 20 connections to other keywords
+
+**"Natural Disaster"** and **"Extreme weather events"** are most central:
+
+- Highest closeness centrality values
+- Core concepts in climate impact discussions
+
+### 4. Group 4 Keywords Reveal Structure
+
+- Adding specific keywords **increased modularity** (0.118 → 0.227)
+- Revealed more **nuanced community structure**
+- Keywords like Ecosystem, Flooding bridge multiple themes
+
+## Key Findings (3/3) {.smaller}
+
+### 5. "Fake News" Remains Isolated
+
+- **Zero connections** to other climate keywords
+- Misinformation discourse occurs **separately** from substantive discussion
+- Potential indicator of **echo chambers**
+
+### 6. Strong Local Clustering
+
+- **Global clustering coefficient: 0.645**
+- Keywords form **tight conceptual clusters**
+- Indicates coherent thematic groupings
+
+### 7. Uneven Attention Distribution
+
+- Few keywords dominate (Heatwaves: 258 strength)
+- Most keywords have moderate influence
+- Reflects **uneven attention** in climate discussions
+
+## Implications for Climate Communication {.smaller}
+
+### Multi-faceted Discourse
+
+Climate discussion **integrates** multiple dimensions:
+
+- Scientific explanations (Greenhouse Effect, CO₂)
+- Policy responses (Net Zero, Green Policies)
+- Physical impacts (Flooding, Heatwaves)
+- Energy solutions (Renewable Energy, Electric Vehicles)
+
+### Strategic Communication Points
+
+**Bridge concepts** as focal points:
+
+- **"Emissions"** and **"Natural Disaster"** could serve as entry points
+- Connect different audience segments interested in science, policy, or impacts
+- Facilitate **integrated messaging** across domains
+
+### Misinformation Challenge
+
+- Isolated "Fake News" suggests **targeted interventions needed**
+- Connect fact-checking with substantive discourse
+- Address echo chamber effects
+
+## Implications for Research {.smaller}
+
+### Immediate Opportunities
+
+1. **Temporal Analysis**  
+   - How do co-occurrence patterns change over time?
+   - Track emerging themes and fading topics
+
+2. **Sentiment by Community**  
+   - Do different communities show different emotional tones?
+   - Policy discussions vs. weather impact discussions
+
+3. **Geographic Variation**  
+   - Compare California, Quebec, Norway separately
+   - Regional discourse differences
+
+4. **Network Evolution**  
+   - How does adding new keywords affect structure?
+   - Sensitivity analysis of keyword selection
+
+## Study Limitations {.smaller}
+
+### Platform and Context
+
+1. **Bluesky-Specific**: Results reflect this platform's user demographics and discourse norms
+2. **Location Bias**: California, Quebec, Norway keywords may introduce geographic skew
+3. **Language**: English-only analysis limits global perspective
+4. **Time Period**: Jan 2023 - Nov 2025 may miss earlier/later trends
+
+### Methodological Considerations
+
+5. **Keyword Selection**: 25 keywords may not capture full discourse complexity
+6. **Co-occurrence ≠ Causation**: Network shows **association**, not causal relationships
+7. **Threshold Effects**: Minimum co-occurrence = 1 includes weak connections
+8. **Community Detection**: Algorithm-dependent results (Louvain method)
+
+## Methodology & Tools {.smaller}
+
+### Data Collection
+
+- **Platform**: Bluesky API
+- **Date Range**: January 1, 2023 - November 25, 2025
+- **Locations**: California, Quebec, Norway
+- **Total Posts**: 4,957
+- **Analysis Duration**: ~13 minutes
+
+### Network Analysis
+
+- **Construction**: NetworkX (Python)
+- **Community Detection**: Louvain Algorithm (modularity optimization)
+- **Threshold**: Minimum co-occurrence = 1
+- **Metrics**: Degree, Strength, Betweenness, Closeness, Clustering
+
+### Reproducibility
+
+- **Analysis ID**: `2025-12-13_10-52-01_868fa108`
+- **Repository**: github.com/francescosilvano/keyword-network-analysis
+- **Exports**: CSV, GraphML formats
+
+## Future Research Directions {.smaller}
+
+### Next Steps
+
+1. **Network Visualizations**  
+   Generate layouts with community colors for better interpretation
+
+2. **Temporal Analysis**  
+   Split data into quarters to track evolution
+
+3. **Sentiment by Community**  
+   Calculate emotional tone for each thematic cluster
+
+4. **Interactive Exploration**  
+   Export to Gephi for dynamic visualization
+
+### Extended Research
+
+5. **Multi-Platform Analysis**: Expand to Twitter/X, Reddit, Mastodon
+6. **Multilingual Study**: Include non-English keywords
+7. **Policy-Specific Terms**: Paris Agreement, COP28, NDCs
+8. **User Networks**: Who discusses which keywords?
+9. **Topic Modeling**: Identify emergent themes beyond keywords
+
+## Conclusion {.smaller}
+
+### Summary of Main Findings
+
+This network analysis reveals the **structure of climate discourse** on Bluesky:
+
+✅ **Highly interconnected network** (38.4% density) with strong clustering
+
+✅ **Five thematic communities**: Policy, Impacts, Science, Energy, Misinformation
+
+✅ **Bridge keywords** (Emissions, Natural Disaster) connect multiple domains
+
+✅ **Core concepts** (Greenhouse Effect, CO₂) centrally positioned
+
+✅ **Fake News isolation** indicates separate misinformation discourse
+
+✅ **Group-specific keywords** revealed nuanced community structure (modularity 0.227)
+
+### Value of Network Analysis
+
+Network analysis provides **valuable insights** into how climate topics are **discussed, connected, and organized** in social media discourse.
+
+## Thank You {.center}
+
+### Questions?
+
+<br>
+
+**Team**: Group 4 - Complex Systems
+
+**Repository**: [github.com/francescosilvano/keyword-network-analysis](https://github.com/francescosilvano/keyword-network-analysis)
+
+**Dataset**: 4,957 Bluesky posts (2023-2025)
+
+**Analysis**: Full network with 25 keywords, 5 communities
+
+**Contact**: [Add your contact information]

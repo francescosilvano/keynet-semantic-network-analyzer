@@ -1,0 +1,85 @@
+{
+  "run_id": "2025-12-13_10-52-01_868fa108",
+  "uuid": "868fa108-a924-4d4f-b6a9-4dd0de33f1e5",
+  "timestamp_start": "2025-12-13T10:52:01.310298+00:00",
+  "timestamp_end": "2025-12-13T11:05:04.578429+00:00",
+  "duration_seconds": 783.27,
+  "configuration": {
+    "date_range": {
+      "start": "2023-01-01",
+      "end": "2025-11-25"
+    },
+    "location_keywords": [
+      "california",
+      "quebec",
+      "norway"
+    ],
+    "analyses_run": [
+      "main_keywords",
+      "main_plus_our",
+      "full_analysis"
+    ],
+    "total_keywords": 25,
+    "min_co_occurrences": 1
+  },
+  "results_summary": {
+    "total_posts_collected": 4957,
+    "analyses": {
+      "main_keywords": {
+        "nodes": 10,
+        "edges": 24,
+        "communities": 4,
+        "modularity": 0.1182
+      },
+      "main_plus_our": {
+        "nodes": 20,
+        "edges": 70,
+        "communities": 4,
+        "modularity": 0.2116
+      },
+      "full_analysis": {
+        "nodes": 24,
+        "edges": 106,
+        "communities": 5,
+        "modularity": 0.227
+      }
+    }
+  },
+  "files_generated": [
+    "main_keywords/bluesky_posts_complex.csv",
+    "main_keywords/sentiment_distribution.png",
+    "main_keywords/grafo.xlsx",
+    "main_plus_our/bluesky_posts_complex.csv",
+    "main_plus_our/sentiment_distribution.png",
+    "main_plus_our/grafo.xlsx",
+    "full_analysis/bluesky_posts_complex.csv",
+    "full_analysis/sentiment_distribution.png",
+    "full_analysis/grafo.xlsx",
+    "main_keywords/keyword_network.png",
+    "main_keywords/keyword_network_circular.png",
+    "main_keywords/network_metrics.png",
+    "main_keywords/keyword_network_edges.txt",
+    "main_keywords/keyword_network.graphml",
+    "main_keywords/node_metrics.csv",
+    "main_keywords/community_assignments.csv",
+    "main_keywords/global_metrics.csv",
+    "main_plus_our/keyword_network.png",
+    "main_plus_our/keyword_network_circular.png",
+    "main_plus_our/network_metrics.png",
+    "main_plus_our/keyword_network_edges.txt",
+    "main_plus_our/keyword_network.graphml",
+    "main_plus_our/node_metrics.csv",
+    "main_plus_our/community_assignments.csv",
+    "main_plus_our/global_metrics.csv",
+    "full_analysis/keyword_network.png",
+    "full_analysis/keyword_network_circular.png",
+    "full_analysis/network_metrics.png",
+    "full_analysis/keyword_network_edges.txt",
+    "full_analysis/keyword_network.graphml",
+    "full_analysis/node_metrics.csv",
+    "full_analysis/community_assignments.csv",
+    "full_analysis/global_metrics.csv"
+  ],
+  "errors": [],
+  "warnings": []
+}

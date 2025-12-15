@@ -12,11 +12,14 @@ from networkx.algorithms import community
 from config import (
     ANALYSIS_CONFIGS,
     MIN_CO_OCCURRENCES,
-    OUTPUT_DIR
+    OUTPUT_DIR,
+    ARCHIVE_ENABLED,
+    ARCHIVE_DIR
 )
+from archive import RunArchive, get_latest_run
 
 
-def analyze_network(keywords, input_file, output_dir, description):
+def analyze_network(keywords, input_file, output_dir, description, archive=None):
     """
     Run complete network analysis for a given keyword set
 
@@ -30,6 +33,8 @@ def analyze_network(keywords, input_file, output_dir, description):
         Directory to save outputs
     description : str
         Description of this analysis (for titles/labels)
+    archive : RunArchive, optional
+        Archive object for tracking files
     """
 
     # Create output directory
@@ -306,9 +311,14 @@ def analyze_network(keywords, input_file, output_dir, description):
               fontsize=16, fontweight='bold', pad=20)
     plt.axis('off')
     plt.tight_layout()
-    plt.savefig(f'{output_dir}/keyword_network.png', dpi=300, bbox_inches='tight')
+    network_file = f'{output_dir}/keyword_network.png'
+    plt.savefig(network_file, dpi=300, bbox_inches='tight')
     plt.close()
-    print(f"   Saved: {output_dir}/keyword_network.png")
+    print(f"   Saved: {network_file}")
+    if archive:
+        # Get relative path from run directory
+        rel_path = os.path.basename(output_dir) + "/keyword_network.png"
+        archive.add_file(rel_path)
 
     # Figure 2: Circular layout
     plt.figure(figsize=(14, 14))
@@ -335,9 +345,13 @@ def analyze_network(keywords, input_file, output_dir, description):
               fontsize=16, fontweight='bold', pad=20)
     plt.axis('off')
     plt.tight_layout()
-    plt.savefig(f'{output_dir}/keyword_network_circular.png', dpi=300, bbox_inches='tight')
+    circular_file = f'{output_dir}/keyword_network_circular.png'
+    plt.savefig(circular_file, dpi=300, bbox_inches='tight')
     plt.close()
-    print(f"   Saved: {output_dir}/keyword_network_circular.png")
+    print(f"   Saved: {circular_file}")
+    if archive:
+        rel_path = os.path.basename(output_dir) + "/keyword_network_circular.png"
+        archive.add_file(rel_path)
 
     # Figure 3: Degree distribution
     plt.figure(figsize=(12, 8))
@@ -381,18 +395,30 @@ def analyze_network(keywords, input_file, output_dir, description):
 
     plt.suptitle(f'Network Metrics - {description}', fontsize=14, fontweight='bold')
     plt.tight_layout()
-    plt.savefig(f'{output_dir}/network_metrics.png', dpi=300, bbox_inches='tight')
+    metrics_file = f'{output_dir}/network_metrics.png'
+    plt.savefig(metrics_file, dpi=300, bbox_inches='tight')
     plt.close()
-    print(f"   Saved: {output_dir}/network_metrics.png")
+    print(f"   Saved: {metrics_file}")
+    if archive:
+        rel_path = os.path.basename(output_dir) + "/network_metrics.png"
+        archive.add_file(rel_path)
 
     # --- SAVE GRAPH DATA ---
     # Save edge list with weights
-    nx.write_weighted_edgelist(G, f"{output_dir}/keyword_network_edges.txt")
-    print(f"   Saved: {output_dir}/keyword_network_edges.txt")
+    edges_file = f"{output_dir}/keyword_network_edges.txt"
+    nx.write_weighted_edgelist(G, edges_file)
+    print(f"   Saved: {edges_file}")
+    if archive:
+        rel_path = os.path.basename(output_dir) + "/keyword_network_edges.txt"
+        archive.add_file(rel_path)
 
     # Save graph in GraphML format (for other tools like Gephi)
-    nx.write_graphml(G, f"{output_dir}/keyword_network.graphml")
-    print(f"   Saved: {output_dir}/keyword_network.graphml")
+    graphml_file = f"{output_dir}/keyword_network.graphml"
+    nx.write_graphml(G, graphml_file)
+    print(f"   Saved: {graphml_file}")
+    if archive:
+        rel_path = os.path.basename(output_dir) + "/keyword_network.graphml"
+        archive.add_file(rel_path)
 
     # Save all metrics to CSV
     print("\nSaving metrics to CSV files...")
@@ -416,8 +442,12 @@ def analyze_network(keywords, input_file, output_dir, description):
         metrics_df['community'] = [node_to_community.get(k, 0) for k in degrees.keys()]
 
     metrics_df = metrics_df.sort_values('degree', ascending=False)
-    metrics_df.to_csv(f'{output_dir}/node_metrics.csv', index=False)
-    print(f"   Saved: {output_dir}/node_metrics.csv")
+    node_metrics_file = f'{output_dir}/node_metrics.csv'
+    metrics_df.to_csv(node_metrics_file, index=False)
+    print(f"   Saved: {node_metrics_file}")
+    if archive:
+        rel_path = os.path.basename(output_dir) + "/node_metrics.csv"
+        archive.add_file(rel_path)
 
     # Community assignments
     if communities:
@@ -429,8 +459,12 @@ def analyze_network(keywords, input_file, output_dir, description):
                     'community': i
                 })
         community_df = pd.DataFrame(community_data).sort_values(['community', 'keyword'])
-        community_df.to_csv(f'{output_dir}/community_assignments.csv', index=False)
-        print(f"   Saved: {output_dir}/community_assignments.csv")
+        community_file = f'{output_dir}/community_assignments.csv'
+        community_df.to_csv(community_file, index=False)
+        print(f"   Saved: {community_file}")
+        if archive:
+            rel_path = os.path.basename(output_dir) + "/community_assignments.csv"
+            archive.add_file(rel_path)
     else:
         print("   No communities to save")
 
@@ -466,8 +500,21 @@ def analyze_network(keywords, input_file, output_dir, description):
         ]
     }
     global_df = pd.DataFrame(global_metrics)
-    global_df.to_csv(f'{output_dir}/global_metrics.csv', index=False)
-    print(f"   Saved: {output_dir}/global_metrics.csv")
+    global_file = f'{output_dir}/global_metrics.csv'
+    global_df.to_csv(global_file, index=False)
+    print(f"   Saved: {global_file}")
+    if archive:
+        rel_path = os.path.basename(output_dir) + "/global_metrics.csv"
+        archive.add_file(rel_path)
+        
+        # Update archive with network metrics summary
+        analysis_name = os.path.basename(output_dir)
+        archive.update_results_summary(analysis_name, {
+            "nodes": G.number_of_nodes(),
+            "edges": G.number_of_edges(),
+            "communities": len(communities) if communities else 0,
+            "modularity": round(modularity_score, 4)
+        })
 
     # --- SUMMARY STATISTICS ---
     print("\n" + "="*80)
@@ -512,17 +559,71 @@ if __name__ == "__main__":
     print("STARTING NETWORK ANALYSIS FOR ALL CONFIGURATIONS")
     print("="*80)
 
+    # Initialize archive if enabled
+    archive = None
+    run_base_dir = None
+    
+    if ARCHIVE_ENABLED:
+        # Get the latest run directory
+        latest_run = get_latest_run(ARCHIVE_DIR)
+        if latest_run:
+            from pathlib import Path
+            import json
+            
+            run_base_dir = f"{ARCHIVE_DIR}/{latest_run['run_id']}"
+            archive = RunArchive(ARCHIVE_DIR)
+            archive.run_id = latest_run['run_id']
+            archive.run_dir = Path(run_base_dir)
+            archive.base_archive_dir = Path(ARCHIVE_DIR)
+            archive.start_time = None  # Not initializing a new run, just updating existing one
+            
+            # Load existing manifest
+            manifest_path = archive.run_dir / "manifest.json"
+            if manifest_path.exists():
+                with open(manifest_path, 'r', encoding='utf-8') as f:
+                    archive.manifest = json.load(f)
+            else:
+                # Initialize empty manifest if it doesn't exist
+                archive.manifest = {
+                    "run_id": archive.run_id,
+                    "uuid": latest_run.get('uuid', ''),
+                    "timestamp_start": latest_run.get('timestamp', ''),
+                    "timestamp_end": None,
+                    "duration_seconds": None,
+                    "configuration": {},
+                    "results_summary": {"total_posts_collected": 0, "analyses": {}},
+                    "files_generated": [],
+                    "errors": [],
+                    "warnings": []
+                }
+            
+            print(f"\nUsing archive from run: {latest_run['run_id']}")
+            print(f"Directory: {run_base_dir}\n")
+        else:
+            print("\nWARNING: No archived runs found. Using default output directory.")
+            run_base_dir = OUTPUT_DIR
+    else:
+        run_base_dir = OUTPUT_DIR
+
     for config_idx, analysis_config in enumerate(ANALYSIS_CONFIGS, 1):
         config_name = analysis_config["name"]
         kw_list = analysis_config["keywords"]
         desc = analysis_config["description"]
 
-        # Define paths
-        inp_file = f"{OUTPUT_DIR}/{config_name}/bluesky_posts_complex.csv"
-        out_dir = f"{OUTPUT_DIR}/{config_name}"
+        # Define paths (use archive directory if available)
+        inp_file = f"{run_base_dir}/{config_name}/bluesky_posts_complex.csv"
+        out_dir = f"{run_base_dir}/{config_name}"
 
         # Run analysis
-        analyze_network(kw_list, inp_file, out_dir, desc)
+        analyze_network(kw_list, inp_file, out_dir, desc, archive)
+    
+    # Note: Do not finalize archive when running graph.py standalone
+    # The run was already finalized by main.py. We're just adding network analysis files.
+    if archive and ARCHIVE_ENABLED:
+        print(f"\n{'='*80}")
+        print(f"Updated archive: {archive.run_id}")
+        print(f"Added network analysis outputs to existing run")
+        print(f"{'='*80}\n")
 
     print("\n" + "="*80)
     print("ALL NETWORK ANALYSES COMPLETE!")
