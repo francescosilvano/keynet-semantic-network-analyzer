@@ -19,19 +19,19 @@ except ImportError:
 # --- KEYWORDS CONFIGURATION ---
 # Main keywords (shared by entire class)
 MAIN_KEYWORDS = [
-    "Energy Transition", "Greenhouse Effect", "Biodiversity", "Extreme weather events",
-    "CO2", "Emissions", "Global Warming", "Glaciers", "Renewable Energy", "Fake News"
+    "green transition", "greenhouse effect", "loss of biodiversity", "extreme weather events",
+    "CO2", "emissions", "global warming", "melting glaciers", "renewable energy", "misinformation"
 ]
 
 # Group 4 keywords (Our words)
 OUR_KEYWORDS = [
-    "Ecosystem", "Fossil Fuels", "Energy Consumption", "Normatives", "Deforestation",
-    "Flooding", "Tesla", "Green Policies", "Rain", "Electric Vehicles"
+    "ecosystem", "fossil fuels", "energy consumption", "normatives", "deforestation", "flooding",
+    "tesla", "green policies", "rain", "electric vehicles"
 ]
 
 # Extra keywords
 EXTRA_KEYWORDS = [
-    "Natural Disaster", "Clean Energy", "Net Zero", "Tesla", "Heatwaves"
+    "natural disaster", "clean energy", "net zero", "AI", "heatwaves"
 ]
 
 # Three analysis configurations

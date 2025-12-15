@@ -2,90 +2,96 @@
 <graphml xmlns="http://graphml.graphdrawing.org/xmlns" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns http://graphml.graphdrawing.org/xmlns/1.0/graphml.xsd">
   <key id="d0" for="edge" attr.name="weight" attr.type="long" />
   <graph edgedefault="undirected">
-    <node id="Energy Transition" />
-    <node id="Greenhouse Effect" />
-    <node id="Biodiversity" />
-    <node id="Extreme weather events" />
+    <node id="green transition" />
+    <node id="greenhouse effect" />
+    <node id="loss of biodiversity" />
+    <node id="extreme weather events" />
     <node id="CO2" />
-    <node id="Emissions" />
-    <node id="Global Warming" />
-    <node id="Glaciers" />
-    <node id="Renewable Energy" />
-    <node id="Fake News" />
-    <edge source="Energy Transition" target="Glaciers">
+    <node id="emissions" />
+    <node id="global warming" />
+    <node id="melting glaciers" />
+    <node id="renewable energy" />
+    <node id="misinformation" />
+    <edge source="green transition" target="CO2">
+      <data key="d0">2</data>
+    </edge>
+    <edge source="green transition" target="emissions">
+      <data key="d0">7</data>
+    </edge>
+    <edge source="green transition" target="renewable energy">
+      <data key="d0">6</data>
+    </edge>
+    <edge source="greenhouse effect" target="extreme weather events">
       <data key="d0">1</data>
     </edge>
-    <edge source="Greenhouse Effect" target="Biodiversity">
-      <data key="d0">1</data>
+    <edge source="greenhouse effect" target="CO2">
+      <data key="d0">80</data>
     </edge>
-    <edge source="Greenhouse Effect" target="Extreme weather events">
-      <data key="d0">1</data>
-    </edge>
-    <edge source="Greenhouse Effect" target="CO2">
-      <data key="d0">81</data>
-    </edge>
-    <edge source="Greenhouse Effect" target="Emissions">
+    <edge source="greenhouse effect" target="emissions">
       <data key="d0">32</data>
     </edge>
-    <edge source="Greenhouse Effect" target="Global Warming">
+    <edge source="greenhouse effect" target="global warming">
       <data key="d0">41</data>
     </edge>
-    <edge source="Greenhouse Effect" target="Glaciers">
-      <data key="d0">2</data>
-    </edge>
-    <edge source="Greenhouse Effect" target="Renewable Energy">
+    <edge source="greenhouse effect" target="renewable energy">
       <data key="d0">1</data>
     </edge>
-    <edge source="Biodiversity" target="Extreme weather events">
-      <data key="d0">5</data>
-    </edge>
-    <edge source="Biodiversity" target="Global Warming">
+    <edge source="loss of biodiversity" target="extreme weather events">
       <data key="d0">1</data>
     </edge>
-    <edge source="Biodiversity" target="Glaciers">
+    <edge source="loss of biodiversity" target="CO2">
       <data key="d0">1</data>
     </edge>
-    <edge source="Extreme weather events" target="CO2">
+    <edge source="loss of biodiversity" target="emissions">
+      <data key="d0">7</data>
+    </edge>
+    <edge source="loss of biodiversity" target="global warming">
       <data key="d0">2</data>
     </edge>
-    <edge source="Extreme weather events" target="Emissions">
-      <data key="d0">15</data>
+    <edge source="loss of biodiversity" target="melting glaciers">
+      <data key="d0">1</data>
     </edge>
-    <edge source="Extreme weather events" target="Global Warming">
-      <data key="d0">23</data>
-    </edge>
-    <edge source="Extreme weather events" target="Glaciers">
+    <edge source="extreme weather events" target="CO2">
       <data key="d0">2</data>
     </edge>
-    <edge source="Extreme weather events" target="Renewable Energy">
-      <data key="d0">3</data>
-    </edge>
-    <edge source="CO2" target="Emissions">
-      <data key="d0">10</data>
-    </edge>
-    <edge source="CO2" target="Global Warming">
-      <data key="d0">4</data>
-    </edge>
-    <edge source="CO2" target="Glaciers">
-      <data key="d0">3</data>
-    </edge>
-    <edge source="Emissions" target="Global Warming">
+    <edge source="extreme weather events" target="emissions">
       <data key="d0">16</data>
     </edge>
-    <edge source="Emissions" target="Glaciers">
-      <data key="d0">5</data>
+    <edge source="extreme weather events" target="global warming">
+      <data key="d0">23</data>
     </edge>
-    <edge source="Emissions" target="Renewable Energy">
+    <edge source="extreme weather events" target="melting glaciers">
+      <data key="d0">4</data>
+    </edge>
+    <edge source="extreme weather events" target="renewable energy">
+      <data key="d0">3</data>
+    </edge>
+    <edge source="extreme weather events" target="misinformation">
+      <data key="d0">4</data>
+    </edge>
+    <edge source="CO2" target="emissions">
+      <data key="d0">12</data>
+    </edge>
+    <edge source="CO2" target="global warming">
+      <data key="d0">4</data>
+    </edge>
+    <edge source="emissions" target="global warming">
+      <data key="d0">19</data>
+    </edge>
+    <edge source="emissions" target="melting glaciers">
+      <data key="d0">6</data>
+    </edge>
+    <edge source="emissions" target="renewable energy">
       <data key="d0">1</data>
     </edge>
-    <edge source="Global Warming" target="Glaciers">
-      <data key="d0">9</data>
+    <edge source="global warming" target="melting glaciers">
+      <data key="d0">24</data>
     </edge>
-    <edge source="Global Warming" target="Renewable Energy">
+    <edge source="global warming" target="renewable energy">
       <data key="d0">1</data>
     </edge>
-    <edge source="Glaciers" target="Renewable Energy">
-      <data key="d0">1</data>
+    <edge source="melting glaciers" target="renewable energy">
+      <data key="d0">2</data>
     </edge>
   </graph>
 </graphml>

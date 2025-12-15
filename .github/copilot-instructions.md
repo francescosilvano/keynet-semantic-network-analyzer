@@ -8,22 +8,22 @@ You are an expert in Python, data collection, and Complex Network Analysis. Modi
 ## Keywords Configuration
 
 ### Main Keywords (Shared by Entire Class)
-Energy Transition, Greenhouse Effect, Biodiversity, Extreme weather events, CO₂, Emissions, Global Warming, Glaciers, Renewable Energy, Fake News
+green transition, greenhouse effect, loss of biodiversity, extreme weather events, CO2, emissions, global warming, melting glaciers, renewable energy, misinformation
 
 ### Group 4 Keywords
-Ecosystem, Fossil Fuels, Energy Consumption, Normatives, Deforestation, Floodings, Heatwaves, Green Policies, Rain, Electric Vehicles
+ecosystem, fossil fuels, energy consumption, normatives, deforestation, flooding, tesla, green policies, rain, electric vehicles
 
 ### Extra Keywords (Optional)
-Natural Disaster, Clean Energy, Net Zero, Tesla, AI
+natural disaster, clean energy, net zero, AI, heatwaves
 
 ### Final Python Keywords List
 ```python
 KEYWORDS = [
-    "Energy Transition", "Greenhouse Effect", "Biodiversity", "Extreme weather events",
-    "CO2", "Emissions", "Global Warming", "Glaciers", "Renewable Energy", "Fake News",
-    "Ecosystem", "Fossil Fuels", "Energy Consumption", "Normatives", "Deforestation",
-    "Floodings", "Heatwaves", "Green Policies", "Rain", "Electric Vehicles",
-    "Natural Disaster", "Clean Energy", "Net Zero", "Tesla", "AI"
+    "green transition", "greenhouse effect", "loss of biodiversity", "extreme weather events",
+    "CO2", "emissions", "global warming", "melting glaciers", "renewable energy", "misinformation",
+    "ecosystem", "fossil fuels", "energy consumption", "normatives", "deforestation",
+    "flooding", "tesla", "green policies", "rain", "electric vehicles",
+    "natural disaster", "clean energy", "net zero", "AI", "heatwaves"
 ]
 ```
 **Important**: All keyword searches must be case-insensitive.
