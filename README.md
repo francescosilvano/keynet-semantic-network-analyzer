@@ -19,6 +19,10 @@ The aim is to explore the relationships between keywords and identify communitie
 
 ## Quick Start
 
+### Prerequisites
+
+**Python Version**: This project requires **Python 3.11, 3.12, 3.13, or 3.14** (as specified by [NetworkX installation requirements](https://networkx.org/documentation/stable/install.html)).
+
 ### Option 1: Using Docker (Recommended)
 
 1. Clone the repository
@@ -279,4 +283,3 @@ Planned enhancements:
 - [ ] **Export Formats**: ZIP/TAR export for sharing and backup
 - [ ] **Index Search**: Search by date, keywords, configuration parameters
 - [ ] **Parallel Runs**: Handle multiple simultaneous executions
-
