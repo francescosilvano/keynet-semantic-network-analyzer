@@ -270,6 +270,12 @@ def analyze_network(keywords, input_file, output_dir, description, archive=None)
         modularity_score = 0
         print("   No edges - no communities detected")
 
+    node_to_community = {}
+    if communities:
+        for i, comm in enumerate(communities, 1):
+            for node in comm:
+                node_to_community[node] = i
+
     # --- VISUALIZATION ---
     print("\nCreating visualizations...")
 
@@ -284,13 +290,21 @@ def analyze_network(keywords, input_file, output_dir, description, archive=None)
     max_weight = max(edge_weights) if edge_weights else 1
     edge_widths = [2 + (w / max_weight) * 8 for w in edge_weights]
 
+    cmap = plt.cm.tab20
+    if communities:
+        node_colors = [cmap((node_to_community.get(node, 1) - 1) % cmap.N) for node in G.nodes()]
+        circular_node_colors = node_colors
+    else:
+        node_colors = ['lightblue' for _ in G.nodes()]
+        circular_node_colors = ['lightcoral' for _ in G.nodes()]
+
     # Use spring layout for better visualization
     pos = nx.spring_layout(G, k=2, iterations=50, seed=42)
 
     # Draw the graph
     nx.draw_networkx_nodes(G, pos,
                            node_size=node_sizes,
-                           node_color='lightblue',
+                           node_color=node_colors,
                            edgecolors='darkblue',
                            linewidths=2,
                            alpha=0.9)
@@ -331,7 +345,7 @@ def analyze_network(keywords, input_file, output_dir, description, archive=None)
 
     nx.draw_networkx_nodes(G, pos_circular,
                            node_size=node_sizes,
-                           node_color='lightcoral',
+                           node_color=circular_node_colors,
                            edgecolors='darkred',
                            linewidths=2,
                            alpha=0.9)
@@ -439,10 +453,6 @@ def analyze_network(keywords, input_file, output_dir, description, archive=None)
 
     # Add community assignments if available
     if communities:
-        node_to_community = {}
-        for i, comm in enumerate(communities, 1):
-            for node in comm:
-                node_to_community[node] = i
         metrics_df['community'] = [node_to_community.get(k, 0) for k in degrees.keys()]
 
     metrics_df = metrics_df.sort_values('degree', ascending=False)
