@@ -154,6 +154,10 @@ def analyze_network(keywords, input_file, output_dir, description, archive=None)
         edges.append((row['w1'], row['w2'], {'weight': row['count']}))
 
     G.add_edges_from(edges)
+    # Derive distance (inverse tie strength) for shortest-path metrics
+    for _, _, data in G.edges(data=True):
+        weight = data.get('weight', 1)
+        data['distance'] = 1 / weight if weight else 0
 
     print(f"   Nodes: {G.number_of_nodes()}")
     print(f"   Edges: {G.number_of_edges()}")
@@ -187,7 +191,7 @@ def analyze_network(keywords, input_file, output_dir, description, archive=None)
 
     # Betweenness centrality
     print("\nBETWEENNESS CENTRALITY:")
-    betweenness = nx.betweenness_centrality(G, weight='weight')
+    betweenness = nx.betweenness_centrality(G, weight='distance')
     print(f"   Average betweenness: {sum(betweenness.values()) / len(betweenness):.4f}")
     print("   Top keywords by betweenness:")
     for keyword, bc in sorted(betweenness.items(), key=lambda x: x[1], reverse=True)[:5]:
@@ -196,7 +200,7 @@ def analyze_network(keywords, input_file, output_dir, description, archive=None)
     # Closeness centrality
     print("\nCLOSENESS CENTRALITY:")
     if nx.is_connected(G):
-        closeness = nx.closeness_centrality(G, distance='weight')
+        closeness = nx.closeness_centrality(G, distance='distance')
         print(f"   Average closeness: {sum(closeness.values()) / len(closeness):.4f}")
         print("   Top keywords by closeness:")
         for keyword, cc in sorted(closeness.items(), key=lambda x: x[1], reverse=True)[:5]:
@@ -205,7 +209,7 @@ def analyze_network(keywords, input_file, output_dir, description, archive=None)
         print("   Graph is disconnected - calculating closeness for largest component")
         largest_cc = max(nx.connected_components(G), key=len)
         g_largest = G.subgraph(largest_cc).copy()
-        closeness = nx.closeness_centrality(g_largest, distance='weight')
+        closeness = nx.closeness_centrality(g_largest, distance='distance')
         # Fill in zeros for nodes not in largest component
         closeness_full = {node: closeness.get(node, 0) for node in G.nodes()}
         closeness = closeness_full
