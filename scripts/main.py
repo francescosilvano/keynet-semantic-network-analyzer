@@ -230,6 +230,8 @@ print("="*80)
 # --- DATA COLLECTION (ONCE FOR ALL KEYWORDS) ---
 records = []
 
+# Note: Bluesky API search may be case-sensitive, so we search with lowercase
+# but will match case-insensitively when filtering posts
 for keyword in KEYWORDS:
     cursor = '0'
     while True:
@@ -237,8 +239,9 @@ for keyword in KEYWORDS:
             break
         print(f"\nSearching posts with keyword: {keyword}")
         try:
+            # Use lowercase for search to improve case-insensitive matching
             params = models.AppBskyFeedSearchPosts.Params(
-                q=keyword, limit=100, cursor=cursor
+                q=keyword.lower(), limit=100, cursor=cursor
             )
             feed = client.app.bsky.feed.search_posts(params)
             cursor = json.loads(feed.json())["cursor"]
@@ -255,10 +258,10 @@ for keyword in KEYWORDS:
                 description = getattr(author, "description", "") or ""
 
                 # --- Location filter (bio + display_name) with None handling ---
-                author_text = (description or "") + (display_name or "")
+                author_text = ((description or "") + (display_name or "")).lower()
                 location_match = True
                 # any(
-                #     loc in author_text.lower()
+                #     loc.lower() in author_text
                 #     for loc in LOCATION_KEYWORDS
                 # )
 
