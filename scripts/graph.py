@@ -305,7 +305,7 @@ def analyze_network(keywords, input_file, output_dir, description, archive=None)
     nx.draw_networkx_nodes(G, pos,
                            node_size=node_sizes,
                            node_color=node_colors,
-                           edgecolors='darkblue',
+                           edgecolors=node_colors,
                            linewidths=2,
                            alpha=0.9)
 
@@ -346,7 +346,7 @@ def analyze_network(keywords, input_file, output_dir, description, archive=None)
     nx.draw_networkx_nodes(G, pos_circular,
                            node_size=node_sizes,
                            node_color=circular_node_colors,
-                           edgecolors='darkred',
+                           edgecolors=circular_node_colors,
                            linewidths=2,
                            alpha=0.9)
 
