@@ -1,0 +1,129 @@
+Green Transition CO2 2
+Green Transition Emissions 7
+Green Transition Renewable Energy 6
+Greenhouse Effect Extreme weather events 1
+Greenhouse Effect CO2 79
+Greenhouse Effect Emissions 32
+Greenhouse Effect Global Warming 41
+Greenhouse Effect Renewable Energy 1
+Greenhouse Effect sea level rise 1
+Greenhouse Effect heatwaves 3
+Greenhouse Effect drought 1
+Greenhouse Effect wildfires 1
+Greenhouse Effect flooding 6
+Greenhouse Effect storms 2
+Loss of biodiversity Extreme weather events 1
+Loss of biodiversity CO2 1
+Loss of biodiversity Emissions 7
+Loss of biodiversity Global Warming 2
+Loss of biodiversity heatwaves 3
+Loss of biodiversity drought 10
+Loss of biodiversity wildfires 1
+Loss of biodiversity storms 2
+Loss of biodiversity water scarcity 1
+Extreme weather events CO2 2
+Extreme weather events Emissions 17
+Extreme weather events Global Warming 23
+Extreme weather events Glaciers melting 1
+Extreme weather events Renewable Energy 3
+Extreme weather events Misinformation 5
+Extreme weather events sea level rise 8
+Extreme weather events heatwaves 30
+Extreme weather events drought 33
+Extreme weather events wildfires 27
+Extreme weather events flooding 24
+Extreme weather events storms 52
+Extreme weather events crop failure 6
+Extreme weather events water scarcity 2
+Extreme weather events ecosystem collapse 1
+CO2 Emissions 15
+CO2 Global Warming 6
+CO2 sea level rise 4
+CO2 heatwaves 3
+CO2 drought 3
+CO2 wildfires 3
+CO2 flooding 1
+CO2 crop failure 2
+CO2 ecosystem collapse 4
+CO2 climate refugees 1
+Emissions Global Warming 20
+Emissions Glaciers melting 2
+Emissions Renewable Energy 1
+Emissions sea level rise 12
+Emissions heatwaves 50
+Emissions drought 10
+Emissions wildfires 3
+Emissions flooding 3
+Emissions storms 2
+Emissions crop failure 3
+Emissions water scarcity 5
+Emissions ecosystem collapse 8
+Emissions climate refugees 9
+Global Warming Glaciers melting 3
+Global Warming Renewable Energy 1
+Global Warming sea level rise 14
+Global Warming heatwaves 12
+Global Warming drought 17
+Global Warming wildfires 7
+Global Warming flooding 6
+Global Warming storms 9
+Global Warming crop failure 7
+Global Warming water scarcity 5
+Global Warming ecosystem collapse 14
+Global Warming climate refugees 4
+Glaciers melting sea level rise 1
+Glaciers melting drought 2
+Glaciers melting wildfires 4
+Glaciers melting flooding 6
+Glaciers melting storms 1
+Glaciers melting crop failure 1
+Renewable Energy crop failure 1
+Renewable Energy water scarcity 1
+Renewable Energy ecosystem collapse 1
+Renewable Energy climate refugees 1
+Misinformation climate refugees 1
+sea level rise heatwaves 11
+sea level rise drought 25
+sea level rise wildfires 4
+sea level rise flooding 57
+sea level rise storms 22
+sea level rise crop failure 8
+sea level rise water scarcity 1
+sea level rise ecosystem collapse 3
+sea level rise climate refugees 3
+heatwaves drought 119
+heatwaves wildfires 58
+heatwaves flooding 24
+heatwaves storms 64
+heatwaves crop failure 14
+heatwaves water scarcity 6
+heatwaves ecosystem collapse 3
+heatwaves climate refugees 1
+drought wildfires 49
+drought flooding 25
+drought storms 36
+drought crop failure 116
+drought water scarcity 87
+drought ecosystem collapse 11
+drought climate refugees 13
+wildfires flooding 11
+wildfires storms 15
+wildfires crop failure 16
+wildfires water scarcity 2
+wildfires ecosystem collapse 4
+wildfires climate refugees 5
+flooding storms 22
+flooding crop failure 19
+flooding water scarcity 13
+flooding ecosystem collapse 3
+flooding climate refugees 4
+storms crop failure 7
+storms water scarcity 2
+storms ecosystem collapse 4
+storms climate refugees 4
+crop failure water scarcity 9
+crop failure ecosystem collapse 2
+crop failure climate refugees 2
+water scarcity ecosystem collapse 2
+water scarcity climate refugees 2
+ecosystem collapse climate refugees 1

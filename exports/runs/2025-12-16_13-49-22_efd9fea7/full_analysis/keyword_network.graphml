@@ -1,0 +1,394 @@
+<?xml version='1.0' encoding='utf-8'?>
+<graphml xmlns="http://graphml.graphdrawing.org/xmlns" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns http://graphml.graphdrawing.org/xmlns/1.0/graphml.xsd">
+  <key id="d0" for="edge" attr.name="weight" attr.type="long" />
+  <graph edgedefault="undirected">
+    <node id="Green Transition" />
+    <node id="Greenhouse Effect" />
+    <node id="Loss of biodiversity" />
+    <node id="Extreme weather events" />
+    <node id="CO2" />
+    <node id="Emissions" />
+    <node id="Global Warming" />
+    <node id="Glaciers melting" />
+    <node id="Renewable Energy" />
+    <node id="Misinformation" />
+    <node id="climate policy" />
+    <node id="carbon tax" />
+    <node id="Paris Agreement" />
+    <node id="net zero targets" />
+    <node id="environmental regulation" />
+    <node id="green subsidies" />
+    <node id="international agreements" />
+    <node id="climate governance" />
+    <node id="policy implementation" />
+    <node id="policy misinformation" />
+    <node id="Natural Disaster" />
+    <node id="Clean Energy" />
+    <node id="Net Zero" />
+    <node id="Tesla" />
+    <node id="Heatwaves" />
+    <edge source="Green Transition" target="CO2">
+      <data key="d0">2</data>
+    </edge>
+    <edge source="Green Transition" target="Emissions">
+      <data key="d0">8</data>
+    </edge>
+    <edge source="Green Transition" target="Renewable Energy">
+      <data key="d0">7</data>
+    </edge>
+    <edge source="Green Transition" target="climate policy">
+      <data key="d0">3</data>
+    </edge>
+    <edge source="Green Transition" target="carbon tax">
+      <data key="d0">1</data>
+    </edge>
+    <edge source="Green Transition" target="environmental regulation">
+      <data key="d0">1</data>
+    </edge>
+    <edge source="Green Transition" target="green subsidies">
+      <data key="d0">1</data>
+    </edge>
+    <edge source="Green Transition" target="climate governance">
+      <data key="d0">1</data>
+    </edge>
+    <edge source="Green Transition" target="Clean Energy">
+      <data key="d0">2</data>
+    </edge>
+    <edge source="Green Transition" target="Net Zero">
+      <data key="d0">3</data>
+    </edge>
+    <edge source="Green Transition" target="Tesla">
+      <data key="d0">2</data>
+    </edge>
+    <edge source="Greenhouse Effect" target="Extreme weather events">
+      <data key="d0">1</data>
+    </edge>
+    <edge source="Greenhouse Effect" target="CO2">
+      <data key="d0">79</data>
+    </edge>
+    <edge source="Greenhouse Effect" target="Emissions">
+      <data key="d0">32</data>
+    </edge>
+    <edge source="Greenhouse Effect" target="Global Warming">
+      <data key="d0">41</data>
+    </edge>
+    <edge source="Greenhouse Effect" target="Renewable Energy">
+      <data key="d0">1</data>
+    </edge>
+    <edge source="Greenhouse Effect" target="climate policy">
+      <data key="d0">1</data>
+    </edge>
+    <edge source="Greenhouse Effect" target="Paris Agreement">
+      <data key="d0">1</data>
+    </edge>
+    <edge source="Greenhouse Effect" target="Natural Disaster">
+      <data key="d0">1</data>
+    </edge>
+    <edge source="Greenhouse Effect" target="Net Zero">
+      <data key="d0">2</data>
+    </edge>
+    <edge source="Greenhouse Effect" target="Heatwaves">
+      <data key="d0">3</data>
+    </edge>
+    <edge source="Loss of biodiversity" target="Extreme weather events">
+      <data key="d0">1</data>
+    </edge>
+    <edge source="Loss of biodiversity" target="CO2">
+      <data key="d0">1</data>
+    </edge>
+    <edge source="Loss of biodiversity" target="Emissions">
+      <data key="d0">7</data>
+    </edge>
+    <edge source="Loss of biodiversity" target="Global Warming">
+      <data key="d0">2</data>
+    </edge>
+    <edge source="Loss of biodiversity" target="Heatwaves">
+      <data key="d0">3</data>
+    </edge>
+    <edge source="Extreme weather events" target="CO2">
+      <data key="d0">2</data>
+    </edge>
+    <edge source="Extreme weather events" target="Emissions">
+      <data key="d0">17</data>
+    </edge>
+    <edge source="Extreme weather events" target="Global Warming">
+      <data key="d0">22</data>
+    </edge>
+    <edge source="Extreme weather events" target="Glaciers melting">
+      <data key="d0">1</data>
+    </edge>
+    <edge source="Extreme weather events" target="Renewable Energy">
+      <data key="d0">4</data>
+    </edge>
+    <edge source="Extreme weather events" target="Misinformation">
+      <data key="d0">4</data>
+    </edge>
+    <edge source="Extreme weather events" target="climate policy">
+      <data key="d0">8</data>
+    </edge>
+    <edge source="Extreme weather events" target="Paris Agreement">
+      <data key="d0">2</data>
+    </edge>
+    <edge source="Extreme weather events" target="Natural Disaster">
+      <data key="d0">4</data>
+    </edge>
+    <edge source="Extreme weather events" target="Clean Energy">
+      <data key="d0">1</data>
+    </edge>
+    <edge source="Extreme weather events" target="Net Zero">
+      <data key="d0">2</data>
+    </edge>
+    <edge source="Extreme weather events" target="Heatwaves">
+      <data key="d0">30</data>
+    </edge>
+    <edge source="CO2" target="Emissions">
+      <data key="d0">31</data>
+    </edge>
+    <edge source="CO2" target="Global Warming">
+      <data key="d0">5</data>
+    </edge>
+    <edge source="CO2" target="carbon tax">
+      <data key="d0">3</data>
+    </edge>
+    <edge source="CO2" target="Paris Agreement">
+      <data key="d0">5</data>
+    </edge>
+    <edge source="CO2" target="net zero targets">
+      <data key="d0">1</data>
+    </edge>
+    <edge source="CO2" target="Natural Disaster">
+      <data key="d0">1</data>
+    </edge>
+    <edge source="CO2" target="Net Zero">
+      <data key="d0">8</data>
+    </edge>
+    <edge source="CO2" target="Heatwaves">
+      <data key="d0">3</data>
+    </edge>
+    <edge source="Emissions" target="Global Warming">
+      <data key="d0">19</data>
+    </edge>
+    <edge source="Emissions" target="Glaciers melting">
+      <data key="d0">2</data>
+    </edge>
+    <edge source="Emissions" target="Renewable Energy">
+      <data key="d0">9</data>
+    </edge>
+    <edge source="Emissions" target="Misinformation">
+      <data key="d0">3</data>
+    </edge>
+    <edge source="Emissions" target="climate policy">
+      <data key="d0">7</data>
+    </edge>
+    <edge source="Emissions" target="carbon tax">
+      <data key="d0">28</data>
+    </edge>
+    <edge source="Emissions" target="Paris Agreement">
+      <data key="d0">57</data>
+    </edge>
+    <edge source="Emissions" target="net zero targets">
+      <data key="d0">28</data>
+    </edge>
+    <edge source="Emissions" target="environmental regulation">
+      <data key="d0">9</data>
+    </edge>
+    <edge source="Emissions" target="international agreements">
+      <data key="d0">1</data>
+    </edge>
+    <edge source="Emissions" target="climate governance">
+      <data key="d0">3</data>
+    </edge>
+    <edge source="Emissions" target="Natural Disaster">
+      <data key="d0">1</data>
+    </edge>
+    <edge source="Emissions" target="Clean Energy">
+      <data key="d0">9</data>
+    </edge>
+    <edge source="Emissions" target="Net Zero">
+      <data key="d0">142</data>
+    </edge>
+    <edge source="Emissions" target="Heatwaves">
+      <data key="d0">48</data>
+    </edge>
+    <edge source="Global Warming" target="Glaciers melting">
+      <data key="d0">3</data>
+    </edge>
+    <edge source="Global Warming" target="Renewable Energy">
+      <data key="d0">1</data>
+    </edge>
+    <edge source="Global Warming" target="Paris Agreement">
+      <data key="d0">7</data>
+    </edge>
+    <edge source="Global Warming" target="net zero targets">
+      <data key="d0">1</data>
+    </edge>
+    <edge source="Global Warming" target="international agreements">
+      <data key="d0">2</data>
+    </edge>
+    <edge source="Global Warming" target="Natural Disaster">
+      <data key="d0">1</data>
+    </edge>
+    <edge source="Global Warming" target="Clean Energy">
+      <data key="d0">1</data>
+    </edge>
+    <edge source="Global Warming" target="Net Zero">
+      <data key="d0">3</data>
+    </edge>
+    <edge source="Global Warming" target="Heatwaves">
+      <data key="d0">11</data>
+    </edge>
+    <edge source="Renewable Energy" target="carbon tax">
+      <data key="d0">1</data>
+    </edge>
+    <edge source="Renewable Energy" target="Paris Agreement">
+      <data key="d0">2</data>
+    </edge>
+    <edge source="Renewable Energy" target="net zero targets">
+      <data key="d0">5</data>
+    </edge>
+    <edge source="Renewable Energy" target="environmental regulation">
+      <data key="d0">3</data>
+    </edge>
+    <edge source="Renewable Energy" target="green subsidies">
+      <data key="d0">2</data>
+    </edge>
+    <edge source="Renewable Energy" target="climate governance">
+      <data key="d0">1</data>
+    </edge>
+    <edge source="Renewable Energy" target="Clean Energy">
+      <data key="d0">4</data>
+    </edge>
+    <edge source="Renewable Energy" target="Net Zero">
+      <data key="d0">12</data>
+    </edge>
+    <edge source="Misinformation" target="climate policy">
+      <data key="d0">15</data>
+    </edge>
+    <edge source="Misinformation" target="carbon tax">
+      <data key="d0">5</data>
+    </edge>
+    <edge source="Misinformation" target="Paris Agreement">
+      <data key="d0">1</data>
+    </edge>
+    <edge source="Misinformation" target="environmental regulation">
+      <data key="d0">1</data>
+    </edge>
+    <edge source="Misinformation" target="international agreements">
+      <data key="d0">1</data>
+    </edge>
+    <edge source="Misinformation" target="Clean Energy">
+      <data key="d0">2</data>
+    </edge>
+    <edge source="Misinformation" target="Net Zero">
+      <data key="d0">7</data>
+    </edge>
+    <edge source="climate policy" target="carbon tax">
+      <data key="d0">2</data>
+    </edge>
+    <edge source="climate policy" target="Paris Agreement">
+      <data key="d0">2</data>
+    </edge>
+    <edge source="climate policy" target="net zero targets">
+      <data key="d0">4</data>
+    </edge>
+    <edge source="climate policy" target="climate governance">
+      <data key="d0">4</data>
+    </edge>
+    <edge source="climate policy" target="policy implementation">
+      <data key="d0">2</data>
+    </edge>
+    <edge source="climate policy" target="Clean Energy">
+      <data key="d0">1</data>
+    </edge>
+    <edge source="climate policy" target="Net Zero">
+      <data key="d0">6</data>
+    </edge>
+    <edge source="climate policy" target="Heatwaves">
+      <data key="d0">8</data>
+    </edge>
+    <edge source="carbon tax" target="Paris Agreement">
+      <data key="d0">4</data>
+    </edge>
+    <edge source="carbon tax" target="net zero targets">
+      <data key="d0">1</data>
+    </edge>
+    <edge source="carbon tax" target="green subsidies">
+      <data key="d0">6</data>
+    </edge>
+    <edge source="carbon tax" target="Clean Energy">
+      <data key="d0">1</data>
+    </edge>
+    <edge source="carbon tax" target="Net Zero">
+      <data key="d0">10</data>
+    </edge>
+    <edge source="carbon tax" target="Tesla">
+      <data key="d0">2</data>
+    </edge>
+    <edge source="Paris Agreement" target="net zero targets">
+      <data key="d0">1</data>
+    </edge>
+    <edge source="Paris Agreement" target="climate governance">
+      <data key="d0">8</data>
+    </edge>
+    <edge source="Paris Agreement" target="Clean Energy">
+      <data key="d0">5</data>
+    </edge>
+    <edge source="Paris Agreement" target="Net Zero">
+      <data key="d0">42</data>
+    </edge>
+    <edge source="Paris Agreement" target="Heatwaves">
+      <data key="d0">3</data>
+    </edge>
+    <edge source="net zero targets" target="Clean Energy">
+      <data key="d0">6</data>
+    </edge>
+    <edge source="net zero targets" target="Net Zero">
+      <data key="d0">364</data>
+    </edge>
+    <edge source="net zero targets" target="Heatwaves">
+      <data key="d0">5</data>
+    </edge>
+    <edge source="environmental regulation" target="Clean Energy">
+      <data key="d0">2</data>
+    </edge>
+    <edge source="environmental regulation" target="Tesla">
+      <data key="d0">1</data>
+    </edge>
+    <edge source="green subsidies" target="Clean Energy">
+      <data key="d0">1</data>
+    </edge>
+    <edge source="green subsidies" target="Net Zero">
+      <data key="d0">3</data>
+    </edge>
+    <edge source="green subsidies" target="Tesla">
+      <data key="d0">3</data>
+    </edge>
+    <edge source="international agreements" target="Net Zero">
+      <data key="d0">3</data>
+    </edge>
+    <edge source="climate governance" target="Clean Energy">
+      <data key="d0">3</data>
+    </edge>
+    <edge source="climate governance" target="Net Zero">
+      <data key="d0">1</data>
+    </edge>
+    <edge source="policy implementation" target="Net Zero">
+      <data key="d0">1</data>
+    </edge>
+    <edge source="Natural Disaster" target="Net Zero">
+      <data key="d0">1</data>
+    </edge>
+    <edge source="Natural Disaster" target="Heatwaves">
+      <data key="d0">4</data>
+    </edge>
+    <edge source="Clean Energy" target="Net Zero">
+      <data key="d0">8</data>
+    </edge>
+    <edge source="Clean Energy" target="Heatwaves">
+      <data key="d0">3</data>
+    </edge>
+    <edge source="Net Zero" target="Heatwaves">
+      <data key="d0">60</data>
+    </edge>
+  </graph>
+</graphml>

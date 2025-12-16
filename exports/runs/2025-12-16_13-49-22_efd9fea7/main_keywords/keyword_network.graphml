@@ -1,0 +1,91 @@
+<?xml version='1.0' encoding='utf-8'?>
+<graphml xmlns="http://graphml.graphdrawing.org/xmlns" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns http://graphml.graphdrawing.org/xmlns/1.0/graphml.xsd">
+  <key id="d0" for="edge" attr.name="weight" attr.type="long" />
+  <graph edgedefault="undirected">
+    <node id="Green Transition" />
+    <node id="Greenhouse Effect" />
+    <node id="Loss of biodiversity" />
+    <node id="Extreme weather events" />
+    <node id="CO2" />
+    <node id="Emissions" />
+    <node id="Global Warming" />
+    <node id="Glaciers melting" />
+    <node id="Renewable Energy" />
+    <node id="Misinformation" />
+    <edge source="Green Transition" target="CO2">
+      <data key="d0">2</data>
+    </edge>
+    <edge source="Green Transition" target="Emissions">
+      <data key="d0">7</data>
+    </edge>
+    <edge source="Green Transition" target="Renewable Energy">
+      <data key="d0">6</data>
+    </edge>
+    <edge source="Greenhouse Effect" target="Extreme weather events">
+      <data key="d0">1</data>
+    </edge>
+    <edge source="Greenhouse Effect" target="CO2">
+      <data key="d0">79</data>
+    </edge>
+    <edge source="Greenhouse Effect" target="Emissions">
+      <data key="d0">32</data>
+    </edge>
+    <edge source="Greenhouse Effect" target="Global Warming">
+      <data key="d0">40</data>
+    </edge>
+    <edge source="Greenhouse Effect" target="Renewable Energy">
+      <data key="d0">1</data>
+    </edge>
+    <edge source="Loss of biodiversity" target="Extreme weather events">
+      <data key="d0">1</data>
+    </edge>
+    <edge source="Loss of biodiversity" target="CO2">
+      <data key="d0">1</data>
+    </edge>
+    <edge source="Loss of biodiversity" target="Emissions">
+      <data key="d0">7</data>
+    </edge>
+    <edge source="Loss of biodiversity" target="Global Warming">
+      <data key="d0">2</data>
+    </edge>
+    <edge source="Extreme weather events" target="CO2">
+      <data key="d0">2</data>
+    </edge>
+    <edge source="Extreme weather events" target="Emissions">
+      <data key="d0">15</data>
+    </edge>
+    <edge source="Extreme weather events" target="Global Warming">
+      <data key="d0">22</data>
+    </edge>
+    <edge source="Extreme weather events" target="Glaciers melting">
+      <data key="d0">1</data>
+    </edge>
+    <edge source="Extreme weather events" target="Renewable Energy">
+      <data key="d0">3</data>
+    </edge>
+    <edge source="Extreme weather events" target="Misinformation">
+      <data key="d0">4</data>
+    </edge>
+    <edge source="CO2" target="Emissions">
+      <data key="d0">12</data>
+    </edge>
+    <edge source="CO2" target="Global Warming">
+      <data key="d0">3</data>
+    </edge>
+    <edge source="Emissions" target="Global Warming">
+      <data key="d0">18</data>
+    </edge>
+    <edge source="Emissions" target="Glaciers melting">
+      <data key="d0">2</data>
+    </edge>
+    <edge source="Emissions" target="Renewable Energy">
+      <data key="d0">1</data>
+    </edge>
+    <edge source="Global Warming" target="Glaciers melting">
+      <data key="d0">3</data>
+    </edge>
+    <edge source="Global Warming" target="Renewable Energy">
+      <data key="d0">1</data>
+    </edge>
+  </graph>
+</graphml>

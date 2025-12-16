@@ -1,0 +1,181 @@
+Green Transition CO2 2
+Green Transition Emissions 7
+Green Transition Renewable Energy 6
+Green Transition Clean Energy 1
+Green Transition Net Zero 2
+Greenhouse Effect Extreme weather events 1
+Greenhouse Effect CO2 79
+Greenhouse Effect Emissions 32
+Greenhouse Effect Global Warming 42
+Greenhouse Effect Renewable Energy 1
+Greenhouse Effect sea level rise 1
+Greenhouse Effect heatwaves 4
+Greenhouse Effect drought 1
+Greenhouse Effect wildfires 1
+Greenhouse Effect flooding 6
+Greenhouse Effect storms 2
+Greenhouse Effect Natural Disaster 1
+Greenhouse Effect Net Zero 2
+Greenhouse Effect Heatwaves 4
+Loss of biodiversity Extreme weather events 1
+Loss of biodiversity CO2 1
+Loss of biodiversity Emissions 7
+Loss of biodiversity Global Warming 2
+Loss of biodiversity heatwaves 3
+Loss of biodiversity drought 10
+Loss of biodiversity wildfires 1
+Loss of biodiversity storms 2
+Loss of biodiversity water scarcity 1
+Loss of biodiversity Heatwaves 3
+Extreme weather events CO2 2
+Extreme weather events Emissions 19
+Extreme weather events Global Warming 23
+Extreme weather events Glaciers melting 1
+Extreme weather events Renewable Energy 3
+Extreme weather events Misinformation 5
+Extreme weather events sea level rise 8
+Extreme weather events heatwaves 41
+Extreme weather events drought 34
+Extreme weather events wildfires 28
+Extreme weather events flooding 24
+Extreme weather events storms 53
+Extreme weather events crop failure 6
+Extreme weather events water scarcity 2
+Extreme weather events ecosystem collapse 1
+Extreme weather events Natural Disaster 4
+Extreme weather events Clean Energy 1
+Extreme weather events Net Zero 2
+Extreme weather events Heatwaves 41
+CO2 Emissions 15
+CO2 Global Warming 7
+CO2 sea level rise 4
+CO2 heatwaves 6
+CO2 drought 5
+CO2 wildfires 5
+CO2 flooding 1
+CO2 crop failure 2
+CO2 ecosystem collapse 4
+CO2 climate refugees 1
+CO2 Natural Disaster 1
+CO2 Heatwaves 6
+Emissions Global Warming 20
+Emissions Glaciers melting 2
+Emissions Renewable Energy 1
+Emissions sea level rise 12
+Emissions heatwaves 94
+Emissions drought 15
+Emissions wildfires 4
+Emissions flooding 3
+Emissions storms 3
+Emissions crop failure 3
+Emissions water scarcity 5
+Emissions ecosystem collapse 8
+Emissions climate refugees 9
+Emissions Natural Disaster 1
+Emissions Clean Energy 3
+Emissions Net Zero 39
+Emissions Heatwaves 94
+Global Warming Glaciers melting 3
+Global Warming Renewable Energy 1
+Global Warming sea level rise 15
+Global Warming heatwaves 20
+Global Warming drought 17
+Global Warming wildfires 8
+Global Warming flooding 6
+Global Warming storms 9
+Global Warming crop failure 7
+Global Warming water scarcity 5
+Global Warming ecosystem collapse 14
+Global Warming climate refugees 4
+Global Warming Natural Disaster 1
+Global Warming Heatwaves 20
+Glaciers melting sea level rise 1
+Glaciers melting drought 2
+Glaciers melting wildfires 4
+Glaciers melting flooding 6
+Glaciers melting storms 1
+Glaciers melting crop failure 1
+Renewable Energy crop failure 1
+Renewable Energy water scarcity 1
+Renewable Energy ecosystem collapse 1
+Renewable Energy climate refugees 1
+Renewable Energy Net Zero 1
+Misinformation climate refugees 1
+sea level rise heatwaves 17
+sea level rise drought 27
+sea level rise wildfires 5
+sea level rise flooding 58
+sea level rise storms 23
+sea level rise crop failure 8
+sea level rise water scarcity 1
+sea level rise ecosystem collapse 3
+sea level rise climate refugees 3
+sea level rise Natural Disaster 2
+sea level rise Net Zero 2
+sea level rise Heatwaves 17
+heatwaves drought 223
+heatwaves wildfires 109
+heatwaves flooding 42
+heatwaves storms 119
+heatwaves crop failure 17
+heatwaves water scarcity 7
+heatwaves ecosystem collapse 3
+heatwaves climate refugees 1
+heatwaves Natural Disaster 8
+heatwaves Clean Energy 6
+heatwaves Net Zero 109
+heatwaves Heatwaves 1512
+drought wildfires 71
+drought flooding 28
+drought storms 47
+drought crop failure 118
+drought water scarcity 88
+drought ecosystem collapse 11
+drought climate refugees 13
+drought Natural Disaster 6
+drought Heatwaves 223
+wildfires flooding 13
+wildfires storms 20
+wildfires crop failure 17
+wildfires water scarcity 2
+wildfires ecosystem collapse 4
+wildfires climate refugees 5
+wildfires Natural Disaster 5
+wildfires Net Zero 2
+wildfires Heatwaves 109
+flooding storms 28
+flooding crop failure 19
+flooding water scarcity 13
+flooding ecosystem collapse 3
+flooding climate refugees 4
+flooding Natural Disaster 4
+flooding Net Zero 1
+flooding Heatwaves 42
+storms crop failure 8
+storms water scarcity 2
+storms ecosystem collapse 4
+storms climate refugees 4
+storms Natural Disaster 3
+storms Net Zero 2
+storms Heatwaves 119
+crop failure water scarcity 9
+crop failure ecosystem collapse 2
+crop failure climate refugees 2
+crop failure Natural Disaster 11
+crop failure Net Zero 1
+crop failure Heatwaves 17
+water scarcity ecosystem collapse 2
+water scarcity climate refugees 2
+water scarcity Clean Energy 1
+water scarcity Heatwaves 7
+ecosystem collapse climate refugees 1
+ecosystem collapse Natural Disaster 2
+ecosystem collapse Clean Energy 1
+ecosystem collapse Heatwaves 3
+climate refugees Natural Disaster 3
+climate refugees Net Zero 3
+climate refugees Heatwaves 1
+Natural Disaster Net Zero 1
+Natural Disaster Heatwaves 8
+Clean Energy Heatwaves 6
+Net Zero Heatwaves 109
