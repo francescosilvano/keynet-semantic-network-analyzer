@@ -279,6 +279,8 @@ def analyze_network(keywords, input_file, output_dir, description, archive=None)
     # --- VISUALIZATION ---
     print("\nCreating visualizations...")
 
+    TOP_N_EDGE_LABELS = 30
+
     # Figure 1: Network graph with node sizes based on degree
     plt.figure(figsize=(16, 12))
 
@@ -319,12 +321,23 @@ def analyze_network(keywords, input_file, output_dir, description, archive=None)
                             font_weight='bold',
                             font_family='sans-serif')
 
-    # Add edge labels showing co-occurrence counts
+    # Add edge labels showing co-occurrence counts (filtered to strongest ties)
     edge_labels = nx.get_edge_attributes(G, 'weight')
-    nx.draw_networkx_edge_labels(G, pos, edge_labels, font_size=8)
+    sorted_weights = sorted(edge_labels.values(), reverse=True)
+    if sorted_weights:
+        threshold_idx = min(TOP_N_EDGE_LABELS, len(sorted_weights)) - 1
+        min_label_weight = sorted_weights[threshold_idx]
+        filtered_edge_labels = {edge: w for edge, w in edge_labels.items()
+                                if w >= min_label_weight}
+    else:
+        min_label_weight = 0
+        filtered_edge_labels = {}
+
+    nx.draw_networkx_edge_labels(G, pos, filtered_edge_labels, font_size=8)
 
     title_text = (f"Keyword Co-occurrence Network - {description}\n"
-                  "(Node size = connections, Edge width = co-occurrences)")
+                  "(Node size = connections, Edge width = co-occurrences)\n"
+                  f"(Edge labels shown for top {TOP_N_EDGE_LABELS} edges; weight ≥ {min_label_weight})")
     plt.title(title_text,
               fontsize=16, fontweight='bold', pad=20)
     plt.axis('off')
@@ -359,8 +372,13 @@ def analyze_network(keywords, input_file, output_dir, description, archive=None)
                             font_size=11,
                             font_weight='bold')
 
-    plt.title(f"Keyword Co-occurrence Network (Circular Layout) - {description}",
-              fontsize=16, fontweight='bold', pad=20)
+    nx.draw_networkx_edge_labels(G, pos_circular, filtered_edge_labels,
+                                font_size=8, label_pos=0.6)
+
+    plt.title(
+        f"Keyword Co-occurrence Network (Circular Layout) - {description}\n"
+        f"(Edge labels shown for top {TOP_N_EDGE_LABELS} edges; weight ≥ {min_label_weight})",
+        fontsize=16, fontweight='bold', pad=20)
     plt.axis('off')
     plt.tight_layout()
     circular_file = f'{output_dir}/keyword_network_circular.png'
