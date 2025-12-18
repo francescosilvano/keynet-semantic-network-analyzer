@@ -5,6 +5,7 @@ from itertools import combinations
 
 import matplotlib.pyplot as plt
 import networkx as nx
+import numpy as np
 import pandas as pd
 from networkx.algorithms import community
 
@@ -141,6 +142,36 @@ def analyze_network(keywords, input_file, output_dir, description, archive=None)
         print("WARNING: No co-occurrences found. Skipping network analysis.")
         return
 
+    # --- CO-OCCURRENCE HEATMAP ---
+    co_matrix = pd.DataFrame(0, index=keywords, columns=keywords, dtype=float)
+    for _, row in co_df.iterrows():
+        co_matrix.at[row['w1'], row['w2']] = row['count']
+        co_matrix.at[row['w2'], row['w1']] = row['count']
+    np.fill_diagonal(co_matrix.values, 0)
+
+    co_matrix_file = f"{output_dir}/keyword_cooccurrence_matrix.csv"
+    co_matrix.to_csv(co_matrix_file)
+    print(f"   Saved: {co_matrix_file}")
+    if archive:
+        rel_path = os.path.basename(output_dir) + "/keyword_cooccurrence_matrix.csv"
+        archive.add_file(rel_path)
+
+    heatmap_values = np.log1p(co_matrix.values)
+    plt.figure(figsize=(12, 10))
+    plt.imshow(heatmap_values, cmap="viridis", aspect="auto")
+    plt.colorbar(label="Co-occurrence count")
+    plt.title(f"Keyword Co-occurrence Heatmap (log1p) - {description}")
+    plt.xticks(ticks=range(len(keywords)), labels=keywords, rotation=45, ha='right')
+    plt.yticks(ticks=range(len(keywords)), labels=keywords)
+    plt.tight_layout()
+    heatmap_file = f"{output_dir}/keyword_cooccurrence_heatmap.png"
+    plt.savefig(heatmap_file, dpi=300, bbox_inches='tight')
+    plt.close()
+    print(f"   Saved: {heatmap_file}")
+    if archive:
+        rel_path = os.path.basename(output_dir) + "/keyword_cooccurrence_heatmap.png"
+        archive.add_file(rel_path)
+
     # --- CREATE NETWORKX GRAPH ---
     print("\nBuilding graph...")
     G = nx.Graph()
@@ -154,6 +185,10 @@ def analyze_network(keywords, input_file, output_dir, description, archive=None)
         edges.append((row['w1'], row['w2'], {'weight': row['count']}))
 
     G.add_edges_from(edges)
+    # Derive distance (inverse tie strength) for shortest-path metrics
+    for _, _, data in G.edges(data=True):
+        weight = data.get('weight', 1)
+        data['distance'] = 1 / weight if weight else 0
 
     print(f"   Nodes: {G.number_of_nodes()}")
     print(f"   Edges: {G.number_of_edges()}")
@@ -187,7 +222,7 @@ def analyze_network(keywords, input_file, output_dir, description, archive=None)
 
     # Betweenness centrality
     print("\nBETWEENNESS CENTRALITY:")
-    betweenness = nx.betweenness_centrality(G, weight='weight')
+    betweenness = nx.betweenness_centrality(G, weight='distance')
     print(f"   Average betweenness: {sum(betweenness.values()) / len(betweenness):.4f}")
     print("   Top keywords by betweenness:")
     for keyword, bc in sorted(betweenness.items(), key=lambda x: x[1], reverse=True)[:5]:
@@ -196,7 +231,7 @@ def analyze_network(keywords, input_file, output_dir, description, archive=None)
     # Closeness centrality
     print("\nCLOSENESS CENTRALITY:")
     if nx.is_connected(G):
-        closeness = nx.closeness_centrality(G, distance='weight')
+        closeness = nx.closeness_centrality(G, distance='distance')
         print(f"   Average closeness: {sum(closeness.values()) / len(closeness):.4f}")
         print("   Top keywords by closeness:")
         for keyword, cc in sorted(closeness.items(), key=lambda x: x[1], reverse=True)[:5]:
@@ -205,7 +240,7 @@ def analyze_network(keywords, input_file, output_dir, description, archive=None)
         print("   Graph is disconnected - calculating closeness for largest component")
         largest_cc = max(nx.connected_components(G), key=len)
         g_largest = G.subgraph(largest_cc).copy()
-        closeness = nx.closeness_centrality(g_largest, distance='weight')
+        closeness = nx.closeness_centrality(g_largest, distance='distance')
         # Fill in zeros for nodes not in largest component
         closeness_full = {node: closeness.get(node, 0) for node in G.nodes()}
         closeness = closeness_full
@@ -266,8 +301,16 @@ def analyze_network(keywords, input_file, output_dir, description, archive=None)
         modularity_score = 0
         print("   No edges - no communities detected")
 
+    node_to_community = {}
+    if communities:
+        for i, comm in enumerate(communities, 1):
+            for node in comm:
+                node_to_community[node] = i
+
     # --- VISUALIZATION ---
     print("\nCreating visualizations...")
+
+    TOP_N_EDGE_LABELS = 30
 
     # Figure 1: Network graph with node sizes based on degree
     plt.figure(figsize=(16, 12))
@@ -280,14 +323,22 @@ def analyze_network(keywords, input_file, output_dir, description, archive=None)
     max_weight = max(edge_weights) if edge_weights else 1
     edge_widths = [2 + (w / max_weight) * 8 for w in edge_weights]
 
+    cmap = plt.cm.tab20
+    if communities:
+        node_colors = [cmap((node_to_community.get(node, 1) - 1) % cmap.N) for node in G.nodes()]
+        circular_node_colors = node_colors
+    else:
+        node_colors = ['lightblue' for _ in G.nodes()]
+        circular_node_colors = ['lightcoral' for _ in G.nodes()]
+
     # Use spring layout for better visualization
     pos = nx.spring_layout(G, k=2, iterations=50, seed=42)
 
     # Draw the graph
     nx.draw_networkx_nodes(G, pos,
                            node_size=node_sizes,
-                           node_color='lightblue',
-                           edgecolors='darkblue',
+                           node_color=node_colors,
+                           edgecolors=node_colors,
                            linewidths=2,
                            alpha=0.9)
 
@@ -301,12 +352,23 @@ def analyze_network(keywords, input_file, output_dir, description, archive=None)
                             font_weight='bold',
                             font_family='sans-serif')
 
-    # Add edge labels showing co-occurrence counts
+    # Add edge labels showing co-occurrence counts (filtered to strongest ties)
     edge_labels = nx.get_edge_attributes(G, 'weight')
-    nx.draw_networkx_edge_labels(G, pos, edge_labels, font_size=8)
+    sorted_weights = sorted(edge_labels.values(), reverse=True)
+    if sorted_weights:
+        threshold_idx = min(TOP_N_EDGE_LABELS, len(sorted_weights)) - 1
+        min_label_weight = sorted_weights[threshold_idx]
+        filtered_edge_labels = {edge: w for edge, w in edge_labels.items()
+                                if w >= min_label_weight}
+    else:
+        min_label_weight = 0
+        filtered_edge_labels = {}
+
+    nx.draw_networkx_edge_labels(G, pos, filtered_edge_labels, font_size=8)
 
     title_text = (f"Keyword Co-occurrence Network - {description}\n"
-                  "(Node size = connections, Edge width = co-occurrences)")
+                  "(Node size = connections, Edge width = co-occurrences)\n"
+                  f"(Edge labels shown for top {TOP_N_EDGE_LABELS} edges; weight ≥ {min_label_weight})")
     plt.title(title_text,
               fontsize=16, fontweight='bold', pad=20)
     plt.axis('off')
@@ -327,8 +389,8 @@ def analyze_network(keywords, input_file, output_dir, description, archive=None)
 
     nx.draw_networkx_nodes(G, pos_circular,
                            node_size=node_sizes,
-                           node_color='lightcoral',
-                           edgecolors='darkred',
+                           node_color=circular_node_colors,
+                           edgecolors=circular_node_colors,
                            linewidths=2,
                            alpha=0.9)
 
@@ -341,8 +403,13 @@ def analyze_network(keywords, input_file, output_dir, description, archive=None)
                             font_size=11,
                             font_weight='bold')
 
-    plt.title(f"Keyword Co-occurrence Network (Circular Layout) - {description}",
-              fontsize=16, fontweight='bold', pad=20)
+    nx.draw_networkx_edge_labels(G, pos_circular, filtered_edge_labels,
+                                font_size=8, label_pos=0.6)
+
+    plt.title(
+        f"Keyword Co-occurrence Network (Circular Layout) - {description}\n"
+        f"(Edge labels shown for top {TOP_N_EDGE_LABELS} edges; weight ≥ {min_label_weight})",
+        fontsize=16, fontweight='bold', pad=20)
     plt.axis('off')
     plt.tight_layout()
     circular_file = f'{output_dir}/keyword_network_circular.png'
@@ -435,10 +502,6 @@ def analyze_network(keywords, input_file, output_dir, description, archive=None)
 
     # Add community assignments if available
     if communities:
-        node_to_community = {}
-        for i, comm in enumerate(communities, 1):
-            for node in comm:
-                node_to_community[node] = i
         metrics_df['community'] = [node_to_community.get(k, 0) for k in degrees.keys()]
 
     metrics_df = metrics_df.sort_values('degree', ascending=False)
