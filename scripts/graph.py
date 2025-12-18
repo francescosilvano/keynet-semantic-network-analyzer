@@ -5,6 +5,7 @@ from itertools import combinations
 
 import matplotlib.pyplot as plt
 import networkx as nx
+import numpy as np
 import pandas as pd
 from networkx.algorithms import community
 
@@ -140,6 +141,36 @@ def analyze_network(keywords, input_file, output_dir, description, archive=None)
     if len(co_df) == 0:
         print("WARNING: No co-occurrences found. Skipping network analysis.")
         return
+
+    # --- CO-OCCURRENCE HEATMAP ---
+    co_matrix = pd.DataFrame(0, index=keywords, columns=keywords, dtype=float)
+    for _, row in co_df.iterrows():
+        co_matrix.at[row['w1'], row['w2']] = row['count']
+        co_matrix.at[row['w2'], row['w1']] = row['count']
+    np.fill_diagonal(co_matrix.values, 0)
+
+    co_matrix_file = f"{output_dir}/keyword_cooccurrence_matrix.csv"
+    co_matrix.to_csv(co_matrix_file)
+    print(f"   Saved: {co_matrix_file}")
+    if archive:
+        rel_path = os.path.basename(output_dir) + "/keyword_cooccurrence_matrix.csv"
+        archive.add_file(rel_path)
+
+    heatmap_values = np.log1p(co_matrix.values)
+    plt.figure(figsize=(12, 10))
+    plt.imshow(heatmap_values, cmap="viridis", aspect="auto")
+    plt.colorbar(label="Co-occurrence count")
+    plt.title(f"Keyword Co-occurrence Heatmap (log1p) - {description}")
+    plt.xticks(ticks=range(len(keywords)), labels=keywords, rotation=45, ha='right')
+    plt.yticks(ticks=range(len(keywords)), labels=keywords)
+    plt.tight_layout()
+    heatmap_file = f"{output_dir}/keyword_cooccurrence_heatmap.png"
+    plt.savefig(heatmap_file, dpi=300, bbox_inches='tight')
+    plt.close()
+    print(f"   Saved: {heatmap_file}")
+    if archive:
+        rel_path = os.path.basename(output_dir) + "/keyword_cooccurrence_heatmap.png"
+        archive.add_file(rel_path)
 
     # --- CREATE NETWORKX GRAPH ---
     print("\nBuilding graph...")

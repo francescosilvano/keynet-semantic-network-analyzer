@@ -78,7 +78,13 @@
     "full_analysis/keyword_network.graphml",
     "full_analysis/node_metrics.csv",
     "full_analysis/community_assignments.csv",
-    "full_analysis/global_metrics.csv"
+    "full_analysis/global_metrics.csv",
+    "main_keywords/keyword_cooccurrence_matrix.csv",
+    "main_keywords/keyword_cooccurrence_heatmap.png",
+    "main_plus_our/keyword_cooccurrence_matrix.csv",
+    "main_plus_our/keyword_cooccurrence_heatmap.png",
+    "full_analysis/keyword_cooccurrence_matrix.csv",
+    "full_analysis/keyword_cooccurrence_heatmap.png"
   ],
   "errors": [],
   "warnings": []
