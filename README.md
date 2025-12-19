@@ -115,23 +115,23 @@ Each analysis subfolder contains:
 - **`grafo.xlsx`**: Co-occurrence matrix spreadsheet
 
 ## Configuration
-Configuration parameters are defined in `scripts/config.py`. Learn more in the [Configuration Documentation](CONFIG.md).
+Configuration parameters are defined in `scripts/config.py`. Learn more in the [Configuration Documentation](guide/CONFIG.md).
 
 ## Network Analysis
 
-The script analyses the keyword co-occurrence network using NetworkX, computing local and global metrics, and performing community detection. Learn more in the [Network Analysis Documentation](ANALYSIS.md).
+The script analyses the keyword co-occurrence network using NetworkX, computing local and global metrics, and performing community detection. Learn more in the [Network Analysis Documentation](guide/ANALYSIS.md).
 
 ## Outputs
 
-Analysis results are saved in the `exports/runs/` directory, organized by timestamped UUID folders. Learn more in the [Outputs Documentation](OUTPUTS.md).
+Analysis results are saved in the `exports/runs/` directory, organized by timestamped UUID folders. Learn more in the [Outputs Documentation](guide/OUTPUTS.md).
 
 ## Archiving
 
-Each analysis run is archived with a unique UUID and timestamp. The `exports/runs/index.json` file maintains an index of all archived runs for easy reference. Learn more in the [Archiving Documentation](ARCHIVE.md).
+Each analysis run is archived with a unique UUID and timestamp. The `exports/runs/index.json` file maintains an index of all archived runs for easy reference. Learn more in the [Archiving Documentation](guide/ARCHIVE.md).
 
 ## Use cases
 
-Refer to [Use Cases](USE_CASES.md) for examples of how to utilize KNA for different keyword analysis scenarios. 
+Refer to [Use Cases](guide/USE_CASES.md) for examples of how to utilize KNA for different keyword analysis scenarios. 
 
 
 ## Future Features
