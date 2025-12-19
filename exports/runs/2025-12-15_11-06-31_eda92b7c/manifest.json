@@ -1,0 +1,53 @@
+{
+  "run_id": "2025-12-15_11-06-31_eda92b7c",
+  "uuid": "eda92b7c-fdf7-42a0-ab38-94c1ae89312b",
+  "timestamp_start": "2025-12-15T11:06:31.927017+00:00",
+  "timestamp_end": "2025-12-15T11:19:32.304221+00:00",
+  "duration_seconds": 780.38,
+  "configuration": {
+    "date_range": {
+      "start": "2023-01-01",
+      "end": "2025-11-25"
+    },
+    "location_keywords": [
+      "italy"
+    ],
+    "analyses_run": [
+      "main_keywords",
+      "main_plus_our",
+      "full_analysis"
+    ],
+    "total_keywords": 25,
+    "min_co_occurrences": 1
+  },
+  "results_summary": {
+    "total_posts_collected": 4694,
+    "analyses": {
+      "main_keywords": {
+        "posts_count": 2026,
+        "keywords_count": 10
+      },
+      "main_plus_our": {
+        "posts_count": 3553,
+        "keywords_count": 20
+      },
+      "full_analysis": {
+        "posts_count": 4694,
+        "keywords_count": 25
+      }
+    }
+  },
+  "files_generated": [
+    "main_keywords/bluesky_posts_complex.csv",
+    "main_keywords/sentiment_distribution.png",
+    "main_keywords/grafo.xlsx",
+    "main_plus_our/bluesky_posts_complex.csv",
+    "main_plus_our/sentiment_distribution.png",
+    "main_plus_our/grafo.xlsx",
+    "full_analysis/bluesky_posts_complex.csv",
+    "full_analysis/sentiment_distribution.png",
+    "full_analysis/grafo.xlsx"
+  ],
+  "errors": [],
+  "warnings": []
+}

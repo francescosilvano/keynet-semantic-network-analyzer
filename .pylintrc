@@ -1,0 +1,40 @@
+[MASTER]
+# Use multiple processes to speed up Pylint
+jobs=1
+
+[MESSAGES CONTROL]
+# Disable import-error as dependencies may not be installed in CI environment
+# Disable invalid-name for variables that are clearly not constants (loop variables, local vars)
+disable=
+    import-error,
+    broad-exception-caught,
+    global-statement,
+    f-string-without-interpolation,
+    no-else-return
+
+[BASIC]
+# Good variable names which should always be accepted, separated by a comma
+good-names=i,j,k,ex,Run,_,dt,df,cc,bc,kw,G,e
+
+# Regular expression matching correct variable names
+variable-rgx=[a-z_][a-z0-9_]{1,30}$
+
+# Regular expression matching correct constant names
+const-rgx=(([A-Z_][A-Z0-9_]*)|(__.*__)|([a-z_][a-z0-9_]*))$
+
+[FORMAT]
+# Maximum number of characters on a single line
+max-line-length=100
+
+[DESIGN]
+# Maximum number of arguments for function / method
+max-args=10
+
+# Maximum number of locals for function / method body
+max-locals=60
+
+# Maximum number of branch for function / method body
+max-branches=30
+
+# Maximum number of statements in function / method body
+max-statements=250

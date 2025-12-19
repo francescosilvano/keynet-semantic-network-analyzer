@@ -1,0 +1,49 @@
+{
+  "runs": [
+    {
+      "run_id": "2025-12-16_12-12-01_e76b4d00",
+      "uuid": "e76b4d00-6aca-43b9-ae3f-6416523ca67a",
+      "timestamp": "2025-12-16T12:12:01.905416+00:00",
+      "duration_seconds": 920.32,
+      "total_posts": 10209,
+      "analyses": [
+        "main_keywords",
+        "main_plus_our",
+        "full_analysis"
+      ],
+      "files_count": 9,
+      "has_errors": false,
+      "has_warnings": false
+    },
+    {
+      "run_id": "2025-12-15_11-06-31_eda92b7c",
+      "uuid": "eda92b7c-fdf7-42a0-ab38-94c1ae89312b",
+      "timestamp": "2025-12-15T11:06:31.927017+00:00",
+      "duration_seconds": 780.38,
+      "total_posts": 4694,
+      "analyses": [
+        "main_keywords",
+        "main_plus_our",
+        "full_analysis"
+      ],
+      "files_count": 9,
+      "has_errors": false,
+      "has_warnings": false
+    },
+    {
+      "run_id": "2025-12-13_10-52-01_868fa108",
+      "uuid": "868fa108-a924-4d4f-b6a9-4dd0de33f1e5",
+      "timestamp": "2025-12-13T10:52:01.310298+00:00",
+      "duration_seconds": 783.27,
+      "total_posts": 4957,
+      "analyses": [
+        "main_keywords",
+        "main_plus_our",
+        "full_analysis"
+      ],
+      "files_count": 9,
+      "has_errors": false,
+      "has_warnings": false
+    }
+  ]
+}

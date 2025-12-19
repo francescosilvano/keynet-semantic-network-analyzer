@@ -1,0 +1,13 @@
+Metric,Value
+Number of nodes,10.0
+Number of edges,25.0
+Average degree,5.0
+Average strength,53.2
+Graph density,0.5556
+Global clustering coefficient,0.6532
+Average local clustering,0.6671
+Number of communities,3.0
+Modularity,0.1484
+Connected components,1.0
+Diameter,3.0
+Average path length,1.467

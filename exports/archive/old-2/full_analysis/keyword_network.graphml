@@ -1,0 +1,487 @@
+<?xml version='1.0' encoding='utf-8'?>
+<graphml xmlns="http://graphml.graphdrawing.org/xmlns" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns http://graphml.graphdrawing.org/xmlns/1.0/graphml.xsd">
+  <key id="d0" for="edge" attr.name="weight" attr.type="long" />
+  <graph edgedefault="undirected">
+    <node id="green transition" />
+    <node id="greenhouse effect" />
+    <node id="loss of biodiversity" />
+    <node id="extreme weather events" />
+    <node id="CO2" />
+    <node id="emissions" />
+    <node id="global warming" />
+    <node id="melting glaciers" />
+    <node id="renewable energy" />
+    <node id="misinformation" />
+    <node id="ecosystem" />
+    <node id="fossil fuels" />
+    <node id="energy consumption" />
+    <node id="normatives" />
+    <node id="deforestation" />
+    <node id="flooding" />
+    <node id="tesla" />
+    <node id="green policies" />
+    <node id="rain" />
+    <node id="electric vehicles" />
+    <node id="natural disaster" />
+    <node id="clean energy" />
+    <node id="net zero" />
+    <node id="AI" />
+    <node id="heatwaves" />
+    <edge source="green transition" target="CO2">
+      <data key="d0">2</data>
+    </edge>
+    <edge source="green transition" target="emissions">
+      <data key="d0">7</data>
+    </edge>
+    <edge source="green transition" target="renewable energy">
+      <data key="d0">6</data>
+    </edge>
+    <edge source="green transition" target="ecosystem">
+      <data key="d0">1</data>
+    </edge>
+    <edge source="green transition" target="fossil fuels">
+      <data key="d0">10</data>
+    </edge>
+    <edge source="green transition" target="deforestation">
+      <data key="d0">1</data>
+    </edge>
+    <edge source="green transition" target="rain">
+      <data key="d0">7</data>
+    </edge>
+    <edge source="green transition" target="electric vehicles">
+      <data key="d0">1</data>
+    </edge>
+    <edge source="green transition" target="clean energy">
+      <data key="d0">2</data>
+    </edge>
+    <edge source="green transition" target="net zero">
+      <data key="d0">2</data>
+    </edge>
+    <edge source="green transition" target="AI">
+      <data key="d0">84</data>
+    </edge>
+    <edge source="greenhouse effect" target="extreme weather events">
+      <data key="d0">1</data>
+    </edge>
+    <edge source="greenhouse effect" target="CO2">
+      <data key="d0">80</data>
+    </edge>
+    <edge source="greenhouse effect" target="emissions">
+      <data key="d0">32</data>
+    </edge>
+    <edge source="greenhouse effect" target="global warming">
+      <data key="d0">42</data>
+    </edge>
+    <edge source="greenhouse effect" target="renewable energy">
+      <data key="d0">1</data>
+    </edge>
+    <edge source="greenhouse effect" target="ecosystem">
+      <data key="d0">3</data>
+    </edge>
+    <edge source="greenhouse effect" target="fossil fuels">
+      <data key="d0">26</data>
+    </edge>
+    <edge source="greenhouse effect" target="flooding">
+      <data key="d0">6</data>
+    </edge>
+    <edge source="greenhouse effect" target="tesla">
+      <data key="d0">1</data>
+    </edge>
+    <edge source="greenhouse effect" target="rain">
+      <data key="d0">14</data>
+    </edge>
+    <edge source="greenhouse effect" target="natural disaster">
+      <data key="d0">1</data>
+    </edge>
+    <edge source="greenhouse effect" target="net zero">
+      <data key="d0">2</data>
+    </edge>
+    <edge source="greenhouse effect" target="AI">
+      <data key="d0">155</data>
+    </edge>
+    <edge source="greenhouse effect" target="heatwaves">
+      <data key="d0">3</data>
+    </edge>
+    <edge source="loss of biodiversity" target="extreme weather events">
+      <data key="d0">1</data>
+    </edge>
+    <edge source="loss of biodiversity" target="CO2">
+      <data key="d0">1</data>
+    </edge>
+    <edge source="loss of biodiversity" target="emissions">
+      <data key="d0">7</data>
+    </edge>
+    <edge source="loss of biodiversity" target="global warming">
+      <data key="d0">2</data>
+    </edge>
+    <edge source="loss of biodiversity" target="melting glaciers">
+      <data key="d0">1</data>
+    </edge>
+    <edge source="loss of biodiversity" target="ecosystem">
+      <data key="d0">6</data>
+    </edge>
+    <edge source="loss of biodiversity" target="fossil fuels">
+      <data key="d0">1</data>
+    </edge>
+    <edge source="loss of biodiversity" target="deforestation">
+      <data key="d0">9</data>
+    </edge>
+    <edge source="loss of biodiversity" target="rain">
+      <data key="d0">11</data>
+    </edge>
+    <edge source="loss of biodiversity" target="AI">
+      <data key="d0">30</data>
+    </edge>
+    <edge source="loss of biodiversity" target="heatwaves">
+      <data key="d0">3</data>
+    </edge>
+    <edge source="extreme weather events" target="CO2">
+      <data key="d0">2</data>
+    </edge>
+    <edge source="extreme weather events" target="emissions">
+      <data key="d0">18</data>
+    </edge>
+    <edge source="extreme weather events" target="global warming">
+      <data key="d0">23</data>
+    </edge>
+    <edge source="extreme weather events" target="melting glaciers">
+      <data key="d0">4</data>
+    </edge>
+    <edge source="extreme weather events" target="renewable energy">
+      <data key="d0">3</data>
+    </edge>
+    <edge source="extreme weather events" target="misinformation">
+      <data key="d0">4</data>
+    </edge>
+    <edge source="extreme weather events" target="ecosystem">
+      <data key="d0">13</data>
+    </edge>
+    <edge source="extreme weather events" target="fossil fuels">
+      <data key="d0">13</data>
+    </edge>
+    <edge source="extreme weather events" target="deforestation">
+      <data key="d0">2</data>
+    </edge>
+    <edge source="extreme weather events" target="flooding">
+      <data key="d0">24</data>
+    </edge>
+    <edge source="extreme weather events" target="rain">
+      <data key="d0">37</data>
+    </edge>
+    <edge source="extreme weather events" target="natural disaster">
+      <data key="d0">4</data>
+    </edge>
+    <edge source="extreme weather events" target="clean energy">
+      <data key="d0">1</data>
+    </edge>
+    <edge source="extreme weather events" target="net zero">
+      <data key="d0">2</data>
+    </edge>
+    <edge source="extreme weather events" target="AI">
+      <data key="d0">190</data>
+    </edge>
+    <edge source="extreme weather events" target="heatwaves">
+      <data key="d0">31</data>
+    </edge>
+    <edge source="CO2" target="emissions">
+      <data key="d0">15</data>
+    </edge>
+    <edge source="CO2" target="global warming">
+      <data key="d0">5</data>
+    </edge>
+    <edge source="CO2" target="ecosystem">
+      <data key="d0">2</data>
+    </edge>
+    <edge source="CO2" target="fossil fuels">
+      <data key="d0">8</data>
+    </edge>
+    <edge source="CO2" target="energy consumption">
+      <data key="d0">1</data>
+    </edge>
+    <edge source="CO2" target="deforestation">
+      <data key="d0">1</data>
+    </edge>
+    <edge source="CO2" target="flooding">
+      <data key="d0">1</data>
+    </edge>
+    <edge source="CO2" target="rain">
+      <data key="d0">1</data>
+    </edge>
+    <edge source="CO2" target="natural disaster">
+      <data key="d0">1</data>
+    </edge>
+    <edge source="CO2" target="AI">
+      <data key="d0">37</data>
+    </edge>
+    <edge source="CO2" target="heatwaves">
+      <data key="d0">3</data>
+    </edge>
+    <edge source="emissions" target="global warming">
+      <data key="d0">20</data>
+    </edge>
+    <edge source="emissions" target="melting glaciers">
+      <data key="d0">6</data>
+    </edge>
+    <edge source="emissions" target="renewable energy">
+      <data key="d0">3</data>
+    </edge>
+    <edge source="emissions" target="ecosystem">
+      <data key="d0">4</data>
+    </edge>
+    <edge source="emissions" target="fossil fuels">
+      <data key="d0">9</data>
+    </edge>
+    <edge source="emissions" target="energy consumption">
+      <data key="d0">13</data>
+    </edge>
+    <edge source="emissions" target="normatives">
+      <data key="d0">1</data>
+    </edge>
+    <edge source="emissions" target="deforestation">
+      <data key="d0">25</data>
+    </edge>
+    <edge source="emissions" target="flooding">
+      <data key="d0">2</data>
+    </edge>
+    <edge source="emissions" target="green policies">
+      <data key="d0">2</data>
+    </edge>
+    <edge source="emissions" target="rain">
+      <data key="d0">14</data>
+    </edge>
+    <edge source="emissions" target="electric vehicles">
+      <data key="d0">1</data>
+    </edge>
+    <edge source="emissions" target="natural disaster">
+      <data key="d0">2</data>
+    </edge>
+    <edge source="emissions" target="clean energy">
+      <data key="d0">2</data>
+    </edge>
+    <edge source="emissions" target="net zero">
+      <data key="d0">21</data>
+    </edge>
+    <edge source="emissions" target="AI">
+      <data key="d0">71</data>
+    </edge>
+    <edge source="emissions" target="heatwaves">
+      <data key="d0">49</data>
+    </edge>
+    <edge source="global warming" target="melting glaciers">
+      <data key="d0">24</data>
+    </edge>
+    <edge source="global warming" target="renewable energy">
+      <data key="d0">1</data>
+    </edge>
+    <edge source="global warming" target="fossil fuels">
+      <data key="d0">4</data>
+    </edge>
+    <edge source="global warming" target="energy consumption">
+      <data key="d0">2</data>
+    </edge>
+    <edge source="global warming" target="deforestation">
+      <data key="d0">2</data>
+    </edge>
+    <edge source="global warming" target="flooding">
+      <data key="d0">2</data>
+    </edge>
+    <edge source="global warming" target="rain">
+      <data key="d0">3</data>
+    </edge>
+    <edge source="global warming" target="natural disaster">
+      <data key="d0">1</data>
+    </edge>
+    <edge source="global warming" target="AI">
+      <data key="d0">39</data>
+    </edge>
+    <edge source="global warming" target="heatwaves">
+      <data key="d0">12</data>
+    </edge>
+    <edge source="melting glaciers" target="renewable energy">
+      <data key="d0">2</data>
+    </edge>
+    <edge source="melting glaciers" target="ecosystem">
+      <data key="d0">7</data>
+    </edge>
+    <edge source="melting glaciers" target="fossil fuels">
+      <data key="d0">2</data>
+    </edge>
+    <edge source="melting glaciers" target="deforestation">
+      <data key="d0">6</data>
+    </edge>
+    <edge source="melting glaciers" target="flooding">
+      <data key="d0">11</data>
+    </edge>
+    <edge source="melting glaciers" target="rain">
+      <data key="d0">25</data>
+    </edge>
+    <edge source="melting glaciers" target="AI">
+      <data key="d0">108</data>
+    </edge>
+    <edge source="melting glaciers" target="heatwaves">
+      <data key="d0">5</data>
+    </edge>
+    <edge source="renewable energy" target="fossil fuels">
+      <data key="d0">6</data>
+    </edge>
+    <edge source="renewable energy" target="energy consumption">
+      <data key="d0">7</data>
+    </edge>
+    <edge source="renewable energy" target="deforestation">
+      <data key="d0">2</data>
+    </edge>
+    <edge source="renewable energy" target="rain">
+      <data key="d0">2</data>
+    </edge>
+    <edge source="renewable energy" target="net zero">
+      <data key="d0">1</data>
+    </edge>
+    <edge source="renewable energy" target="AI">
+      <data key="d0">12</data>
+    </edge>
+    <edge source="misinformation" target="energy consumption">
+      <data key="d0">2</data>
+    </edge>
+    <edge source="misinformation" target="green policies">
+      <data key="d0">1</data>
+    </edge>
+    <edge source="misinformation" target="AI">
+      <data key="d0">4</data>
+    </edge>
+    <edge source="ecosystem" target="fossil fuels">
+      <data key="d0">1</data>
+    </edge>
+    <edge source="ecosystem" target="deforestation">
+      <data key="d0">4</data>
+    </edge>
+    <edge source="ecosystem" target="rain">
+      <data key="d0">7</data>
+    </edge>
+    <edge source="ecosystem" target="natural disaster">
+      <data key="d0">4</data>
+    </edge>
+    <edge source="ecosystem" target="clean energy">
+      <data key="d0">1</data>
+    </edge>
+    <edge source="ecosystem" target="AI">
+      <data key="d0">31</data>
+    </edge>
+    <edge source="ecosystem" target="heatwaves">
+      <data key="d0">19</data>
+    </edge>
+    <edge source="fossil fuels" target="energy consumption">
+      <data key="d0">9</data>
+    </edge>
+    <edge source="fossil fuels" target="deforestation">
+      <data key="d0">2</data>
+    </edge>
+    <edge source="fossil fuels" target="green policies">
+      <data key="d0">2</data>
+    </edge>
+    <edge source="fossil fuels" target="rain">
+      <data key="d0">2</data>
+    </edge>
+    <edge source="fossil fuels" target="net zero">
+      <data key="d0">1</data>
+    </edge>
+    <edge source="fossil fuels" target="AI">
+      <data key="d0">31</data>
+    </edge>
+    <edge source="fossil fuels" target="heatwaves">
+      <data key="d0">7</data>
+    </edge>
+    <edge source="energy consumption" target="tesla">
+      <data key="d0">1</data>
+    </edge>
+    <edge source="energy consumption" target="rain">
+      <data key="d0">14</data>
+    </edge>
+    <edge source="energy consumption" target="clean energy">
+      <data key="d0">1</data>
+    </edge>
+    <edge source="energy consumption" target="AI">
+      <data key="d0">125</data>
+    </edge>
+    <edge source="normatives" target="rain">
+      <data key="d0">10</data>
+    </edge>
+    <edge source="normatives" target="AI">
+      <data key="d0">170</data>
+    </edge>
+    <edge source="deforestation" target="green policies">
+      <data key="d0">1</data>
+    </edge>
+    <edge source="deforestation" target="rain">
+      <data key="d0">3</data>
+    </edge>
+    <edge source="deforestation" target="net zero">
+      <data key="d0">2</data>
+    </edge>
+    <edge source="deforestation" target="AI">
+      <data key="d0">22</data>
+    </edge>
+    <edge source="deforestation" target="heatwaves">
+      <data key="d0">2</data>
+    </edge>
+    <edge source="flooding" target="rain">
+      <data key="d0">15</data>
+    </edge>
+    <edge source="flooding" target="natural disaster">
+      <data key="d0">4</data>
+    </edge>
+    <edge source="flooding" target="AI">
+      <data key="d0">25</data>
+    </edge>
+    <edge source="flooding" target="heatwaves">
+      <data key="d0">19</data>
+    </edge>
+    <edge source="tesla" target="AI">
+      <data key="d0">1</data>
+    </edge>
+    <edge source="green policies" target="rain">
+      <data key="d0">3</data>
+    </edge>
+    <edge source="green policies" target="net zero">
+      <data key="d0">3</data>
+    </edge>
+    <edge source="green policies" target="AI">
+      <data key="d0">40</data>
+    </edge>
+    <edge source="rain" target="natural disaster">
+      <data key="d0">15</data>
+    </edge>
+    <edge source="rain" target="AI">
+      <data key="d0">254</data>
+    </edge>
+    <edge source="rain" target="heatwaves">
+      <data key="d0">48</data>
+    </edge>
+    <edge source="electric vehicles" target="AI">
+      <data key="d0">2</data>
+    </edge>
+    <edge source="natural disaster" target="net zero">
+      <data key="d0">1</data>
+    </edge>
+    <edge source="natural disaster" target="AI">
+      <data key="d0">121</data>
+    </edge>
+    <edge source="natural disaster" target="heatwaves">
+      <data key="d0">5</data>
+    </edge>
+    <edge source="clean energy" target="AI">
+      <data key="d0">10</data>
+    </edge>
+    <edge source="clean energy" target="heatwaves">
+      <data key="d0">3</data>
+    </edge>
+    <edge source="net zero" target="AI">
+      <data key="d0">11</data>
+    </edge>
+    <edge source="net zero" target="heatwaves">
+      <data key="d0">55</data>
+    </edge>
+    <edge source="AI" target="heatwaves">
+      <data key="d0">202</data>
+    </edge>
+  </graph>
+</graphml>
