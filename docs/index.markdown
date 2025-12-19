@@ -13,4 +13,4 @@ KNA is an engine you can use to construct and analyze keyword networks from soci
 
 ## License
 
-This project is licensed under the MIT License. 
+This project is licensed under the MIT License.
