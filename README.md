@@ -27,7 +27,7 @@ The aim is to explore the relationships between keywords and identify communitie
 
 1. Clone the repository
 2. Navigate to the project directory
-3. Create a `.env` file in the root directory with your Bluesky credentials:
+3. Populate the `.env` file in the root directory with your Bluesky credentials:
 
    ```env
    BLUESKY_HANDLE=your.handle.bsky.social
@@ -65,7 +65,7 @@ The aim is to explore the relationships between keywords and identify communitie
    pip install -r scripts/requirements.txt
    ```
 
-5. Create a `.env` file in the root directory (see Option 1, step 3)
+5. Populate the `.env` file in the root directory (see Option 1, step 3)
 
 6. Run the analysis:
 
@@ -151,16 +151,56 @@ Run management utilities:
 
 ### Customizing Keywords
 
-Edit `scripts/config.py` to modify the keyword sets:
+Edit `scripts/settings.json` to modify the keyword sets:
 
-```python
+```json
+
+{
+    "MAIN_KEYWORDS": [
+        "main_keyword_1",
+        "main_keyword_2",
+        "main_keyword_3",
+        "main_keyword_4",
+        "main_keyword_5",
+        "main_keyword_6",
+        "main_keyword_7",
+        "main_keyword_8",
+        "main_keyword_9",
+        "main_keyword_10"
+    ],
+    "GROUP_KEYWORDS": [
+    "group_keyword_1",
+    "group_keyword_2",
+    "group_keyword_3",
+    "group_keyword_4",
+    "group_keyword_5",
+    "group_keyword_6",
+    "group_keyword_7",
+    "group_keyword_8",
+    "group_keyword_9",
+    "group_keyword_10"
+    ],
+    "EXTRA_KEYWORDS": [
+        "extra_keyword_1",
+        "extra_keyword_2",
+        "extra_keyword_3",
+        "extra_keyword_4",
+        "extra_keyword_5"
+    ],
+    "LOCATION_KEYWORDS": [
+        "location-1",
+        "location-2",
+        "location-3"
+    ]
+}
+
 KEYWORDS = [
     "Climate Change", "Global Warming", "Sustainability", "Renewable Energy",
     # Add your keywords here...
 ]
 ```
 
-All keyword searches are case-insensitive for comprehensive matching.
+All keyword searches are **case-insensitive** for comprehensive matching.
 
 ### Environment Variables
 
@@ -283,3 +323,6 @@ Planned enhancements:
 - [ ] **Export Formats**: ZIP/TAR export for sharing and backup
 - [ ] **Index Search**: Search by date, keywords, configuration parameters
 - [ ] **Parallel Runs**: Handle multiple simultaneous executions
+
+# License
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
