@@ -45,7 +45,7 @@ class RunArchive:
         """
         # Generate UUID and timestamp
         self.run_uuid = str(uuid.uuid4())
-        short_uuid = self.run_uuid.split('-', maxsplit=1)[0]
+        short_uuid = self.run_uuid.split('-')[0]
 
         timestamp = datetime.now(timezone.utc)
         self.start_time = timestamp
@@ -360,9 +360,8 @@ def print_runs_table(limit: int = 10, base_archive_dir: str = "exports/runs"):
     print(f"\n{'='*120}")
     print(f"ARCHIVED RUNS (showing {min(limit, len(runs))} of {len(runs)})")
     print(f"{'='*120}")
-    header = f"{'Run ID':<30} {'Date':<20} {'Posts':<8} "
-    header += f"{'Analyses':<12} {'Duration':<12} {'Status':<10}"
-    print(header)
+    print(f"{'Run ID':<30} {'Date':<20} {'Posts':<8} "
+          f"{'Analyses':<12} {'Duration':<12} {'Status':<10}")
     print(f"{'-'*120}")
 
     for run in runs[:limit]:
@@ -642,7 +641,7 @@ def export_run(run_id: str, export_format: str = "zip",
     if export_format == "zip":
         compression_level = kwargs.get('compression_level', zipfile.ZIP_DEFLATED)
         return export_run_zip(run_id, output_path, base_archive_dir, compression_level)
-    if export_format == "tar":
+    elif export_format == "tar":
         tar_compression = kwargs.get('compression', 'gz')
         return export_run_tar(run_id, output_path, base_archive_dir, tar_compression)
 
