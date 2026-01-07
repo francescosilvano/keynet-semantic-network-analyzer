@@ -14,6 +14,7 @@ The aim is to explore the relationships between keywords and identify communitie
 - **Community Detection**: Identify thematic clusters using Louvain algorithm
 - **Visualization**: Generate network graphs and metric distributions
 - **Run Archiving**: Automatic versioning of analysis runs with UUID-based directories
+- **Export Archives**: Export runs as ZIP or TAR archives for easy sharing and backup
 - **Multiple Analysis Modes**: Run different keyword configurations in parallel
 - **Docker Support**: Containerized environment for reproducible analysis
 
@@ -127,7 +128,19 @@ Analysis results are saved in the `exports/runs/` directory, organized by timest
 
 ## Archiving
 
-Each analysis run is archived with a unique UUID and timestamp. The `exports/runs/index.json` file maintains an index of all archived runs for easy reference. Learn more in the [Archiving Documentation](guide/ARCHIVE.md).
+Each analysis run is archived with a unique UUID and timestamp. The `exports/runs/index.json` file maintains an index of all archived runs for easy reference. 
+
+You can export archived runs as ZIP or TAR archives for easy sharing and backup:
+
+```powershell
+# Export a specific run as ZIP
+python scripts/archive.py export <run_id>
+
+# Export latest run as TAR with gzip compression
+python scripts/archive.py export-latest --format tar
+```
+
+Learn more in the [Archiving Documentation](guide/ARCHIVE.md).
 
 ## Use cases
 
@@ -139,7 +152,7 @@ Refer to [Use Cases](guide/USE_CASES.md) for examples of how to utilize KNA for 
 Planned enhancements:
 
 - [ ] Parallel Runs: Handle multiple simultaneous executions
-- [ ] Export Formats: ZIP/TAR export for sharing and backup
+- [x] Export Formats: ZIP/TAR export for sharing and backup
 - [ ] Index Search: Search by date, keywords, configuration parameters
 
 # License
