@@ -5,7 +5,10 @@ Handles UUID generation, directory creation, and run metadata tracking
 
 import json
 import os
+import shutil
+import tarfile
 import uuid
+import zipfile
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Dict, List, Optional, Any
@@ -386,8 +389,6 @@ def cleanup_old_runs(keep_last_n: int = 10, base_archive_dir: str = "exports/run
     base_archive_dir : str
         Base directory for archived runs
     """
-    import shutil
-    
     runs = list_runs(base_archive_dir)
     
     if len(runs) <= keep_last_n:
@@ -413,16 +414,252 @@ def cleanup_old_runs(keep_last_n: int = 10, base_archive_dir: str = "exports/run
     print(f"Cleanup complete. Kept {keep_last_n} most recent runs.\n")
 
 
+def get_run_directory(run_id: str, base_archive_dir: str = "exports/runs") -> Optional[Path]:
+    """
+    Get the directory path for a specific run
+
+    Parameters:
+    -----------
+    run_id : str
+        Run ID or UUID
+    base_archive_dir : str
+        Base directory for archived runs
+
+    Returns:
+    --------
+    Path : Path to run directory or None if not found
+    """
+    base_path = Path(base_archive_dir)
+    
+    # Try as run_id first
+    run_dir = base_path / run_id
+    if run_dir.exists():
+        return run_dir
+    
+    # Try to find by UUID
+    for run_dir in base_path.iterdir():
+        if run_dir.is_dir():
+            manifest_path = run_dir / "manifest.json"
+            if manifest_path.exists():
+                with open(manifest_path, 'r', encoding='utf-8') as f:
+                    manifest = json.load(f)
+                    if manifest.get("uuid") == run_id or manifest.get("run_id") == run_id:
+                        return run_dir
+    
+    return None
+
+
+def export_run_zip(run_id: str, output_path: Optional[str] = None, 
+                   base_archive_dir: str = "exports/runs",
+                   compression_level: int = zipfile.ZIP_DEFLATED) -> Optional[str]:
+    """
+    Export a run as a ZIP archive
+
+    Parameters:
+    -----------
+    run_id : str
+        Run ID or UUID to export
+    output_path : str, optional
+        Output file path. If None, creates in exports directory
+    base_archive_dir : str
+        Base directory for archived runs
+    compression_level : int
+        ZIP compression level (zipfile.ZIP_STORED, ZIP_DEFLATED, ZIP_BZIP2, ZIP_LZMA)
+
+    Returns:
+    --------
+    str : Path to created ZIP file or None if failed
+    """
+    run_dir = get_run_directory(run_id, base_archive_dir)
+    
+    if not run_dir:
+        print(f"Error: Run '{run_id}' not found")
+        return None
+    
+    # Get run_id from directory name
+    actual_run_id = run_dir.name
+    
+    # Determine output path
+    if output_path is None:
+        exports_dir = Path(base_archive_dir).parent / "exports"
+        exports_dir.mkdir(parents=True, exist_ok=True)
+        output_path = exports_dir / f"{actual_run_id}.zip"
+    else:
+        output_path = Path(output_path)
+    
+    print(f"\n{'='*80}")
+    print(f"EXPORTING RUN TO ZIP")
+    print(f"{'='*80}")
+    print(f"Run ID: {actual_run_id}")
+    print(f"Source: {run_dir}")
+    print(f"Output: {output_path}")
+    print(f"{'='*80}\n")
+    
+    try:
+        with zipfile.ZipFile(output_path, 'w', compression=compression_level) as zipf:
+            # Walk through the run directory
+            for root, dirs, files in os.walk(run_dir):
+                for file in files:
+                    file_path = Path(root) / file
+                    # Calculate arcname (relative path in the archive)
+                    arcname = file_path.relative_to(run_dir.parent)
+                    zipf.write(file_path, arcname)
+                    print(f"  Added: {arcname}")
+        
+        file_size = output_path.stat().st_size / (1024 * 1024)  # Convert to MB
+        print(f"\n{'='*80}")
+        print(f"ZIP EXPORT COMPLETE")
+        print(f"{'='*80}")
+        print(f"File: {output_path}")
+        print(f"Size: {file_size:.2f} MB")
+        print(f"{'='*80}\n")
+        
+        return str(output_path)
+    
+    except Exception as e:
+        print(f"Error creating ZIP archive: {e}")
+        return None
+
+
+def export_run_tar(run_id: str, output_path: Optional[str] = None,
+                   base_archive_dir: str = "exports/runs",
+                   compression: str = "gz") -> Optional[str]:
+    """
+    Export a run as a TAR archive
+
+    Parameters:
+    -----------
+    run_id : str
+        Run ID or UUID to export
+    output_path : str, optional
+        Output file path. If None, creates in exports directory
+    base_archive_dir : str
+        Base directory for archived runs
+    compression : str
+        Compression type: 'gz' (gzip), 'bz2' (bzip2), 'xz' (lzma), or '' (no compression)
+
+    Returns:
+    --------
+    str : Path to created TAR file or None if failed
+    """
+    run_dir = get_run_directory(run_id, base_archive_dir)
+    
+    if not run_dir:
+        print(f"Error: Run '{run_id}' not found")
+        return None
+    
+    # Get run_id from directory name
+    actual_run_id = run_dir.name
+    
+    # Determine compression mode and extension
+    if compression == "gz":
+        mode = "w:gz"
+        ext = ".tar.gz"
+    elif compression == "bz2":
+        mode = "w:bz2"
+        ext = ".tar.bz2"
+    elif compression == "xz":
+        mode = "w:xz"
+        ext = ".tar.xz"
+    else:
+        mode = "w"
+        ext = ".tar"
+    
+    # Determine output path
+    if output_path is None:
+        exports_dir = Path(base_archive_dir).parent / "exports"
+        exports_dir.mkdir(parents=True, exist_ok=True)
+        output_path = exports_dir / f"{actual_run_id}{ext}"
+    else:
+        output_path = Path(output_path)
+    
+    print(f"\n{'='*80}")
+    print(f"EXPORTING RUN TO TAR")
+    print(f"{'='*80}")
+    print(f"Run ID: {actual_run_id}")
+    print(f"Source: {run_dir}")
+    print(f"Output: {output_path}")
+    print(f"Compression: {compression if compression else 'none'}")
+    print(f"{'='*80}\n")
+    
+    try:
+        with tarfile.open(output_path, mode) as tarf:
+            # Walk through the run directory
+            for root, dirs, files in os.walk(run_dir):
+                for file in files:
+                    file_path = Path(root) / file
+                    # Calculate arcname (relative path in the archive)
+                    arcname = file_path.relative_to(run_dir.parent)
+                    tarf.add(file_path, arcname=arcname)
+                    print(f"  Added: {arcname}")
+        
+        file_size = output_path.stat().st_size / (1024 * 1024)  # Convert to MB
+        print(f"\n{'='*80}")
+        print(f"TAR EXPORT COMPLETE")
+        print(f"{'='*80}")
+        print(f"File: {output_path}")
+        print(f"Size: {file_size:.2f} MB")
+        print(f"{'='*80}\n")
+        
+        return str(output_path)
+    
+    except Exception as e:
+        print(f"Error creating TAR archive: {e}")
+        return None
+
+
+def export_run(run_id: str, format: str = "zip", output_path: Optional[str] = None,
+               base_archive_dir: str = "exports/runs", **kwargs) -> Optional[str]:
+    """
+    Export a run in the specified format
+
+    Parameters:
+    -----------
+    run_id : str
+        Run ID or UUID to export
+    format : str
+        Export format: 'zip' or 'tar'
+    output_path : str, optional
+        Output file path. If None, creates in exports directory
+    base_archive_dir : str
+        Base directory for archived runs
+    **kwargs : additional arguments
+        For ZIP: compression_level (default: zipfile.ZIP_DEFLATED)
+        For TAR: compression ('gz', 'bz2', 'xz', or '' for no compression)
+
+    Returns:
+    --------
+    str : Path to created archive file or None if failed
+    """
+    format = format.lower()
+    
+    if format == "zip":
+        compression_level = kwargs.get('compression_level', zipfile.ZIP_DEFLATED)
+        return export_run_zip(run_id, output_path, base_archive_dir, compression_level)
+    elif format == "tar":
+        compression = kwargs.get('compression', 'gz')
+        return export_run_tar(run_id, output_path, base_archive_dir, compression)
+    else:
+        print(f"Error: Unsupported format '{format}'. Use 'zip' or 'tar'")
+        return None
+
+
 # CLI interface
 if __name__ == "__main__":
     import sys
     
     if len(sys.argv) < 2:
         print("Usage:")
-        print("  python archive.py list [limit]           - List archived runs")
-        print("  python archive.py show <run_id|uuid>     - Show run details")
-        print("  python archive.py latest                 - Show latest run")
-        print("  python archive.py cleanup --keep N       - Keep only last N runs")
+        print("  python archive.py list [limit]                          - List archived runs")
+        print("  python archive.py show <run_id|uuid>                    - Show run details")
+        print("  python archive.py latest                                - Show latest run")
+        print("  python archive.py cleanup --keep N                      - Keep only last N runs")
+        print("  python archive.py export <run_id|uuid> [options]        - Export run as archive")
+        print("    Options:")
+        print("      --format zip|tar         (default: zip)")
+        print("      --output <path>          (default: auto-generated)")
+        print("      --compression gz|bz2|xz  (for tar, default: gz)")
+        print("  python archive.py export-latest [options]               - Export latest run")
         sys.exit(0)
     
     command = sys.argv[1]
@@ -460,6 +697,82 @@ if __name__ == "__main__":
         if len(sys.argv) > 2 and sys.argv[2] == "--keep":
             keep_n = int(sys.argv[3])
         cleanup_old_runs(keep_last_n=keep_n)
+    
+    elif command == "export":
+        if len(sys.argv) < 3:
+            print("Error: Please provide a run ID or UUID")
+            sys.exit(1)
+        
+        run_id = sys.argv[2]
+        
+        # Parse options
+        format_type = "zip"
+        output_path = None
+        compression = "gz"
+        
+        i = 3
+        while i < len(sys.argv):
+            if sys.argv[i] == "--format" and i + 1 < len(sys.argv):
+                format_type = sys.argv[i + 1]
+                i += 2
+            elif sys.argv[i] == "--output" and i + 1 < len(sys.argv):
+                output_path = sys.argv[i + 1]
+                i += 2
+            elif sys.argv[i] == "--compression" and i + 1 < len(sys.argv):
+                compression = sys.argv[i + 1]
+                i += 2
+            else:
+                i += 1
+        
+        # Export the run
+        result = export_run(run_id, format=format_type, output_path=output_path, 
+                          compression=compression)
+        
+        if result:
+            print(f"Export successful: {result}")
+            sys.exit(0)
+        else:
+            print("Export failed")
+            sys.exit(1)
+    
+    elif command == "export-latest":
+        latest = get_latest_run()
+        if not latest:
+            print("Error: No runs found")
+            sys.exit(1)
+        
+        run_id = latest['run_id']
+        
+        # Parse options
+        format_type = "zip"
+        output_path = None
+        compression = "gz"
+        
+        i = 2
+        while i < len(sys.argv):
+            if sys.argv[i] == "--format" and i + 1 < len(sys.argv):
+                format_type = sys.argv[i + 1]
+                i += 2
+            elif sys.argv[i] == "--output" and i + 1 < len(sys.argv):
+                output_path = sys.argv[i + 1]
+                i += 2
+            elif sys.argv[i] == "--compression" and i + 1 < len(sys.argv):
+                compression = sys.argv[i + 1]
+                i += 2
+            else:
+                i += 1
+        
+        # Export the run
+        print(f"Exporting latest run: {run_id}")
+        result = export_run(run_id, format=format_type, output_path=output_path,
+                          compression=compression)
+        
+        if result:
+            print(f"Export successful: {result}")
+            sys.exit(0)
+        else:
+            print("Export failed")
+            sys.exit(1)
     
     else:
         print(f"Unknown command: {command}")
