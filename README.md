@@ -39,14 +39,14 @@ KeyNet is a Python-based command-line tool designed for analyzing keyword co-occ
 ### Option 2: Local Setup
 1. Clone the repo and navigate to it.
 2. Create virtual environment: `python -m venv venv && source venv/bin/activate` (Unix) or `venv\Scripts\activate` (Windows).
-3. Install dependencies: `pip install -r scripts/requirements.txt`
-4. Add `.env` as above.
-5. Run: `cd scripts && python main.py`
+3. Install the package (recommended): `pip install -e .` or `pip install .`
+4. Add `.env` (BLUESKY_HANDLE, BLUESKY_PASSWORD) to the project root.
+5. Run the CLI: `keynet`
 
-**Dependencies** (from `requirements.txt`): NetworkX, Matplotlib, and Bluesky API libraries. No additional installs needed beyond these.
+**Dependencies** are declared in `pyproject.toml` and will be installed by pip (NetworkX, Matplotlib, pandas, Bluesky client, etc.).
 
 ## Usage
-Configure parameters in `scripts/config.py` (e.g., keywords, fetch limits). Run the script to collect data, build graphs, and generate outputs in `exports/runs/<timestamp_uuid>/`.
+Configure parameters in `keynet/config.py` (e.g., keywords, fetch limits). Run the CLI to collect data, build graphs, and generate outputs in `exports/runs/<timestamp_uuid>/`.
 
 Example command: `python scripts/main.py`
 
@@ -55,7 +55,7 @@ Example command: `python scripts/main.py`
 - **Viewing Outputs**: Use GraphML in external tools for interactive exploration; review CSVs for metrics.
 
 ## Project Structure
-- `scripts/`: Core Python files (main.py, graph.py, config.py).
+- `keynet/`: Core Python package (main.py, graph.py, config.py).
 - `exports/`: Results directory with archived runs.
 - `guide/`: Detailed docs on config, analysis, outputs, etc.
 - Docker files for containerization.
@@ -65,3 +65,14 @@ Example command: `python scripts/main.py`
 - No built-in multilingual support or advanced NLP (e.g., embeddings); consider integrating spaCy for enhancements.
 - Future: Parallel executions, compressed exports, searchable run indexes.
 
+## Contributors
+
+This project was developed as part of the Complex Systems course at the University of Siena during the academic year 2025/2026.
+
+The primary author and maintainer is [Francesco Silvano](https://github.com/francescosilvano); [Raphael](https://github.com/RaphaelNoah) provided substantial contributions, particularly in refining the codebase to achieve greater accuracy and reliability in the data processing and results.
+
+This work reflects a collaborative effort to explore and implement concepts from complex systems theory within an academic setting.
+
+## License
+
+This work is distributed under the MIT License.
