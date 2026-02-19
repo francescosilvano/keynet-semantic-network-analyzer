@@ -6,11 +6,31 @@ on:
       - '**.py'
       - 'requirements.txt'
       - '.github/workflows/pylint.yml'
+    paths-ignore:
+      - '**/*.md'
+      - '.gitignore'
+      - '.gitattributes'
+      - '.editorconfig'
+      - '.env'
+      - 'LICENSE'
+      - 'CHANGELOG.md'
+      - 'CONTRIBUTING.md'
+      - 'CODE_OF_CONDUCT.md'
   pull_request:
     paths:
       - '**.py'
       - 'requirements.txt'
       - '.github/workflows/pylint.yml'
+    paths-ignore:
+      - '**/*.md'
+      - '.gitignore'
+      - '.gitattributes'
+      - '.editorconfig'
+      - '.env'
+      - 'LICENSE'
+      - 'CHANGELOG.md'
+      - 'CONTRIBUTING.md'
+      - 'CODE_OF_CONDUCT.md'
 
 jobs:
   build:
