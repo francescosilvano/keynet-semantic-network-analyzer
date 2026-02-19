@@ -1,0 +1,53 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "keynet-semantic-network-analyzer"
+version = "0.0.1"
+description = "Keyword co-occurrence network analyzer (Bluesky-focused)"
+readme = "README.md"
+requires-python = ">=3.9"
+authors = [
+  { name = "Francesco Silvano", email = "opensource@francescosilvano.it" },
+]
+license = "MIT"
+license-files = ["LICENSE*"]
+classifiers = [
+  "Development Status :: 4 - Beta",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3 :: Only",
+  "Programming Language :: Python :: 3.9",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Operating System :: OS Independent",
+]
+keywords = ["network-analysis", "cooccurrence", "bluesky", "cli", "networkx"]
+
+dependencies = [
+  "atproto>=0.0.1",
+  "textblob>=0.15.3",
+  "pandas>=1.3.0",
+  "matplotlib>=3.3.0",
+  "networkx>=3.6.1",
+  "python-dotenv>=0.19.0",
+  "openpyxl>=3.0.0",
+]
+
+[project.scripts]
+keynet = "keynet.main:main"
+
+[project.urls]
+Homepage = "https://github.com/francescosilvano/keynet-semantic-network-analyzer"
+Repository = "https://github.com/francescosilvano/keynet-semantic-network-analyzer"
+Issues = "https://github.com/francescosilvano/keynet-semantic-network-analyzer/issues"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["keynet*"]
+
+[tool.setuptools.package-data]
+"keynet" = ["settings.json"]
+
+[project.optional-dependencies]
+dev = ["pylint", "pytest", "build"]
