@@ -1,5 +1,4 @@
-"""Network analysis module for keyword co-occurrence graphs (packaged)
-"""
+"""Network analysis module for keyword co-occurrence graphs"""
 
 import os
 from itertools import combinations
@@ -123,6 +122,7 @@ def analyze_network(keywords, input_file, output_dir, description, archive=None)
     co_occurrence_data = []
 
     for kw1, kw2 in combinations(keywords, 2):
+        # Find posts containing both keywords (case-insensitive)
         mask = (df.text.str.contains(kw1, case=False, na=False) &
                 df.text.str.contains(kw2, case=False, na=False))
         count = mask.sum()
@@ -134,6 +134,7 @@ def analyze_network(keywords, input_file, output_dir, description, archive=None)
                 'count': count
             })
 
+    # Create DataFrame for co-occurrences
     co_df = pd.DataFrame(co_occurrence_data)
     print(f"\nFound {len(co_df)} keyword pairs with co-occurrences")
 
@@ -146,7 +147,9 @@ def analyze_network(keywords, input_file, output_dir, description, archive=None)
     for _, row in co_df.iterrows():
         co_matrix.at[row['w1'], row['w2']] = row['count']
         co_matrix.at[row['w2'], row['w1']] = row['count']
-    np.fill_diagonal(co_matrix.values, 0)
+    # avoid read-only numpy array issue by assigning diagonals explicitly
+    for i in range(len(co_matrix)):
+        co_matrix.iat[i, i] = 0
 
     co_matrix_file = f"{output_dir}/keyword_cooccurrence_matrix.csv"
     co_matrix.to_csv(co_matrix_file)
@@ -184,6 +187,7 @@ def analyze_network(keywords, input_file, output_dir, description, archive=None)
         edges.append((row['w1'], row['w2'], {'weight': row['count']}))
 
     G.add_edges_from(edges)
+    # Derive distance (inverse tie strength) for shortest-path metrics
     for _, _, data in G.edges(data=True):
         weight = data.get('weight', 1)
         data['distance'] = 1 / weight if weight else 0
@@ -194,9 +198,11 @@ def analyze_network(keywords, input_file, output_dir, description, archive=None)
     # --- GRAPH ANALYSIS ---
     print("\nGraph metrics:")
 
+    # Node degrees
     degrees = dict(G.degree())
     degree_values = list(degrees.values())
 
+    # Degree distribution
     print("\nDEGREE DISTRIBUTION:")
     print(f"   Average degree: {sum(degree_values) / len(degree_values):.3f}")
     print(f"   Min degree: {min(degree_values)}")
@@ -205,6 +211,7 @@ def analyze_network(keywords, input_file, output_dir, description, archive=None)
     for keyword, degree in sorted(degrees.items(), key=lambda x: x[1], reverse=True)[:5]:
         print(f"      {keyword}: {degree}")
 
+    # Strength distribution (weighted degree)
     strength = dict(G.degree(weight='weight'))
     strength_values = list(strength.values())
     print("\nSTRENGTH DISTRIBUTION (weighted degree):")
@@ -215,6 +222,7 @@ def analyze_network(keywords, input_file, output_dir, description, archive=None)
     for keyword, strn in sorted(strength.items(), key=lambda x: x[1], reverse=True)[:5]:
         print(f"      {keyword}: {strn}")
 
+    # Betweenness centrality
     print("\nBETWEENNESS CENTRALITY:")
     betweenness = nx.betweenness_centrality(G, weight='distance')
     print(f"   Average betweenness: {sum(betweenness.values()) / len(betweenness):.4f}")
@@ -222,6 +230,7 @@ def analyze_network(keywords, input_file, output_dir, description, archive=None)
     for keyword, bc in sorted(betweenness.items(), key=lambda x: x[1], reverse=True)[:5]:
         print(f"      {keyword}: {bc:.4f}")
 
+    # Closeness centrality
     print("\nCLOSENESS CENTRALITY:")
     if nx.is_connected(G):
         closeness = nx.closeness_centrality(G, distance='distance')
@@ -234,6 +243,7 @@ def analyze_network(keywords, input_file, output_dir, description, archive=None)
         largest_cc = max(nx.connected_components(G), key=len)
         g_largest = G.subgraph(largest_cc).copy()
         closeness = nx.closeness_centrality(g_largest, distance='distance')
+        # Fill in zeros for nodes not in largest component
         closeness_full = {node: closeness.get(node, 0) for node in G.nodes()}
         closeness = closeness_full
         avg_closeness = sum(closeness.values()) / len(closeness)
@@ -242,6 +252,7 @@ def analyze_network(keywords, input_file, output_dir, description, archive=None)
         for keyword, cc in sorted(closeness.items(), key=lambda x: x[1], reverse=True)[:5]:
             print(f"      {keyword}: {cc:.4f}")
 
+    # Global measures
     print("\nGLOBAL MEASURES:")
     print(f"   Graph density: {nx.density(G):.4f}")
     print(f"   Global clustering coefficient: {nx.transitivity(G):.4f}")
@@ -268,6 +279,7 @@ def analyze_network(keywords, input_file, output_dir, description, archive=None)
         path_label = "Average path length (largest component)"
         avg_path_val = avg_path_length
 
+    # Local clustering
     print("\nLOCAL CLUSTERING:")
     clustering = nx.clustering(G)
     avg_clustering = sum(clustering.values()) / len(clustering)
@@ -276,6 +288,7 @@ def analyze_network(keywords, input_file, output_dir, description, archive=None)
     for keyword, clust in sorted(clustering.items(), key=lambda x: x[1], reverse=True)[:5]:
         print(f"      {keyword}: {clust:.4f}")
 
+    # Community detection (modularity)
     print("\nCOMMUNITY DETECTION:")
     if G.number_of_edges() > 0:
         communities = list(community.greedy_modularity_communities(G, weight='weight'))
@@ -296,14 +309,18 @@ def analyze_network(keywords, input_file, output_dir, description, archive=None)
             for node in comm:
                 node_to_community[node] = i
 
+    # --- VISUALIZATION ---
     print("\nCreating visualizations...")
 
     TOP_N_EDGE_LABELS = 30
 
+    # Figure 1: Network graph with node sizes based on degree
     plt.figure(figsize=(16, 12))
 
+    # Calculate node sizes based on degree
     node_sizes = [degrees[node] * 300 + 500 for node in G.nodes()]
 
+    # Calculate edge widths based on weight
     edge_weights = [G[u][v]['weight'] for u, v in G.edges()]
     max_weight = max(edge_weights) if edge_weights else 1
     edge_widths = [2 + (w / max_weight) * 8 for w in edge_weights]
@@ -316,8 +333,10 @@ def analyze_network(keywords, input_file, output_dir, description, archive=None)
         node_colors = ['lightblue' for _ in G.nodes()]
         circular_node_colors = ['lightcoral' for _ in G.nodes()]
 
+    # Use spring layout for better visualization
     pos = nx.spring_layout(G, k=2, iterations=50, seed=42)
 
+    # Draw the graph
     nx.draw_networkx_nodes(G, pos,
                            node_size=node_sizes,
                            node_color=node_colors,
@@ -335,6 +354,7 @@ def analyze_network(keywords, input_file, output_dir, description, archive=None)
                             font_weight='bold',
                             font_family='sans-serif')
 
+    # Add edge labels showing co-occurrence counts (filtered to strongest ties)
     edge_labels = nx.get_edge_attributes(G, 'weight')
     sorted_weights = sorted(edge_labels.values(), reverse=True)
     if sorted_weights:
@@ -360,196 +380,7 @@ def analyze_network(keywords, input_file, output_dir, description, archive=None)
     plt.close()
     print(f"   Saved: {network_file}")
     if archive:
-        rel_path = os.path.basename(output_dir) + "/keyword_network.png"
-        archive.add_file(rel_path)
-
-    # End of function (clean)
-
-    # Add nodes (keywords)
-    G.add_nodes_from(keywords)
-
-    # Add edges (co-occurrences) with weights
-    edges = []
-    for _, row in co_df.iterrows():
-        edges.append((row['w1'], row['w2'], {'weight': row['count']}))
-
-    G.add_edges_from(edges)
-    for _, _, data in G.edges(data=True):
-        weight = data.get('weight', 1)
-        data['distance'] = 1 / weight if weight else 0
-
-    print(f"   Nodes: {G.number_of_nodes()}")
-    print(f"   Edges: {G.number_of_edges()}")
-
-    # --- GRAPH ANALYSIS ---
-    print("\nGraph metrics:")
-
-    degrees = dict(G.degree())
-    degree_values = list(degrees.values())
-
-    print("\nDEGREE DISTRIBUTION:")
-    print(f"   Average degree: {sum(degree_values) / len(degree_values):.3f}")
-    print(f"   Min degree: {min(degree_values)}")
-    print(f"   Max degree: {max(degree_values)}")
-    print("   Top keywords by connections:")
-    for keyword, degree in sorted(degrees.items(), key=lambda x: x[1], reverse=True)[:5]:
-        print(f"      {keyword}: {degree}")
-
-    strength = dict(G.degree(weight='weight'))
-    strength_values = list(strength.values())
-    print("\nSTRENGTH DISTRIBUTION (weighted degree):")
-    print(f"   Average strength: {sum(strength_values) / len(strength_values):.3f}")
-    print(f"   Min strength: {min(strength_values)}")
-    print(f"   Max strength: {max(strength_values)}")
-    print("   Top keywords by strength:")
-    for keyword, strn in sorted(strength.items(), key=lambda x: x[1], reverse=True)[:5]:
-        print(f"      {keyword}: {strn}")
-
-    print("\nBETWEENNESS CENTRALITY:")
-    betweenness = nx.betweenness_centrality(G, weight='distance')
-    print(f"   Average betweenness: {sum(betweenness.values()) / len(betweenness):.4f}")
-    print("   Top keywords by betweenness:")
-    for keyword, bc in sorted(betweenness.items(), key=lambda x: x[1], reverse=True)[:5]:
-        print(f"      {keyword}: {bc:.4f}")
-
-    print("\nCLOSENESS CENTRALITY:")
-    if nx.is_connected(G):
-        closeness = nx.closeness_centrality(G, distance='distance')
-        print(f"   Average closeness: {sum(closeness.values()) / len(closeness):.4f}")
-        print("   Top keywords by closeness:")
-        for keyword, cc in sorted(closeness.items(), key=lambda x: x[1], reverse=True)[:5]:
-            print(f"      {keyword}: {cc:.4f}")
-    else:
-        print("   Graph is disconnected - calculating closeness for largest component")
-        largest_cc = max(nx.connected_components(G), key=len)
-        g_largest = G.subgraph(largest_cc).copy()
-        closeness = nx.closeness_centrality(g_largest, distance='distance')
-        closeness_full = {node: closeness.get(node, 0) for node in G.nodes()}
-        closeness = closeness_full
-        avg_closeness = sum(closeness.values()) / len(closeness)
-        print(f"   Average closeness (largest component): {avg_closeness:.4f}")
-        print("   Top keywords by closeness:")
-        for keyword, cc in sorted(closeness.items(), key=lambda x: x[1], reverse=True)[:5]:
-            print(f"      {keyword}: {cc:.4f}")
-
-    print("\nGLOBAL MEASURES:")
-    print(f"   Graph density: {nx.density(G):.4f}")
-    print(f"   Global clustering coefficient: {nx.transitivity(G):.4f}")
-    print(f"   Connected components: {nx.number_connected_components(G)}")
-
-    if nx.is_connected(G):
-        diameter = nx.diameter(G)
-        avg_path_length = nx.average_shortest_path_length(G)
-        print(f"   Diameter: {diameter}")
-        print(f"   Average path length: {avg_path_length:.3f}")
-        diameter_label = "Diameter"
-        diameter_val = diameter
-        path_label = "Average path length"
-        avg_path_val = avg_path_length
-    else:
-        largest_cc = max(nx.connected_components(G), key=len)
-        g_largest = G.subgraph(largest_cc).copy()
-        diameter = nx.diameter(g_largest)
-        avg_path_length = nx.average_shortest_path_length(g_largest)
-        print(f"   Diameter (largest component): {diameter}")
-        print(f"   Average path length (largest component): {avg_path_length:.3f}")
-        diameter_label = "Diameter (largest component)"
-        diameter_val = diameter
-        path_label = "Average path length (largest component)"
-        avg_path_val = avg_path_length
-
-    print("\nLOCAL CLUSTERING:")
-    clustering = nx.clustering(G)
-    avg_clustering = sum(clustering.values()) / len(clustering)
-    print(f"   Average local clustering: {avg_clustering:.4f}")
-    print("   Top keywords by local clustering:")
-    for keyword, clust in sorted(clustering.items(), key=lambda x: x[1], reverse=True)[:5]:
-        print(f"      {keyword}: {clust:.4f}")
-
-    print("\nCOMMUNITY DETECTION:")
-    if G.number_of_edges() > 0:
-        communities = list(community.greedy_modularity_communities(G, weight='weight'))
-        modularity_score = community.modularity(G, communities, weight='weight')
-        print(f"   Number of communities: {len(communities)}")
-        print(f"   Modularity: {modularity_score:.4f}")
-        print("\n   Community assignments:")
-        for i, comm in enumerate(communities, 1):
-            print(f"      Community {i} ({len(comm)} keywords): {', '.join(sorted(comm))}")
-    else:
-        communities = []
-        modularity_score = 0
-        print("   No edges - no communities detected")
-
-    node_to_community = {}
-    if communities:
-        for i, comm in enumerate(communities, 1):
-            for node in comm:
-                node_to_community[node] = i
-
-    print("\nCreating visualizations...")
-
-    TOP_N_EDGE_LABELS = 30
-
-    plt.figure(figsize=(16, 12))
-
-    node_sizes = [degrees[node] * 300 + 500 for node in G.nodes()]
-
-    edge_weights = [G[u][v]['weight'] for u, v in G.edges()]
-    max_weight = max(edge_weights) if edge_weights else 1
-    edge_widths = [2 + (w / max_weight) * 8 for w in edge_weights]
-
-    cmap = plt.cm.tab20
-    if communities:
-        node_colors = [cmap((node_to_community.get(node, 1) - 1) % cmap.N) for node in G.nodes()]
-        circular_node_colors = node_colors
-    else:
-        node_colors = ['lightblue' for _ in G.nodes()]
-        circular_node_colors = ['lightcoral' for _ in G.nodes()]
-
-    pos = nx.spring_layout(G, k=2, iterations=50, seed=42)
-
-    nx.draw_networkx_nodes(G, pos,
-                           node_size=node_sizes,
-                           node_color=node_colors,
-                           edgecolors=node_colors,
-                           linewidths=2,
-                           alpha=0.9)
-
-    nx.draw_networkx_edges(G, pos,
-                           width=edge_widths,
-                           alpha=0.6,
-                           edge_color='gray')
-
-    nx.draw_networkx_labels(G, pos,
-                            font_size=10,
-                            font_weight='bold',
-                            font_family='sans-serif')
-
-    edge_labels = nx.get_edge_attributes(G, 'weight')
-    sorted_weights = sorted(edge_labels.values(), reverse=True)
-    if sorted_weights:
-        threshold_idx = min(TOP_N_EDGE_LABELS, len(sorted_weights)) - 1
-        min_label_weight = sorted_weights[threshold_idx]
-        filtered_edge_labels = {edge: w for edge, w in edge_labels.items()
-                                if w >= min_label_weight}
-    else:
-        min_label_weight = 0
-        filtered_edge_labels = {}
-
-    nx.draw_networkx_edge_labels(G, pos, filtered_edge_labels, font_size=8)
-
-    title_text = (f"Keyword Co-occurrence Network - {description}\n"
-                  "(Node size = connections, Edge width = co-occurrences)\n"
-                  f"(Edge labels shown for top {TOP_N_EDGE_LABELS} edges; weight ≥ {min_label_weight})")
-    plt.title(title_text,
-              fontsize=16, fontweight='bold', pad=20)
-    plt.axis('off')
-    plt.tight_layout()
-    network_file = f'{output_dir}/keyword_network.png'
-    plt.savefig(network_file, dpi=300, bbox_inches='tight')
-    plt.close()
-    print(f"   Saved: {network_file}")
-    if archive:
+        # Get relative path from run directory
         rel_path = os.path.basename(output_dir) + "/keyword_network.png"
         archive.add_file(rel_path)
 
@@ -671,119 +502,194 @@ def analyze_network(keywords, input_file, output_dir, description, archive=None)
         'clustering': [clustering[k] for k in degrees.keys()]
     })
 
-    if nx.is_connected(G):
-        diameter = nx.diameter(G)
-        avg_path_length = nx.average_shortest_path_length(G)
-        print(f"   Diameter: {diameter}")
-        print(f"   Average path length: {avg_path_length:.3f}")
-        diameter_label = "Diameter"
-        diameter_val = diameter
-        path_label = "Average path length"
-        avg_path_val = avg_path_length
-    else:
-        largest_cc = max(nx.connected_components(G), key=len)
-        g_largest = G.subgraph(largest_cc).copy()
-        diameter = nx.diameter(g_largest)
-        avg_path_length = nx.average_shortest_path_length(g_largest)
-        print(f"   Diameter (largest component): {diameter}")
-        print(f"   Average path length (largest component): {avg_path_length:.3f}")
-        diameter_label = "Diameter (largest component)"
-        diameter_val = diameter
-        path_label = "Average path length (largest component)"
-        avg_path_val = avg_path_length
-
-    print("\nLOCAL CLUSTERING:")
-    clustering = nx.clustering(G)
-    avg_clustering = sum(clustering.values()) / len(clustering)
-    print(f"   Average local clustering: {avg_clustering:.4f}")
-    print("   Top keywords by local clustering:")
-    for keyword, clust in sorted(clustering.items(), key=lambda x: x[1], reverse=True)[:5]:
-        print(f"      {keyword}: {clust:.4f}")
-
-    print("\nCOMMUNITY DETECTION:")
-    if G.number_of_edges() > 0:
-        communities = list(community.greedy_modularity_communities(G, weight='weight'))
-        modularity_score = community.modularity(G, communities, weight='weight')
-        print(f"   Number of communities: {len(communities)}")
-        print(f"   Modularity: {modularity_score:.4f}")
-        print("\n   Community assignments:")
-        for i, comm in enumerate(communities, 1):
-            print(f"      Community {i} ({len(comm)} keywords): {', '.join(sorted(comm))}")
-    else:
-        communities = []
-        modularity_score = 0
-        print("   No edges - no communities detected")
-
-    node_to_community = {}
+    # Add community assignments if available
     if communities:
-        for i, comm in enumerate(communities, 1):
-            for node in comm:
-                node_to_community[node] = i
+        metrics_df['community'] = [node_to_community.get(k, 0) for k in degrees.keys()]
 
-    print("\nCreating visualizations...")
-
-    TOP_N_EDGE_LABELS = 30
-
-    plt.figure(figsize=(16, 12))
-
-    node_sizes = [degrees[node] * 300 + 500 for node in G.nodes()]
-
-    edge_weights = [G[u][v]['weight'] for u, v in G.edges()]
-    max_weight = max(edge_weights) if edge_weights else 1
-    edge_widths = [2 + (w / max_weight) * 8 for w in edge_weights]
-
-    cmap = plt.cm.tab20
-    if communities:
-        node_colors = [cmap((node_to_community.get(node, 1) - 1) % cmap.N) for node in G.nodes()]
-        circular_node_colors = node_colors
-    else:
-        node_colors = ['lightblue' for _ in G.nodes()]
-        circular_node_colors = ['lightcoral' for _ in G.nodes()]
-
-    pos = nx.spring_layout(G, k=2, iterations=50, seed=42)
-
-    nx.draw_networkx_nodes(G, pos,
-                           node_size=node_sizes,
-                           node_color=node_colors,
-                           edgecolors=node_colors,
-                           linewidths=2,
-                           alpha=0.9)
-
-    nx.draw_networkx_edges(G, pos,
-                           width=edge_widths,
-                           alpha=0.6,
-                           edge_color='gray')
-
-    nx.draw_networkx_labels(G, pos,
-                            font_size=10,
-                            font_weight='bold',
-                            font_family='sans-serif')
-
-    edge_labels = nx.get_edge_attributes(G, 'weight')
-    sorted_weights = sorted(edge_labels.values(), reverse=True)
-    if sorted_weights:
-        threshold_idx = min(TOP_N_EDGE_LABELS, len(sorted_weights)) - 1
-        min_label_weight = sorted_weights[threshold_idx]
-        filtered_edge_labels = {edge: w for edge, w in edge_labels.items()
-                                if w >= min_label_weight}
-    else:
-        min_label_weight = 0
-        filtered_edge_labels = {}
-
-    nx.draw_networkx_edge_labels(G, pos, filtered_edge_labels, font_size=8)
-
-    title_text = (f"Keyword Co-occurrence Network - {description}\n"
-                  "(Node size = connections, Edge width = co-occurrences)\n"
-                  f"(Edge labels shown for top {TOP_N_EDGE_LABELS} edges; weight ≥ {min_label_weight})")
-    plt.title(title_text,
-              fontsize=16, fontweight='bold', pad=20)
-    plt.axis('off')
-    plt.tight_layout()
-    network_file = f'{output_dir}/keyword_network.png'
-    plt.savefig(network_file, dpi=300, bbox_inches='tight')
-    plt.close()
-    print(f"   Saved: {network_file}")
+    metrics_df = metrics_df.sort_values('degree', ascending=False)
+    node_metrics_file = f'{output_dir}/node_metrics.csv'
+    metrics_df.to_csv(node_metrics_file, index=False)
+    print(f"   Saved: {node_metrics_file}")
     if archive:
-        rel_path = os.path.basename(output_dir) + "/keyword_network.png"
+        rel_path = os.path.basename(output_dir) + "/node_metrics.csv"
         archive.add_file(rel_path)
 
+    # Community assignments
+    if communities:
+        community_data = []
+        for i, comm in enumerate(communities, 1):
+            for node in comm:
+                community_data.append({
+                    'keyword': node,
+                    'community': i
+                })
+        community_df = pd.DataFrame(community_data).sort_values(['community', 'keyword'])
+        community_file = f'{output_dir}/community_assignments.csv'
+        community_df.to_csv(community_file, index=False)
+        print(f"   Saved: {community_file}")
+        if archive:
+            rel_path = os.path.basename(output_dir) + "/community_assignments.csv"
+            archive.add_file(rel_path)
+    else:
+        print("   No communities to save")
+
+    # Global metrics summary
+    global_metrics = {
+        'Metric': [
+            'Number of nodes',
+            'Number of edges',
+            'Average degree',
+            'Average strength',
+            'Graph density',
+            'Global clustering coefficient',
+            'Average local clustering',
+            'Number of communities',
+            'Modularity',
+            'Connected components',
+            diameter_label,
+            path_label
+        ],
+        'Value': [
+            G.number_of_nodes(),
+            G.number_of_edges(),
+            round(sum(degree_values) / len(degree_values), 3) if degree_values else 0,
+            round(sum(strength_values) / len(strength_values), 3) if strength_values else 0,
+            round(nx.density(G), 4),
+            round(nx.transitivity(G), 4),
+            round(avg_clustering, 4),
+            len(communities) if communities else 0,
+            round(modularity_score, 4),
+            nx.number_connected_components(G),
+            diameter_val,
+            round(avg_path_val, 3)
+        ]
+    }
+    global_df = pd.DataFrame(global_metrics)
+    global_file = f'{output_dir}/global_metrics.csv'
+    global_df.to_csv(global_file, index=False)
+    print(f"   Saved: {global_file}")
+    if archive:
+        rel_path = os.path.basename(output_dir) + "/global_metrics.csv"
+        archive.add_file(rel_path)
+        
+        # Update archive with network metrics summary
+        analysis_name = os.path.basename(output_dir)
+        archive.update_results_summary(analysis_name, {
+            "nodes": G.number_of_nodes(),
+            "edges": G.number_of_edges(),
+            "communities": len(communities) if communities else 0,
+            "modularity": round(modularity_score, 4)
+        })
+
+    # --- SUMMARY STATISTICS ---
+    print("\n" + "="*80)
+    print("NETWORK ANALYSIS SUMMARY")
+    print("="*80)
+    print("\nBASIC STRUCTURE:")
+    print(f"   Nodes: {G.number_of_nodes()}")
+    print(f"   Edges: {G.number_of_edges()}")
+    print(f"   Density: {nx.density(G):.4f}")
+
+    print("\nDEGREE METRICS:")
+    print(f"   Average degree: {sum(degree_values) / len(degree_values):.3f}")
+    print(f"   Average strength: {sum(strength_values) / len(strength_values):.3f}")
+
+    print("\nCENTRALITY METRICS:")
+    print(f"   Average betweenness: {sum(betweenness.values()) / len(betweenness):.4f}")
+    if nx.is_connected(G):
+        print(f"   Average closeness: {sum(closeness.values()) / len(closeness):.4f}")
+
+    print("\nGLOBAL METRICS:")
+    print(f"   Clustering coefficient: {nx.transitivity(G):.4f}")
+    print(f"   Average local clustering: {avg_clustering:.4f}")
+    if nx.is_connected(G):
+        print(f"   Diameter: {diameter_val}")
+        print(f"   Average path length: {avg_path_val:.3f}")
+    else:
+        print(f"   Diameter (largest component): {diameter_val}")
+        print(f"   Average path length (largest component): {avg_path_val:.3f}")
+
+    print("\nCOMMUNITY STRUCTURE:")
+    print(f"   Communities: {len(communities) if communities else 0}")
+    print(f"   Modularity: {modularity_score:.4f}")
+
+    print("\n" + "="*80)
+    print(f"Analysis complete for: {description}")
+    print("="*80)
+
+
+# --- MAIN EXECUTION ---
+if __name__ == "__main__":
+    print("\n" + "="*80)
+    print("STARTING NETWORK ANALYSIS FOR ALL CONFIGURATIONS")
+    print("="*80)
+
+    # Initialize archive if enabled
+    archive = None
+    run_base_dir = None
+    
+    if ARCHIVE_ENABLED:
+        # Get the latest run directory
+        latest_run = get_latest_run(ARCHIVE_DIR)
+        if latest_run:
+            from pathlib import Path
+            import json
+            
+            run_base_dir = f"{ARCHIVE_DIR}/{latest_run['run_id']}"
+            archive = RunArchive(ARCHIVE_DIR)
+            archive.run_id = latest_run['run_id']
+            archive.run_dir = Path(run_base_dir)
+            archive.base_archive_dir = Path(ARCHIVE_DIR)
+            archive.start_time = None  # Not initializing a new run, just updating existing one
+            
+            # Load existing manifest
+            manifest_path = archive.run_dir / "manifest.json"
+            if manifest_path.exists():
+                with open(manifest_path, 'r', encoding='utf-8') as f:
+                    archive.manifest = json.load(f)
+            else:
+                # Initialize empty manifest if it doesn't exist
+                archive.manifest = {
+                    "run_id": archive.run_id,
+                    "uuid": latest_run.get('uuid', ''),
+                    "timestamp_start": latest_run.get('timestamp', ''),
+                    "timestamp_end": None,
+                    "duration_seconds": None,
+                    "configuration": {},
+                    "results_summary": {"total_posts_collected": 0, "analyses": {}},
+                    "files_generated": [],
+                    "errors": [],
+                    "warnings": []
+                }
+            
+            print(f"\nUsing archive from run: {latest_run['run_id']}")
+            print(f"Directory: {run_base_dir}\n")
+        else:
+            print("\nWARNING: No archived runs found. Using default output directory.")
+            run_base_dir = OUTPUT_DIR
+    else:
+        run_base_dir = OUTPUT_DIR
+
+    for config_idx, analysis_config in enumerate(ANALYSIS_CONFIGS, 1):
+        config_name = analysis_config["name"]
+        kw_list = analysis_config["keywords"]
+        desc = analysis_config["description"]
+
+        # Define paths (use archive directory if available)
+        inp_file = f"{run_base_dir}/{config_name}/bluesky_posts_complex.csv"
+        out_dir = f"{run_base_dir}/{config_name}"
+
+        # Run analysis
+        analyze_network(kw_list, inp_file, out_dir, desc, archive)
+    
+    # Note: Do not finalize archive when running graph.py standalone
+    # The run was already finalized by main.py. We're just adding network analysis files.
+    if archive and ARCHIVE_ENABLED:
+        print(f"\n{'='*80}")
+        print(f"Updated archive: {archive.run_id}")
+        print(f"Added network analysis outputs to existing run")
+        print(f"{'='*80}\n")
+
+    print("\n" + "="*80)
+    print("ALL NETWORK ANALYSES COMPLETE!")
+    print("="*80)
