@@ -4,6 +4,8 @@ on:
   push:
     paths-ignore:
       - 'docs/**'
+      - 'guide/**'
+      - 'exports/**'
       - '**/*.md'
       - '.gitignore'
       - '.gitattributes'
@@ -16,6 +18,8 @@ on:
   pull_request:
     paths-ignore:
       - 'docs/**'
+      - 'guide/**'
+      - 'exports/**'
       - '**/*.md'
       - '.gitignore'
       - '.gitattributes'
@@ -33,7 +37,7 @@ jobs:
       MPLBACKEND: Agg
     strategy:
       matrix:
-        python-version: [3.9, 3.10, 3.11]
+        python-version: [3.11, 3.12, 3.13]
     steps:
       - uses: actions/checkout@v4
 

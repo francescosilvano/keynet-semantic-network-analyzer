@@ -7,6 +7,9 @@ on:
       - 'requirements.txt'
       - '.github/workflows/pylint.yml'
     paths-ignore:
+      - 'docs/**'
+      - 'guide/**'
+      - 'exports/**'
       - '**/*.md'
       - '.gitignore'
       - '.gitattributes'
@@ -22,6 +25,9 @@ on:
       - 'requirements.txt'
       - '.github/workflows/pylint.yml'
     paths-ignore:
+      - 'docs/**'
+      - 'guide/**'
+      - 'exports/**'
       - '**/*.md'
       - '.gitignore'
       - '.gitattributes'
@@ -37,7 +43,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        python-version: ["3.8", "3.9", "3.10"]
+        python-version: ["3.11", "3.12", "3.13"]
     steps:
     - uses: actions/checkout@v4
     - name: Set up Python ${{ matrix.python-version }}
