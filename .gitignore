@@ -17,3 +17,5 @@ copilot-instructions.md
 
 exports/
 
+# ignore build/packaging metadata
+*.egg-info/
