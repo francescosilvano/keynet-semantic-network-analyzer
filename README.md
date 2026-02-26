@@ -62,7 +62,7 @@ Example command: `python scripts/main.py`
 
 ## Limitations and Future Work
 - Currently Bluesky-focused; extendable to other APIs (e.g., X/Twitter) with modifications.
-- No built-in multilingual support or advanced NLP (e.g., embeddings); consider integrating spaCy for enhancements.
+- No built-in multilingual support or advanced NLP (e.g., embeddings); considering integrating [spaCy](https://spacy.io/) for enhancements.
 - Future: Parallel executions, compressed exports, searchable run indexes.
 
 ## Contributors
