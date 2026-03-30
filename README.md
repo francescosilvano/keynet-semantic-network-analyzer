@@ -60,7 +60,7 @@ Core dependencies are installed automatically via pip:
 For development (linting, testing, and building):
 
 ```bash
-pip install networklens-semantic-network-analyzer[dev]
+pip install networklens[dev]
 ```
 
 This installs `pylint`, `pytest`, and `build` in addition to the core dependencies.
