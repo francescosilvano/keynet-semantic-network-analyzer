@@ -1,13 +1,13 @@
 import importlib
 
 
-def test_import_keynet():
-    keynet = importlib.import_module("keynet")
-    assert getattr(keynet, "__version__", None)
+def test_import_networklens():
+    networklens = importlib.import_module("networklens")
+    assert getattr(networklens, "__version__", None)
 
 
 def test_keywords_include_required():
-    from keynet import config
+    from networklens import config
 
     expected = [
         "green transition", "greenhouse effect", "loss of biodiversity", "extreme weather events",

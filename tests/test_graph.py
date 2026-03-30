@@ -3,7 +3,7 @@ matplotlib.use("Agg")  # ensure headless backend for CI
 
 import os
 import pandas as pd
-from keynet.graph import analyze_network
+from networklens.graph import analyze_network
 
 
 def make_input_csv(path):
