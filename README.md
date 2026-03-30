@@ -1,6 +1,6 @@
-# KeyNet CLI
+# NetworkLens CLI
 
-Social media platforms are among the richest and most current sources of unstructured text data. KeyNet is a Python-based CLI tool that collects posts from the Bluesky API and analyses keyword co-occurrence to build semantic networks. Using graph theory, it maps relationships between keywords, detects thematic communities, and computes network metrics — making it useful for researchers, analysts, and investigators studying trends, discourse patterns, or misinformation in online text.
+Social media platforms are among the richest and most current sources of unstructured text data. NetworkLens is a Python-based CLI tool that collects posts from the Bluesky API and analyses keyword co-occurrence to build semantic networks. Using graph theory, it maps relationships between keywords, detects thematic communities, and computes network metrics — making it useful for researchers, analysts, and investigators studying trends, discourse patterns, or misinformation in online text.
 
 ## Use Cases
 
@@ -28,7 +28,7 @@ Social media platforms are among the richest and most current sources of unstruc
 - Bluesky account credentials for API access.
 
 ### Option 1: Docker (Recommended)
-1. Clone the repo: `git clone https://github.com/francescosilvano/keynet-semantic-network-analyzer.git`
+1. Clone the repo: `git clone https://github.com/francescosilvano/networklens.git`
 2. Create `.env` file with:
    ```
    BLUESKY_HANDLE=your.handle.bsky.social
@@ -42,7 +42,7 @@ Social media platforms are among the richest and most current sources of unstruc
 2. Create virtual environment: `python -m venv venv && source venv/bin/activate` (Unix) or `venv\Scripts\activate` (Windows).
 3. Install the package (recommended): `pip install -e .` or `pip install .`
 4. Add `.env` (BLUESKY_HANDLE, BLUESKY_PASSWORD) to the project root.
-5. Run the CLI: `keynet`
+5. Run the CLI: `networklens`
 
 
 ## Dependencies
@@ -60,7 +60,7 @@ Core dependencies are installed automatically via pip:
 For development (linting, testing, and building):
 
 ```bash
-pip install keynet-semantic-network-analyzer[dev]
+pip install networklens-semantic-network-analyzer[dev]
 ```
 
 This installs `pylint`, `pytest`, and `build` in addition to the core dependencies.
@@ -68,7 +68,7 @@ This installs `pylint`, `pytest`, and `build` in addition to the core dependenci
 **Dependencies** are declared in `pyproject.toml` and will be installed by pip.
 
 ## Usage
-Configure parameters in `keynet/config.py` (e.g., keywords, fetch limits). Run the CLI to collect data, build graphs, and generate outputs in `exports/runs/<timestamp_uuid>/`.
+Configure parameters in `networklens/config.py` (e.g., keywords, fetch limits). Run the CLI to collect data, build graphs, and generate outputs in `exports/runs/<timestamp_uuid>/`.
 
 The tool supports customization of fetch periods, keyword lists, and optional sentiment analysis for deeper insights, while also allowing parallel configurations to run multiple analyses simultaneously for comparative purposes. Outputs can be explored interactively by loading GraphML files into external tools, or reviewed quantitatively through the exported CSV metrics.
 
