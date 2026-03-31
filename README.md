@@ -1,4 +1,4 @@
-# NetworkLens CLI
+# NetworkLens
 
 Social media platforms are among the richest and most current sources of unstructured text data. NetworkLens is a Python-based CLI tool that collects posts from the Bluesky API and analyses keyword co-occurrence to build semantic networks. Using graph theory, it maps relationships between keywords, detects thematic communities, and computes network metrics — making it useful for researchers, analysts, and investigators studying trends, discourse patterns, or misinformation in online text.
 
